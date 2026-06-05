@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="ExpoEduca 2026 — Escuela Secundaria Dr. Gabino Barreda, Atlixco, Puebla. Turno Vespertino.">
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="mobile-web-app-capable" content="yes">
+
+  <title>ExpoEduca 2026 · Dr. Gabino Barreda</title>
+
+  <!--
+    FAVICON: Coloca tu archivo favicon.ico (o favicon.png) en la raíz del proyecto.
+    Generarlo: https://favicon.io/  |  Tamaño recomendado: 32×32 px
+    Reemplaza el SVG de abajo por:
+      <link rel="icon" type="image/png" href="assets/favicon.png">
+      <link rel="apple-touch-icon" href="assets/favicon.png">
+  -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23000'/><text y='24' x='4' font-size='22'>🐸</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23000'/><text y='24' x='4' font-size='22'>🐸</text></svg>">
+
+  <!-- Fira Code desde Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ══ PANTALLA DE CARGA ══════════════════════════ -->
+<div id="loading-screen">
+  <div id="loading-logo">EXPO<span style="color:#fff">EDUCA</span> 2026</div>
+  <div id="loading-bar-wrap"><div id="loading-bar-fill"></div></div>
+  <div id="loading-text">CARGANDO MAPA...</div>
+  <div style="font-size:10px;color:rgba(191,255,0,0.4);margin-top:8px;letter-spacing:1px;">
+    Escuela Secundaria Dr. Gabino Barreda · Turno Vespertino
+  </div>
+</div>
+
+<!-- ══ HEADER ════════════════════════════════════ -->
+<header id="header">
+  <div id="header-logo">
+    <!--
+      ESCUDO: Sustituye el SVG de abajo por tu imagen real:
+        <img src="assets/escudo.png" alt="Escudo" height="42">
+      El archivo debe estar en  expoeduca2026/assets/escudo.png
+    -->
+    <svg width="42" height="42" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 2L38 10L38 26Q38 36 21 40Q4 36 4 26L4 10Z" fill="#1a1a1a" stroke="#BFFF00" stroke-width="1.5"/>
+      <path d="M10 28L17 16L24 26L28 20L34 28Z" fill="#2d4a1e" stroke="#4a7a28" stroke-width="0.5"/>
+      <circle cx="21" cy="14" r="4" fill="#FACC15" opacity="0.9"/>
+      <text x="21" y="35" font-family="Fira Code,monospace" font-size="4" font-weight="700" fill="#BFFF00" text-anchor="middle">GBB</text>
+    </svg>
+
+    <!--
+      LOGO ExpoEduca: Sustituye el texto por tu imagen real:
+        <img src="assets/logo.png" alt="ExpoEduca 2026" height="36">
+      El archivo debe estar en  expoeduca2026/assets/logo.png
+    -->
+    <span id="header-title">ExpoEduca <span>2026</span></span>
+  </div>
+
+  <div id="progress-hud">
+    <span id="progress-text">0/14 lugares</span>
+    <div id="progress-bar-wrap"><div id="progress-bar-fill"></div></div>
+  </div>
+</header>
+
+<!-- ══ PANEL EXPLORADOR ══════════════════════════ -->
+<button id="explorer-toggle" aria-label="Abrir explorador">▶</button>
+<div id="explorer-panel" role="complementary">
+  <div id="explorer-title">📍 MAPA DE EXPLORACIÓN</div>
+  <div id="explorer-list"></div>
+</div>
+
+<!-- ══ MAPA PRINCIPAL ════════════════════════════ -->
+<main id="app" role="main">
+  <div id="map-container">
+    <svg id="map-svg" xmlns="http://www.w3.org/2000/svg"></svg>
+  </div>
+  <div id="frog-wrapper" tabindex="0" role="img" aria-label="Rana mascota"></div>
+</main>
+
+<!-- ══ TARJETA DE INFORMACIÓN ════════════════════ -->
+<aside id="info-card" role="dialog" aria-modal="false">
+  <div id="info-card-header">
+    <div id="info-card-emoji">🏫</div>
+    <div id="info-card-titles">
+      <div id="info-card-name">—</div>
+      <div id="info-card-activity">—</div>
+    </div>
+    <button id="info-card-close" aria-label="Cerrar">✕</button>
+  </div>
+  <div id="info-card-body"></div>
+</aside>
+
+<!-- ══ LOGROS ════════════════════════════════════ -->
+<div id="achievements-panel" aria-live="polite"></div>
+
+<!-- ══ CONTROLES DE ZOOM ══════════════════════════ -->
+<div id="zoom-controls">
+  <button id="btn-zoom-in"  class="zoom-btn" aria-label="Acercar">+</button>
+  <button id="btn-zoom-out" class="zoom-btn" aria-label="Alejar">−</button>
+  <button id="btn-reset"    class="zoom-btn" style="font-size:13px;" aria-label="Restablecer">⌂</button>
+</div>
+
+<!-- ══ INSTRUCCIONES ════════════════════════════ -->
+<div id="instructions">
+  🐸 Arrastra la rana o toca el mapa · Acércate a edificios · Pellizca para zoom
+</div>
+
+<style>
+/* Controles de zoom */
+#zoom-controls {
+  position: fixed;
+  bottom: 24px; right: 16px;
+  display: flex; flex-direction: column; gap: 6px;
+  z-index: 300;
+}
+.zoom-btn {
+  width: 38px; height: 38px;
+  background: rgba(0,0,0,0.92);
+  border: 2px solid #BFFF00;
+  color: #BFFF00;
+  font-family: 'Fira Code', monospace;
+  font-size: 20px; font-weight: 700;
+  border-radius: 8px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 0 8px rgba(191,255,0,0.3);
+  transition: background 0.2s, box-shadow 0.2s;
+  -webkit-tap-highlight-color: transparent;
+}
+.zoom-btn:hover, .zoom-btn:active {
+  background: rgba(191,255,0,0.15);
+  box-shadow: 0 0 16px rgba(191,255,0,0.5);
+}
+
+/* En móvil el panel de info sube a full-width */
+@media (max-width: 480px) {
+  #info-card {
+    bottom: 0; right: 0; left: 0;
+    width: 100%; border-radius: 14px 14px 0 0;
+    border-left: none; border-right: none; border-bottom: none;
+  }
+  #zoom-controls { bottom: 80px; right: 10px; }
+  #header-title { display: none; }
+}
+:focus-visible { outline: 2px solid #BFFF00; outline-offset: 2px; }
+</style>
+
+<script src="script.js"></script>
+</body>
+</html>
