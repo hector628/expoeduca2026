@@ -96,16 +96,13 @@ const BUILDINGS = [
    Se dibujan DESPUÉS de los edificios en buildSVGMap
 ═══════════════════════════════════════════════════ */
 const TREES = [
-  // Lateral izquierdo junto a la carretera
-  {x:30,  y:210}, {x:30,  y:300}, {x:30,  y:390},
-  // Franja norte libre (antes de la cancha)
-  {x:150, y:30},  {x:220, y:30},
-  // Esquina noreste (fuera de edificios)
-  {x:820, y:50},  {x:820, y:180},
-  // Fila sur debajo de todos los edificios
-  {x:100, y:470}, {x:300, y:470}, {x:550, y:470}, {x:750, y:470},
-  // Zona sureste libre
-  {x:660, y:400},
+  // Originales — sin los 3 que caían sobre Terceros/Primeros
+  {x:200, y:365},
+  {x:310, y:145}, {x:355, y:145},
+  {x:470, y:145},
+  {x:395, y:295}, {x:540, y:345},
+  {x:610, y:295},
+  {x:165, y:170},
 ];
 
 /* ═══════════════════════════════════════════════════
