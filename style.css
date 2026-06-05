@@ -70,25 +70,25 @@ body::before {
   box-shadow: 0 2px 20px var(--lime-glow);
   display: flex;
   align-items: center;
-  justify-content: space-between;
   padding: 0 10px;
   z-index: 1000;
   gap: 8px;
+  /* NO usar justify-content: space-between — deja que flex resuelva */
 }
 
+/* Escudo: tamaño fijo, nunca se encoge */
 #header-logo {
   display: flex;
   align-items: center;
   gap: 7px;
-  flex: 1;           /* ocupa el espacio disponible */
-  min-width: 0;      /* permite que el texto se recorte en vez de expandirse */
+  flex-shrink: 0;
 }
 
 #header-logo img {
   height: 34px;
-  width: auto;
+  width: 34px;
+  object-fit: contain;
   flex-shrink: 0;
-  image-rendering: crisp-edges;
 }
 
 #header-logo svg {
@@ -97,26 +97,27 @@ body::before {
   height: 34px;
 }
 
+/* Título: ocupa todo el espacio central, se recorta si falta */
 #header-title {
-  font-size: clamp(10px, 3.2vw, 19px);
+  flex: 1;
+  min-width: 0;
+  font-size: clamp(11px, 3.5vw, 19px);
   font-weight: 700;
   color: var(--lime);
   text-shadow: 0 0 10px var(--lime-glow);
-  letter-spacing: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  min-width: 0;
 }
 
 #header-title span { color: #fff; }
 
-/* ── PROGRESS HUD (top-right) ── */
+/* ── PROGRESS HUD (derecha): tamaño fijo, nunca se encoge ── */
 #progress-hud {
   display: flex;
   align-items: center;
   gap: 6px;
-  flex-shrink: 0;   /* nunca se encoge — siempre visible */
+  flex-shrink: 0;
 }
 
 #progress-text {
@@ -135,14 +136,13 @@ body::before {
   overflow: hidden;
 }
 
-/* Celulares pequeños: escudo más chico, barra más angosta */
+/* Celulares pequeños (≤380px): barra más angosta */
 @media (max-width: 380px) {
-  #header-logo svg, #header-logo img { width: 28px; height: 28px; }
-  #progress-bar-wrap { width: 40px; }
-  #progress-text { font-size: 10px; }
+  #progress-bar-wrap { width: 36px; }
+  #progress-text     { font-size: 10px; }
 }
 
-/* Pantallas muy pequeñas: ocultar solo la barra, el texto se mantiene */
+/* Muy pequeños (≤320px): ocultar solo la barra, título siempre visible */
 @media (max-width: 320px) {
   #progress-bar-wrap { display: none; }
 }
@@ -586,15 +586,14 @@ body::before {
 
 /* ── RESPONSIVE ── */
 @media (max-width: 480px) {
-  #header-title { display: none; }
-  #header { padding: 0 10px; }
+  /* header-title ya NO se oculta — el CSS del header lo gestiona con flex */
   #info-card {
     bottom: 0; right: 0; left: 0;
     width: 100%; border-radius: 16px 16px 0 0;
     border-left: none; border-right: none; border-bottom: none;
   }
-  #explorer-panel { top: 65px; max-height: calc(100vh - 70px); }
+  #explorer-panel { top: 58px; max-height: calc(100vh - 62px); }
 }
 @media (max-width: 320px) {
-  #header-logo img { height: 32px; }
+  #header-logo img { height: 30px; }
 }
