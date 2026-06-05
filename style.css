@@ -64,47 +64,61 @@ body::before {
 /* ── HEADER ── */
 #header {
   position: fixed; top: 0; left: 0; right: 0;
-  height: 60px;
-  background: rgba(0,0,0,0.95);
+  height: 50px;
+  background: rgba(0,0,0,0.97);
   border-bottom: 2px solid var(--lime);
   box-shadow: 0 2px 20px var(--lime-glow);
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 0 16px;
+  padding: 0 10px;
   z-index: 1000;
-  gap: 12px;
+  gap: 8px;
 }
 
 #header-logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   flex-shrink: 0;
+  min-width: 0;
 }
 
 #header-logo img {
-  height: 42px;
+  height: 36px;
   width: auto;
+  flex-shrink: 0;
   image-rendering: crisp-edges;
 }
 
+#header-logo svg {
+  flex-shrink: 0;
+}
+
 #header-title {
-  font-size: clamp(14px, 2.5vw, 20px);
+  font-size: clamp(11px, 3vw, 19px);
   font-weight: 700;
   color: var(--lime);
   text-shadow: 0 0 10px var(--lime-glow);
-  letter-spacing: 1px;
+  letter-spacing: 0.5px;
   white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 #header-title span { color: #fff; }
+
+/* En móviles pequeños ocultar el texto y dejar solo el escudo */
+@media (max-width: 420px) {
+  #header-title { display: none; }
+  #header { height: 46px; padding: 0 8px; }
+}
 
 /* ── PROGRESS HUD (top-right) ── */
 #progress-hud {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   flex-shrink: 0;
 }
 
@@ -116,12 +130,17 @@ body::before {
 }
 
 #progress-bar-wrap {
-  width: 80px;
+  width: 60px;
   height: 10px;
   background: rgba(191,255,0,0.1);
   border: 1px solid var(--lime);
   border-radius: 5px;
   overflow: hidden;
+}
+
+@media (max-width: 380px) {
+  #progress-text { font-size: 10px; }
+  #progress-bar-wrap { width: 44px; }
 }
 
 #progress-bar-fill {
@@ -136,11 +155,12 @@ body::before {
 /* ── MAIN MAP AREA ── */
 #app {
   position: fixed;
-  top: 60px; left: 0; right: 0; bottom: 0;
+  top: 50px; left: 0; right: 0; bottom: 0;
   overflow: hidden;
   cursor: grab;
 }
 #app:active { cursor: grabbing; }
+@media (max-width: 420px) { #app { top: 46px; } }
 
 #map-container {
   position: absolute;
@@ -342,7 +362,7 @@ body::before {
 /* ── EXPLORER PANEL (left) ── */
 #explorer-panel {
   position: fixed;
-  top: 70px;
+  top: 58px;
   left: -260px;
   width: 250px;
   background: rgba(0,0,0,0.95);
@@ -359,7 +379,7 @@ body::before {
 
 #explorer-toggle {
   position: fixed;
-  top: 70px;
+  top: 58px;
   left: 0;
   width: 38px;
   height: 38px;
