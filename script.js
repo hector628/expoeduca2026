@@ -47,7 +47,6 @@ const STATE = {
 ═══════════════════════════════════════════════════ */
 const ACTIVIDADES_DEFAULT = [
   { id:'futbol',          nombre:'Cancha de Fútbol',              actividad:'Torneo Relámpago de Fútbol',        horario:'11:00 - 14:00', responsable:'Academia de Ed. Física',       descripcion:'Torneo relámpago entre equipos de cada grupo. ¡A meter goles!',                                     color:'#4ADE80', emoji:'⚽' },
-  { id:'estacionamiento', nombre:'Estacionamiento',                actividad:'Área de Estacionamiento',           horario:'Todo el día',    responsable:'Personal de Vigilancia',        descripcion:'Zona de estacionamiento para personal y visitantes del evento.',                                      color:'#6B7280', emoji:'🚗' },
   { id:'snte',            nombre:'SNTE',                           actividad:'Información Sindical y Cultura',    horario:'09:00 - 14:00', responsable:'Representante Sindical',         descripcion:'Información sobre derechos laborales y actividades culturales del SNTE.',                             color:'#EC4899', emoji:'📋' },
   { id:'terceros_primeros',nombre:'Salones Terceros / Primeros',   actividad:'Proyectos Integradores',            horario:'09:30 - 13:30', responsable:'Academia Interdisciplinaria',    descripcion:'Exposición de proyectos integradores: medio ambiente, historia local y matemáticas aplicadas.',      color:'#FACC15', emoji:'📚' },
   { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'07:00 - 14:00', responsable:'Personal de Intendencia',        descripcion:'Instalaciones sanitarias disponibles para visitantes y alumnos durante todo el evento.',              color:'#38BDF8', emoji:'🚿' },
@@ -69,8 +68,8 @@ const ACTIVIDADES_DEFAULT = [
 ═══════════════════════════════════════════════════ */
 const BUILDINGS = [
   // ── Fila norte ──
-  { id:'estacionamiento', x:295, y:15,  w:295, h:22,  rx:6,  color:'#6B7280', label:'ESTACIONAMIENTO',               small:true },
-  { id:'futbol',          x:295, y:38,  w:295, h:125, rx:18, color:'#4ADE80', label:'FÚTBOL',                        labelY:100 },
+  // (Estacionamiento eliminado)
+  { id:'futbol',          x:295, y:15,  w:295, h:148, rx:18, color:'#4ADE80', label:'FÚTBOL',                        labelY:90  },
   { id:'snte',            x:610, y:38,  w:90,  h:75,  rx:14, color:'#EC4899', label:'SNTE',                          labelY:78  },
   { id:'taller_costura',  x:610, y:125, w:90,  h:80,  rx:14, color:'#EC4899', label:'TALLER\nCOSTURA',               labelY:167, multiline:true },
   { id:'bodega',          x:715, y:125, w:80,  h:80,  rx:14, color:'#F97316', label:'BODEGA',                        labelY:167 },
@@ -97,18 +96,14 @@ const BUILDINGS = [
    Se dibujan DESPUÉS de los edificios en buildSVGMap
 ═══════════════════════════════════════════════════ */
 const TREES = [
-  // Zona izquierda (entre carretera y edificios)
-  {x:175, y:310}, {x:148, y:298}, {x:160, y:380},
-  // Entre Terceros y Domo I
-  {x:204, y:292},
-  // Zona norte entre Lab y Estacion
+  // Zona izquierda exterior (entre carretera y campus — FUERA del edificio Terceros)
+  {x:155, y:310}, {x:132, y:298}, {x:145, y:375},
+  // Norte — entre laboratorios y cancha (espacio libre y:168 está sobre nada)
   {x:308, y:168}, {x:358, y:168}, {x:468, y:168},
-  // Zona entre Domo II y Taller
-  {x:610, y:248},
-  // Zona sur (debajo de Tienda, libre)
-  {x:648, y:380}, {x:660, y:418},
-  // Esquina superior izquierda libre
-  {x:200, y:180},
+  // Entre Domo II y Taller costura
+  {x:612, y:248},
+  // Zona sur libre (debajo de Tienda)
+  {x:648, y:380}, {x:662, y:418},
 ];
 
 /* ═══════════════════════════════════════════════════
@@ -718,9 +713,19 @@ function hideInfoCard() {
 function handleBuildingClick(id) {
   initAudio();
   discoverBuilding(id);
-  showInfoCard(id);
   highlightBuilding(id);
   STATE.activeBuilding = id;
+
+  // SNTE abre su propia página interactiva
+  if (id === 'snte') {
+    showInfoCard(id);            // muestra tarjeta normal también
+    setTimeout(() => {
+      window.open('snte.html', '_blank');
+    }, 400);
+    return;
+  }
+
+  showInfoCard(id);
 }
 
 document.getElementById('info-card-close').addEventListener('click', hideInfoCard);
