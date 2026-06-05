@@ -47,9 +47,9 @@ const STATE = {
 ═══════════════════════════════════════════════════ */
 const ACTIVIDADES_DEFAULT = [
   { id:'futbol',          nombre:'Cancha de Fútbol',              actividad:'Torneo Relámpago de Fútbol',        horario:'11:00 - 14:00', responsable:'Academia de Ed. Física',       descripcion:'Torneo relámpago entre equipos de cada grupo. ¡A meter goles!',                                     color:'#4ADE80', emoji:'⚽' },
-  { id:'snte',            nombre:'SNTE',                           actividad:'Información Sindical y Cultura',    horario:'09:00 - 14:00', responsable:'Representante Sindical',         descripcion:'Información sobre derechos laborales y actividades culturales del SNTE.',                             color:'#EC4899', emoji:'📋' },
+  { id:'snte',            nombre:'SNTE',                           actividad:'Estimysterios',                     horario:'09:00 - 14:00', responsable:'Academia de Matemáticas',        descripcion:'Retos de estimación.',                                                                               color:'#EC4899', emoji:'📋' },
   { id:'terceros_primeros',nombre:'Salones Terceros / Primeros',   actividad:'Proyectos Integradores',            horario:'09:30 - 13:30', responsable:'Academia Interdisciplinaria',    descripcion:'Exposición de proyectos integradores: medio ambiente, historia local y matemáticas aplicadas.',      color:'#FACC15', emoji:'📚' },
-  { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'07:00 - 14:00', responsable:'Personal de Intendencia',        descripcion:'Instalaciones sanitarias disponibles para visitantes y alumnos durante todo el evento.',              color:'#38BDF8', emoji:'🚿' },
+  { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'07:00 - 14:00', responsable:'Personal de Intendencia',        descripcion:'Mi estómago pidió refuerzos.',                                                                         color:'#38BDF8', emoji:'🚽' },
   { id:'laboratorios',    nombre:'Laboratorios',                   actividad:'Experimentos de Ciencias',          horario:'09:00 - 13:00', responsable:'Academia de Ciencias Naturales', descripcion:'Experimentos interactivos de química, biología y física. ¡Ven a descubrir la ciencia!',               color:'#FACC15', emoji:'🔬' },
   { id:'audiovisual',     nombre:'Audiovisual Segundos Dirección', actividad:'Cine y Producciones Escolares',     horario:'10:00 - 13:00', responsable:'Academia de Español y Arte',     descripcion:'Proyección de cortometrajes y documentales producidos por alumnos de segundo grado y dirección.',    color:'#6B7280', emoji:'🎬' },
   { id:'domo1',           nombre:'Domo I',                         actividad:'Acto Cívico y Bienvenida',          horario:'09:00 - 09:30', responsable:'Dirección General',              descripcion:'Espacio principal para la inauguración. Presentaciones artísticas y discursos de bienvenida.',        color:'#94A3B8', emoji:'🎪' },
@@ -58,7 +58,7 @@ const ACTIVIDADES_DEFAULT = [
   { id:'taller_costura',  nombre:'Taller de Costura',              actividad:'Moda Sustentable',                  horario:'10:00 - 13:00', responsable:'Academia Tecnológica',           descripcion:'Exposición de prendas con materiales reciclados. Demostración en vivo de técnicas de costura.',       color:'#EC4899', emoji:'🪡' },
   { id:'bodega',          nombre:'Bodega',                         actividad:'Exposición de Materiales',          horario:'10:00 - 12:00', responsable:'Personal Administrativo',        descripcion:'Muestra de materiales didácticos y recursos educativos del ciclo escolar.',                            color:'#F97316', emoji:'📦' },
   { id:'tienda',          nombre:'Tienda Escolar',                 actividad:'Feria Gastronómica Estudiantil',    horario:'09:00 - 14:00', responsable:'Comité de Padres',               descripcion:'Venta de alimentos preparados por alumnos como proyecto emprendedor. ¡Antojitos y postres!',          color:'#F97316', emoji:'🍕' },
-  { id:'banos_contr',     nombre:'Contador de Baños',              actividad:'Servicios Sanitarios',              horario:'07:00 - 14:00', responsable:'Personal de Intendencia',        descripcion:'Módulo adicional de sanitarios para visitantes del evento ExpoEduca 2026.',                           color:'#38BDF8', emoji:'🚻' }
+  { id:'banos_contr',     nombre:'Contador de Baños',              actividad:'Servicios Sanitarios',              horario:'07:00 - 14:00', responsable:'Personal de Intendencia',        descripcion:'Mi estómago pidió refuerzos.',                                                                        color:'#38BDF8', emoji:'🚻' }
 ];
 
 /* ═══════════════════════════════════════════════════
@@ -194,7 +194,10 @@ function buildSVGMap() {
   TREES.forEach(t => svg.appendChild(buildTree(t.x, t.y)));
 
   // Entradas siempre visibles (capa más alta)
-  ENTRIES.forEach(e => svg.appendChild(buildEntry(e)));
+   ENTRIES.forEach(e => svg.appendChild(buildEntry(e)));
+
+  // Mascota — esquina superior derecha
+  svg.appendChild(buildMascota(720, 10, 115, 115));
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
@@ -380,6 +383,19 @@ function buildBench(x, y) {
   g.appendChild(svgEl('rect', {x:x-8, y:y-2, width:16, height:4, rx:2, fill:'#5D4037'}));
   g.appendChild(svgEl('rect', {x:x-6, y:y+2, width:3,  height:6, rx:1, fill:'#4E342E'}));
   g.appendChild(svgEl('rect', {x:x+3, y:y+2, width:3,  height:6, rx:1, fill:'#4E342E'}));
+  return g;
+}
+
+/* ─── Mascota ── */
+function buildMascota(x, y, w, h) {
+  const g = svgEl('g', {});
+  const img = svgEl('image', {
+    href: 'assets/mascota.png',
+    x: x, y: y, width: w, height: h,
+    preserveAspectRatio: 'xMidYMid meet',
+    'image-rendering': 'optimizeQuality'
+  });
+  g.appendChild(img);
   return g;
 }
 
