@@ -79,13 +79,13 @@ body::before {
 #header-logo {
   display: flex;
   align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
-  min-width: 0;
+  gap: 7px;
+  flex: 1;           /* ocupa el espacio disponible */
+  min-width: 0;      /* permite que el texto se recorte en vez de expandirse */
 }
 
 #header-logo img {
-  height: 36px;
+  height: 34px;
   width: auto;
   flex-shrink: 0;
   image-rendering: crisp-edges;
@@ -93,33 +93,30 @@ body::before {
 
 #header-logo svg {
   flex-shrink: 0;
+  width: 34px;
+  height: 34px;
 }
 
 #header-title {
-  font-size: clamp(11px, 3vw, 19px);
+  font-size: clamp(10px, 3.2vw, 19px);
   font-weight: 700;
   color: var(--lime);
   text-shadow: 0 0 10px var(--lime-glow);
-  letter-spacing: 0.5px;
+  letter-spacing: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  min-width: 0;
 }
 
 #header-title span { color: #fff; }
-
-/* En móviles pequeños ocultar el texto y dejar solo el escudo */
-@media (max-width: 420px) {
-  #header-title { display: none; }
-  #header { height: 46px; padding: 0 8px; }
-}
 
 /* ── PROGRESS HUD (top-right) ── */
 #progress-hud {
   display: flex;
   align-items: center;
   gap: 6px;
-  flex-shrink: 0;
+  flex-shrink: 0;   /* nunca se encoge — siempre visible */
 }
 
 #progress-text {
@@ -130,17 +127,24 @@ body::before {
 }
 
 #progress-bar-wrap {
-  width: 60px;
-  height: 10px;
+  width: 55px;
+  height: 9px;
   background: rgba(191,255,0,0.1);
   border: 1px solid var(--lime);
   border-radius: 5px;
   overflow: hidden;
 }
 
+/* Celulares pequeños: escudo más chico, barra más angosta */
 @media (max-width: 380px) {
+  #header-logo svg, #header-logo img { width: 28px; height: 28px; }
+  #progress-bar-wrap { width: 40px; }
   #progress-text { font-size: 10px; }
-  #progress-bar-wrap { width: 44px; }
+}
+
+/* Pantallas muy pequeñas: ocultar solo la barra, el texto se mantiene */
+@media (max-width: 320px) {
+  #progress-bar-wrap { display: none; }
 }
 
 #progress-bar-fill {
