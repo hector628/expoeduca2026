@@ -96,14 +96,16 @@ const BUILDINGS = [
    Se dibujan DESPUÉS de los edificios en buildSVGMap
 ═══════════════════════════════════════════════════ */
 const TREES = [
-  // Zona izquierda exterior (entre carretera y campus — FUERA del edificio Terceros)
-  {x:155, y:310}, {x:132, y:298}, {x:145, y:375},
-  // Norte — entre laboratorios y cancha (espacio libre y:168 está sobre nada)
-  {x:308, y:168}, {x:358, y:168}, {x:468, y:168},
-  // Entre Domo II y Taller costura
-  {x:612, y:248},
-  // Zona sur libre (debajo de Tienda)
-  {x:648, y:380}, {x:662, y:418},
+  // Lateral izquierdo junto a la carretera
+  {x:30,  y:210}, {x:30,  y:300}, {x:30,  y:390},
+  // Franja norte libre (antes de la cancha)
+  {x:150, y:30},  {x:220, y:30},
+  // Esquina noreste (fuera de edificios)
+  {x:820, y:50},  {x:820, y:180},
+  // Fila sur debajo de todos los edificios
+  {x:100, y:470}, {x:300, y:470}, {x:550, y:470}, {x:750, y:470},
+  // Zona sureste libre
+  {x:660, y:400},
 ];
 
 /* ═══════════════════════════════════════════════════
