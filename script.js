@@ -407,6 +407,7 @@ function showEntryQuestion(ex, ey) {
 function showWelcome() {
   const name = STATE.frogName || 'Explorador';
   const overlay = document.createElement('div');
+  overlay.id = 'welcome-overlay';
   overlay.style.cssText = `
     position:fixed;inset:0;background:rgba(0,0,0,0.75);
     display:flex;align-items:center;justify-content:center;
@@ -433,7 +434,7 @@ function showWelcome() {
         background:#BFFF00;border:none;border-radius:8px;
         padding:12px 32px;color:#000;font-family:'Fira Code',monospace;
         font-size:14px;font-weight:700;cursor:pointer;
-      " onclick="this.closest('div[style]').remove()">¡A explorar! 🗺️</button>
+      " onclick="document.getElementById('welcome-overlay').remove()">¡A explorar! 🗺️</button>
     </div>
   `;
   document.body.appendChild(overlay);
@@ -764,8 +765,8 @@ function playBip() {
     osc.frequency.exponentialRampToValueAtTime(760, ctx.currentTime + 0.06);
     osc.frequency.exponentialRampToValueAtTime(520, ctx.currentTime + 0.12);
 
-    gain.gain.setValueAtTime(0.55, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
+    gain.gain.setValueAtTime(1.0, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
 
     osc.start(ctx.currentTime);
     osc.stop(ctx.currentTime + 0.18);
