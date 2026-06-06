@@ -109,7 +109,6 @@ const TREES = [
    ENTRADAS — se dibujan al final (siempre visibles)
 ═══════════════════════════════════════════════════ */
 const ENTRIES = [
-  {x:38,  y:255, label:'ENTRADA'},
   {x:38,  y:395, label:'ENTRADA'},
   {x:325, y:472, label:'ENTRADA'},
 ];
@@ -581,8 +580,8 @@ function playBip() {
     osc.frequency.exponentialRampToValueAtTime(760, ctx.currentTime + 0.06);
     osc.frequency.exponentialRampToValueAtTime(520, ctx.currentTime + 0.12);
 
-    gain.gain.setValueAtTime(0.18, ctx.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.18);
+    gain.gain.setValueAtTime(0.55, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.22);
 
     osc.start(ctx.currentTime);
     osc.stop(ctx.currentTime + 0.18);
