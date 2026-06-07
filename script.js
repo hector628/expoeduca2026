@@ -267,7 +267,7 @@ function buildSVGMap() {
   svg.appendChild(buildCat(170, 430));
 
   // Cartón de leche — junto a la tienda escolar (x:498+140=638, y:385)
-  svg.appendChild(buildMilk(640, 395));
+  svg.appendChild(buildMilk(800, 390));
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
