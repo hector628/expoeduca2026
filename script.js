@@ -1044,6 +1044,13 @@ function showInfoCard(id) {
     </div>
     <p id="info-card-desc">${desc}</p>
     ${isNew ? `<div id="info-card-badge">🌟 ¡Nuevo espacio descubierto!</div>` : ''}
+    ${id === 'snte' ? `
+    <button onclick="window.open('snte.html','_blank')" style="
+      margin-top:12px;width:100%;
+      background:#EC4899;border:none;border-radius:8px;
+      padding:10px;color:#000;font-family:'Fira Code',monospace;
+      font-size:12px;font-weight:700;cursor:pointer;
+    ">🔢 Abrir Misión Matemáticas</button>` : ''}
   `;
   document.getElementById('info-card').classList.add('visible');
 }
@@ -1058,15 +1065,7 @@ function handleBuildingClick(id) {
   highlightBuilding(id);
   STATE.activeBuilding = id;
 
-  // SNTE abre su propia página interactiva
-  if (id === 'snte') {
-    showInfoCard(id);            // muestra tarjeta normal también
-    setTimeout(() => {
-      window.open('snte.html', '_blank');
-    }, 400);
-    return;
-  }
-
+  // SNTE solo muestra la tarjeta — el botón abre la misión
   showInfoCard(id);
 }
 
