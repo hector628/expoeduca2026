@@ -806,7 +806,7 @@ function showMilkMessage() {
           Cartón de Leche
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
-          Residente desde hace 16 años
+          Entidad biológica autoconsciente
         </div>
       </div>
       <button onclick="document.getElementById('milk-card').remove()"
@@ -819,7 +819,7 @@ function showMilkMessage() {
     <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.8;
                 border-left:3px solid #60A5FA;padding-left:12px;
                 font-style:italic;">
-      "Cartón de leche abandonado en la cafetería hace 16 años.
+      "Abandonado en la escuela hace 16 años.
       Ha desarrollado conciencia. Ahora observa a los estudiantes
       y juzga sus decisiones."
     </div>
