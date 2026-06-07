@@ -441,7 +441,7 @@ function showWelcome() {
       <div>
         <div style="font-size:15px;font-weight:700;color:#BFFF00;
                     text-shadow:0 0 10px rgba(191,255,0,0.4);">
-          ¡Bienvenido, ${name}!
+          ¡Bienvenid@, ${name}!
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;">
           Tu rana ya está dentro de la escuela
@@ -856,7 +856,7 @@ function showCompleteCard() {
       ¡Mapa Completo!
     </div>
     <div style="font-size:13px;font-weight:700;color:#FACC15;margin-bottom:12px;">
-      Bienvenido al Turno Vespertino
+      Bienvenid@ al Turno Vespertino
     </div>
     <div style="font-size:11px;color:rgba(255,255,255,0.7);
                 line-height:1.8;margin-bottom:16px;
