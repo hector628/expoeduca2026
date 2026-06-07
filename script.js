@@ -263,7 +263,7 @@ function buildSVGMap() {
   // Mascota — esquina superior derecha
   svg.appendChild(buildMascota(720, 10, 115, 115));
 
-  // Gato sabio
+  // Gato Bigotes
   svg.appendChild(buildCat(170, 430));
 }
 
@@ -606,7 +606,7 @@ function buildMascota(x, y, w, h) {
   return g;
 }
 
-/* ─── Gato Sabio ── */
+/* ─── Gato Bigotes ── */
 function buildCat(x, y) {
   const g = svgEl('g', {class:'wise-cat', 'data-id':'cat',
     transform:`translate(${x},${y})`, style:'cursor:pointer'});
@@ -700,7 +700,7 @@ function showCatMessage() {
       <span style="font-size:30px;">🐱</span>
       <div>
         <div style="font-size:13px;font-weight:700;color:#EC4899;">
-          Gato Sabio
+          Bigotes
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
           Habitante permanente del plantel
