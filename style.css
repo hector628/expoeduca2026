@@ -226,7 +226,10 @@ body::before {
   height: 100%;
   overflow: visible;
 }
-
+@keyframes catIdle {
+  0%,100% { transform: translateY(0px); }
+  50%      { transform: translateY(-4px); }
+}
 /* Frog animations */
 @keyframes frogIdle {
   0%,100% { transform: translateY(0px) scaleY(1); }
