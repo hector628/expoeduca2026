@@ -669,16 +669,6 @@ function buildCat(x, y) {
   // Animación idle — pulso suave en CSS
   g.style.animation = 'catIdle 2.5s ease-in-out infinite';
 
-  // Etiqueta
-  const label = svgEl('text', {
-    x:0, y:32,
-    'font-family':"'Fira Code',monospace",
-    'font-size':'7', 'font-weight':'700',
-    fill:'#BFFF00', 'text-anchor':'middle'
-  });
-  label.textContent = '🐱 ???';
-  g.appendChild(label);
-
   // Evento clic
   g.addEventListener('click',    () => showCatMessage());
   g.addEventListener('touchend', (e) => { e.preventDefault(); showCatMessage(); },
@@ -762,7 +752,7 @@ function buildFrogSVG() {
     <ellipse cx="41" cy="33" rx="5" ry="3.5" fill="#43A047" transform="rotate(30,41,33)"/>
     <rect x="18" y="12" width="16" height="10" rx="3" fill="#BFFF00"/>
     <rect x="14" y="16" width="24" height="4"  rx="2" fill="#BFFF00"/>
-    <text x="26" y="20" font-family="'Fira Code',monospace" font-size="4.5" font-weight="700" fill="#000" text-anchor="middle">EE</text>
+    <text x="26" y="20" font-family="'Fira Code',monospace" font-size="4.5" font-weight="700" fill="#000" text-anchor="middle">GB</text>
   </g>
 </svg>`;
 }
