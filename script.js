@@ -263,11 +263,11 @@ function buildSVGMap() {
   // Mascota — esquina superior derecha
   svg.appendChild(buildMascota(720, 10, 115, 115));
 
-  // Vaquita sabia
+  // Bigotes
   svg.appendChild(buildCat(170, 430));
 
   // Cartón de leche — junto a la tienda escolar (x:498+140=638, y:385)
-  svg.appendChild(buildMilk(800, 390));
+  svg.appendChild(buildMilk(563, 455));
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
