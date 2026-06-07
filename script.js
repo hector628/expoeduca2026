@@ -611,8 +611,10 @@ function buildMascota(x, y, w, h) {
 
 /* ─── Gato Bigotes ── */
 function buildCat(x, y) {
+  const outer = svgEl('g', {transform:`translate(${x},${y})`});
   const g = svgEl('g', {class:'wise-cat', 'data-id':'cat',
-    transform:`translate(${x},${y})`, style:'cursor:pointer'});
+    style:'cursor:pointer'});
+  outer.appendChild(g);
 
   // Sombra
   g.appendChild(svgEl('ellipse', {cx:0, cy:22, rx:16, ry:5,
@@ -666,12 +668,11 @@ function buildCat(x, y) {
 
   g.style.animation = 'catIdle 2.5s ease-in-out infinite';
 
-  g.addEventListener('click', () => showCatMessage());
-  g.addEventListener('touchend', (e) => {
+  outer.addEventListener('click', () => showCatMessage());
+  outer.addEventListener('touchend', (e) => {
     e.preventDefault(); showCatMessage();
   }, {passive:false});
-
-  return g;
+  return outer;
 }
 
 function showCatMessage() {
@@ -723,8 +724,9 @@ function showCatMessage() {
 
 /* ─── Cartón de Leche ── */
 function buildMilk(x, y) {
-  const g = svgEl('g', {transform:`translate(${x},${y})`,
-    style:'cursor:pointer'});
+  const outer = svgEl('g', {transform:`translate(${x},${y})`});
+  const g = svgEl('g', {style:'cursor:pointer'});
+  outer.appendChild(g);
 
   // Sombra
   g.appendChild(svgEl('ellipse', {cx:0, cy:28, rx:12, ry:4,
@@ -772,12 +774,11 @@ function buildMilk(x, y) {
   // Animación
   g.style.animation = 'catIdle 3.8s ease-in-out infinite';
 
-  g.addEventListener('click',    () => showMilkMessage());
-  g.addEventListener('touchend', (e) => {
+  outer.addEventListener('click',    () => showMilkMessage());
+  outer.addEventListener('touchend', (e) => {
     e.preventDefault(); showMilkMessage();
   }, {passive:false});
-
-  return g;
+  return outer;
 }
 
 function showMilkMessage() {
