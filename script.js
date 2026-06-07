@@ -267,7 +267,7 @@ function buildSVGMap() {
   svg.appendChild(buildCat(170, 430));
 
   // Cartón de leche — junto a la tienda escolar (x:498+140=638, y:385)
-  svg.appendChild(buildMilk(648, 385));
+  svg.appendChild(buildMilk(640, 395));
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
@@ -609,80 +609,67 @@ function buildMascota(x, y, w, h) {
   return g;
 }
 
-/* ─── Vaquita Sabia ── */
+/* ─── Gato Bigotes ── */
 function buildCat(x, y) {
   const g = svgEl('g', {class:'wise-cat', 'data-id':'cat',
     transform:`translate(${x},${y})`, style:'cursor:pointer'});
 
   // Sombra
-  g.appendChild(svgEl('ellipse', {cx:0, cy:26, rx:18, ry:6,
+  g.appendChild(svgEl('ellipse', {cx:0, cy:22, rx:16, ry:5,
     fill:'rgba(0,0,0,0.4)'}));
 
-  // Cuerpo blanco
-  g.appendChild(svgEl('ellipse', {cx:0, cy:10, rx:17, ry:18,
-    fill:'#FFFFFF'}));
+  // Cuerpo negro
+  g.appendChild(svgEl('ellipse', {cx:0, cy:8, rx:14, ry:16,
+    fill:'#4A4A5A'}));
 
-  // Manchas negras cuerpo
-  g.appendChild(svgEl('ellipse', {cx:-6, cy:4,  rx:7, ry:9,
-    fill:'#1A1A1A', opacity:'0.85'}));
-  g.appendChild(svgEl('ellipse', {cx:9,  cy:14, rx:5, ry:6,
-    fill:'#1A1A1A', opacity:'0.85'}));
+  // Cabeza
+  g.appendChild(svgEl('circle', {cx:0, cy:-12, r:13,
+    fill:'#4A4A5A'}));
 
-  // Patas
-  g.appendChild(svgEl('ellipse', {cx:-11, cy:24, rx:5, ry:4, fill:'#FFFFFF'}));
-  g.appendChild(svgEl('ellipse', {cx:11,  cy:24, rx:5, ry:4, fill:'#FFFFFF'}));
+  // Orejas puntiagudas
+  g.appendChild(svgEl('polygon', {
+    points:'-13,-22 -7,-8 -3,-22', fill:'#4A4A5A'}));
+  g.appendChild(svgEl('polygon', {
+    points:'13,-22 7,-8 3,-22', fill:'#4A4A5A'}));
+  g.appendChild(svgEl('polygon', {
+    points:'-11,-20 -7,-10 -4,-20', fill:'#EC4899', opacity:'0.7'}));
+  g.appendChild(svgEl('polygon', {
+    points:'11,-20 7,-10 4,-20', fill:'#EC4899', opacity:'0.7'}));
 
-  // Cabeza blanca
-  g.appendChild(svgEl('circle', {cx:0, cy:-14, r:14, fill:'#FFFFFF'}));
+  // Ojos amarillos
+  g.appendChild(svgEl('ellipse', {cx:-5, cy:-13, rx:3, ry:4, fill:'#FACC15'}));
+  g.appendChild(svgEl('ellipse', {cx:5,  cy:-13, rx:3, ry:4, fill:'#FACC15'}));
+  // Pupilas
+  g.appendChild(svgEl('ellipse', {cx:-5, cy:-13, rx:1.2, ry:3.5, fill:'#000'}));
+  g.appendChild(svgEl('ellipse', {cx:5,  cy:-13, rx:1.2, ry:3.5, fill:'#000'}));
+  // Brillo
+  g.appendChild(svgEl('circle', {cx:-4, cy:-14, r:0.8, fill:'#fff'}));
+  g.appendChild(svgEl('circle', {cx:6,  cy:-14, r:0.8, fill:'#fff'}));
 
-  // Mancha negra cabeza
-  g.appendChild(svgEl('ellipse', {cx:5, cy:-14, rx:7, ry:9,
-    fill:'#1A1A1A', opacity:'0.8'}));
+  // Nariz
+  g.appendChild(svgEl('polygon', {
+    points:'0,-8 -2,-6 2,-6', fill:'#EC4899'}));
 
-  // Orejas redondas (vaca, no puntiagudas)
-  g.appendChild(svgEl('ellipse', {cx:-14, cy:-22, rx:5, ry:4, fill:'#FFFFFF'}));
-  g.appendChild(svgEl('ellipse', {cx:14,  cy:-22, rx:5, ry:4, fill:'#FFFFFF'}));
-  g.appendChild(svgEl('ellipse', {cx:-14, cy:-22, rx:3, ry:2.5, fill:'#F9A8D4', opacity:'0.8'}));
-  g.appendChild(svgEl('ellipse', {cx:14,  cy:-22, rx:3, ry:2.5, fill:'#F9A8D4', opacity:'0.8'}));
+  // Bigotes
+  [[-14,-7,-4,-7],[-14,-5,-4,-6],[4,-7,14,-7],[4,-6,14,-5]].forEach(
+    ([x1,y1,x2,y2]) => g.appendChild(svgEl('line', {
+      x1,y1,x2,y2, stroke:'rgba(255,255,255,0.6)', 'stroke-width':0.8
+    }))
+  );
 
-  // Cuernos
-  g.appendChild(svgEl('rect', {x:-11, y:-34, width:4, height:10, rx:2, fill:'#D4A017'}));
-  g.appendChild(svgEl('rect', {x:7,   y:-34, width:4, height:10, rx:2, fill:'#D4A017'}));
-  g.appendChild(svgEl('circle', {cx:-9,  cy:-35, r:2.5, fill:'#F5C842'}));
-  g.appendChild(svgEl('circle', {cx:9,   cy:-35, r:2.5, fill:'#F5C842'}));
-
-  // Hocico
-  g.appendChild(svgEl('ellipse', {cx:0, cy:-10, rx:7, ry:5, fill:'#F5E6D3'}));
-  g.appendChild(svgEl('ellipse', {cx:-3, cy:-9,  rx:2, ry:1.5, fill:'#D4A0A0', opacity:'0.7'}));
-  g.appendChild(svgEl('ellipse', {cx:3,  cy:-9,  rx:2, ry:1.5, fill:'#D4A0A0', opacity:'0.7'}));
-
-  // Boca
+  // Cola
   g.appendChild(svgEl('path', {
-    d:'M -3,-6 Q 0,-4 3,-6',
-    stroke:'#888', 'stroke-width':1, fill:'none', 'stroke-linecap':'round'
-  }));
-
-  // Ojos
-  g.appendChild(svgEl('circle', {cx:-5, cy:-16, r:3.5, fill:'#1A1A1A'}));
-  g.appendChild(svgEl('circle', {cx:5,  cy:-16, r:3.5, fill:'#1A1A1A'}));
-  g.appendChild(svgEl('circle', {cx:-4, cy:-17, r:1.2, fill:'#fff'}));
-  g.appendChild(svgEl('circle', {cx:6,  cy:-17, r:1.2, fill:'#fff'}));
-
-  // Cola con punta
-  g.appendChild(svgEl('path', {
-    d:'M 14,16 Q 30,6 26,-6',
-    stroke:'#CCCCCC', 'stroke-width':4,
+    d:'M 10,18 Q 28,10 24,0 Q 20,-8 14,-4',
+    stroke:'#4A4A5A', 'stroke-width':5,
     fill:'none', 'stroke-linecap':'round'
   }));
-  g.appendChild(svgEl('ellipse', {cx:26, cy:-8, rx:4, ry:6,
-    fill:'#999', opacity:'0.8'}));
 
-  // Animación
   g.style.animation = 'catIdle 2.5s ease-in-out infinite';
 
-  g.addEventListener('click',    () => showCatMessage());
-  g.addEventListener('touchend', (e) => { e.preventDefault(); showCatMessage(); },
-    {passive:false});
+  g.addEventListener('click', () => showCatMessage());
+  g.addEventListener('touchend', (e) => {
+    e.preventDefault(); showCatMessage();
+  }, {passive:false});
 
   return g;
 }
@@ -706,10 +693,10 @@ function showCatMessage() {
   `;
   card.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-      <span style="font-size:30px;">🐄</span>
+      <span style="font-size:30px;">🐱</span>
       <div>
         <div style="font-size:13px;font-weight:700;color:#EC4899;">
-          Vaquita Sabia
+          Bigotes
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
           Habitante permanente del plantel
