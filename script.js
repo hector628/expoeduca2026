@@ -567,6 +567,20 @@ function buildFlag(x, y) {
   return g;
 }
 
+
+/* ─── Árbol ────────────────────────────────────── */
+function buildTree(x, y) {
+  const g = svgEl('g', {transform:`translate(${x},${y})`});
+  g.appendChild(svgEl('ellipse', {cx:0, cy:17, rx:13, ry:5, fill:'rgba(0,0,0,0.45)'}));
+  g.appendChild(svgEl('rect',    {x:-3, y:8, width:6, height:10, rx:2, fill:'#5D4037'}));
+  const leafColors = ['#2E7D32','#388E3C','#4CAF50','#66BB6A'];
+  [[0,-10,12],[0,-17,9]].forEach(([dx,dy,r],i) => {
+    g.appendChild(svgEl('circle', {cx:dx, cy:dy, r, fill:leafColors[i+2], opacity:'0.9'}));
+  });
+  g.appendChild(svgEl('circle', {cx:0, cy:-2, r:15, fill:leafColors[0], opacity:'0.9'}));
+  return g;
+}
+
 /* ─── Banca ────────────────────────────────────── */
 function buildBench(x, y) {
   const g = svgEl('g', {opacity:0.7});
