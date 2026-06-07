@@ -262,6 +262,9 @@ function buildSVGMap() {
 
   // Mascota — esquina superior derecha
   svg.appendChild(buildMascota(720, 10, 115, 115));
+
+  // Gato sabio
+  svg.appendChild(buildCat(170, 430));
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
@@ -601,6 +604,136 @@ function buildMascota(x, y, w, h) {
   });
   g.appendChild(img);
   return g;
+}
+
+/* ─── Gato Sabio ── */
+function buildCat(x, y) {
+  const g = svgEl('g', {class:'wise-cat', 'data-id':'cat',
+    transform:`translate(${x},${y})`, style:'cursor:pointer'});
+
+  // Sombra
+  g.appendChild(svgEl('ellipse', {cx:0, cy:22, rx:16, ry:5,
+    fill:'rgba(0,0,0,0.4)'}));
+
+  // Cuerpo
+  g.appendChild(svgEl('ellipse', {cx:0, cy:8, rx:14, ry:16,
+    fill:'#4A4A5A'}));
+
+  // Cabeza
+  g.appendChild(svgEl('circle', {cx:0, cy:-12, r:13,
+    fill:'#4A4A5A'}));
+
+  // Orejas
+  g.appendChild(svgEl('polygon', {
+    points:'-13,-22 -7,-8 -3,-22', fill:'#4A4A5A'}));
+  g.appendChild(svgEl('polygon', {
+    points:'13,-22 7,-8 3,-22',  fill:'#4A4A5A'}));
+  // Interior orejas
+  g.appendChild(svgEl('polygon', {
+    points:'-11,-20 -7,-10 -4,-20', fill:'#EC4899', opacity:'0.7'}));
+  g.appendChild(svgEl('polygon', {
+    points:'11,-20 7,-10 4,-20',  fill:'#EC4899', opacity:'0.7'}));
+
+  // Ojos
+  g.appendChild(svgEl('ellipse', {cx:-5, cy:-13, rx:3, ry:4,
+    fill:'#FACC15'}));
+  g.appendChild(svgEl('ellipse', {cx:5,  cy:-13, rx:3, ry:4,
+    fill:'#FACC15'}));
+  // Pupilas
+  g.appendChild(svgEl('ellipse', {cx:-5, cy:-13, rx:1.2, ry:3.5,
+    fill:'#000'}));
+  g.appendChild(svgEl('ellipse', {cx:5,  cy:-13, rx:1.2, ry:3.5,
+    fill:'#000'}));
+  // Brillo ojos
+  g.appendChild(svgEl('circle', {cx:-4, cy:-14, r:0.8, fill:'#fff'}));
+  g.appendChild(svgEl('circle', {cx:6,  cy:-14, r:0.8, fill:'#fff'}));
+
+  // Nariz
+  g.appendChild(svgEl('polygon', {
+    points:'0,-8 -2,-6 2,-6', fill:'#EC4899'}));
+
+  // Bigotes
+  [[-14,-7,-4,-7],[-14,-5,-4,-6],[4,-7,14,-7],[4,-6,14,-5]].forEach(
+    ([x1,y1,x2,y2]) => g.appendChild(svgEl('line', {
+      x1,y1,x2,y2, stroke:'rgba(255,255,255,0.6)', 'stroke-width':0.8
+    }))
+  );
+
+  // Cola
+  g.appendChild(svgEl('path', {
+    d:'M 10,18 Q 28,10 24,0 Q 20,-8 14,-4',
+    stroke:'#4A4A5A', 'stroke-width':5,
+    fill:'none', 'stroke-linecap':'round'
+  }));
+
+  // Animación idle — pulso suave en CSS
+  g.style.animation = 'catIdle 2.5s ease-in-out infinite';
+
+  // Etiqueta
+  const label = svgEl('text', {
+    x:0, y:32,
+    'font-family':"'Fira Code',monospace",
+    'font-size':'7', 'font-weight':'700',
+    fill:'#BFFF00', 'text-anchor':'middle'
+  });
+  label.textContent = '🐱 ???';
+  g.appendChild(label);
+
+  // Evento clic
+  g.addEventListener('click',    () => showCatMessage());
+  g.addEventListener('touchend', (e) => { e.preventDefault(); showCatMessage(); },
+    {passive:false});
+
+  return g;
+}
+
+function showCatMessage() {
+  // Cerrar si ya hay una abierta
+  const old = document.getElementById('cat-card');
+  if (old) { old.remove(); return; }
+
+  const card = document.createElement('div');
+  card.id = 'cat-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #EC4899;border-radius:16px;
+    padding:18px;z-index:500;
+    box-shadow:0 0 30px rgba(236,72,153,0.3);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  `;
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <span style="font-size:30px;">🐱</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#EC4899;">
+          Gato Sabio
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
+          Habitante permanente del plantel
+        </div>
+      </div>
+      <button onclick="document.getElementById('cat-card').remove()"
+        style="margin-left:auto;background:none;border:1px solid #EC4899;
+               color:#EC4899;width:26px;height:26px;border-radius:6px;
+               cursor:pointer;font-size:13px;font-family:'Fira Code',monospace;">
+        ✕
+      </button>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.8;
+                border-left:3px solid #EC4899;padding-left:12px;
+                font-style:italic;">
+      "Este gato ha presenciado once generaciones de estudiantes
+      y sabe más álgebra que tú."
+    </div>
+  `;
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
 }
 
 /* ═══════════════════════════════════════════════════
