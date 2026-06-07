@@ -51,7 +51,7 @@ const ACTIVIDADES_DEFAULT = [
   { id:'futbol',          nombre:'Cancha de Fútbol',              actividad:'Torneo Relámpago de Fútbol',        horario:'11:00 - 14:00', responsable:'Academia de Ed. Física',       descripcion:'Torneo relámpago entre equipos de cada grupo. ¡A meter goles!',                                     color:'#4ADE80', emoji:'⚽' },
   { id:'snte',            nombre:'SNTE',                           actividad:'Estimysterios',                     horario:'09:00 - 14:00', responsable:'Academia de Matemáticas',        descripcion:'Retos de estimación.',                                                                               color:'#EC4899', emoji:'📋' },
   { id:'terceros_primeros',nombre:'Salones Terceros / Primeros',   actividad:'Proyectos Integradores',            horario:'09:30 - 13:30', responsable:'Academia Interdisciplinaria',    descripcion:'Exposición de proyectos integradores: medio ambiente, historia local y matemáticas aplicadas.',      color:'#FACC15', emoji:'📚' },
-  { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'07:00 - 14:00', responsable:'Personal de Intendencia',        descripcion:'Mi estómago pidió refuerzos.',                                                                         color:'#38BDF8', emoji:'🚽' },
+  { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'Siempre abierto', responsable:'Personal de Intendencia',        descripcion:'¡Estuvo cerca la cosa, casi me gana!.',                                                             color:'#38BDF8', emoji:'🚽' },
   { id:'laboratorios',    nombre:'Laboratorios',                   actividad:'Experimentos de Ciencias',          horario:'09:00 - 13:00', responsable:'Academia de Ciencias Naturales', descripcion:'Experimentos interactivos de química, biología y física. ¡Ven a descubrir la ciencia!',               color:'#FACC15', emoji:'🔬' },
   { id:'audiovisual',     nombre:'Audiovisual Segundos Dirección', actividad:'Cine y Producciones Escolares',     horario:'10:00 - 13:00', responsable:'Academia de Español y Arte',     descripcion:'Proyección de cortometrajes y documentales producidos por alumnos de segundo grado y dirección.',    color:'#6B7280', emoji:'🎬' },
   { id:'domo1',           nombre:'Domo I',                         actividad:'Acto Cívico y Bienvenida',          horario:'09:00 - 09:30', responsable:'Dirección General',              descripcion:'Espacio principal para la inauguración. Presentaciones artísticas y discursos de bienvenida.',        color:'#94A3B8', emoji:'🎪' },
@@ -60,7 +60,7 @@ const ACTIVIDADES_DEFAULT = [
   { id:'taller_costura',  nombre:'Taller de Costura',              actividad:'Moda Sustentable',                  horario:'10:00 - 13:00', responsable:'Academia Tecnológica',           descripcion:'Exposición de prendas con materiales reciclados. Demostración en vivo de técnicas de costura.',       color:'#EC4899', emoji:'🪡' },
   { id:'bodega',          nombre:'Bodega',                         actividad:'Exposición de Materiales',          horario:'10:00 - 12:00', responsable:'Personal Administrativo',        descripcion:'Muestra de materiales didácticos y recursos educativos del ciclo escolar.',                            color:'#F97316', emoji:'📦' },
   { id:'tienda',          nombre:'Tienda Escolar',                 actividad:'Feria Gastronómica Estudiantil',    horario:'09:00 - 14:00', responsable:'Comité de Padres',               descripcion:'Venta de alimentos preparados por alumnos como proyecto emprendedor. ¡Antojitos y postres!',          color:'#F97316', emoji:'🍕' },
-  { id:'banos_contr',     nombre:'Contador de Baños',              actividad:'Servicios Sanitarios',              horario:'07:00 - 14:00', responsable:'Personal de Intendencia',        descripcion:'Mi estómago pidió refuerzos.',                                                                        color:'#38BDF8', emoji:'🚻' }
+  { id:'banos_contr',     nombre:'Contraloría Baños',              actividad:'Servicios Sanitarios',              horario:'Siempre abierto', responsable:'Personal de Intendencia',      descripcion:'Mi estómago pidió refuerzos.',                                                                        color:'#38BDF8', emoji:'🚻' }
 ];
 
 /* ═══════════════════════════════════════════════════
@@ -145,42 +145,44 @@ document.addEventListener('DOMContentLoaded', async () => {
 });
 
 function showNameModal() {
-  const overlay = document.createElement('div');
-  overlay.id = 'name-overlay';
-  overlay.style.cssText = `
-    position:fixed;inset:0;background:rgba(0,0,0,0.85);
-    display:flex;align-items:center;justify-content:center;
-    z-index:2000;padding:20px;
+  const card = document.createElement('div');
+  card.id = 'name-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #BFFF00;border-radius:16px;
+    padding:18px;z-index:500;
+    box-shadow:0 0 40px rgba(191,255,0,0.3);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
   `;
-  overlay.innerHTML = `
-    <div style="
-      background:#0d0d0d;border:2px solid #BFFF00;border-radius:16px;
-      padding:28px 24px;width:min(340px,100%);text-align:center;
-      box-shadow:0 0 40px rgba(191,255,0,0.3);font-family:'Fira Code',monospace;
-    ">
-      <div style="font-size:36px;margin-bottom:12px;">🐸</div>
-      <div style="font-size:16px;font-weight:700;color:#BFFF00;margin-bottom:6px;
-                  text-shadow:0 0 10px rgba(191,255,0,0.4);">
-        ¡Bienvenido a ExpoEduca 2026!
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:12px;">
+      <span style="font-size:26px;">🐸</span>
+      <div>
+        <div style="font-size:14px;font-weight:700;color:#BFFF00;">¡Ponle nombre a tu rana!</div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;">ExpoEduca 2026 · Dr. Gabino Barreda</div>
       </div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.6);margin-bottom:20px;line-height:1.6;">
-        Escribe tu nombre para ponerle identidad a tu rana exploradora.
-      </div>
-      <input id="name-input" type="text" maxlength="20" placeholder="Tu nombre..."
-        style="
-          width:100%;background:rgba(255,255,255,0.05);
-          border:2px solid rgba(191,255,0,0.4);border-radius:8px;
-          padding:12px;color:#BFFF00;font-family:'Fira Code',monospace;
-          font-size:16px;text-align:center;outline:none;margin-bottom:14px;
-        ">
-      <button id="name-btn" style="
-        width:100%;background:#BFFF00;border:none;border-radius:8px;
-        padding:12px;color:#000;font-family:'Fira Code',monospace;
-        font-size:14px;font-weight:700;cursor:pointer;
-      ">¡A explorar!</button>
     </div>
+    <input id="name-input" type="text" maxlength="20" placeholder="Escribe tu nombre..."
+      style="
+        width:100%;background:rgba(255,255,255,0.05);
+        border:2px solid rgba(191,255,0,0.35);border-radius:8px;
+        padding:10px 12px;color:#BFFF00;font-family:'Fira Code',monospace;
+        font-size:14px;outline:none;margin-bottom:10px;
+      ">
+    <button id="name-btn" style="
+      width:100%;background:#BFFF00;border:none;border-radius:8px;
+      padding:10px;color:#000;font-family:'Fira Code',monospace;
+      font-size:13px;font-weight:700;cursor:pointer;
+    ">¡A explorar! 🗺️</button>
   `;
-  document.body.appendChild(overlay);
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
 
   const input = document.getElementById('name-input');
   const btn   = document.getElementById('name-btn');
@@ -189,8 +191,8 @@ function showNameModal() {
   function confirm() {
     const name = input.value.trim() || 'Explorador';
     STATE.frogName = name;
-    document.getElementById('name-overlay').remove();
-    // Mostrar nombre en el header junto a la rana
+    card.style.transform = 'translateX(-50%) translateY(120%)';
+    setTimeout(() => card.remove(), 400);
     const hud = document.getElementById('progress-hud');
     const tag = document.createElement('span');
     tag.style.cssText = 'font-size:11px;color:#BFFF00;white-space:nowrap;font-family:"Fira Code",monospace;font-weight:600;';
@@ -326,54 +328,64 @@ function buildEntry(e) {
 }
 
 function showEntryQuestion(ex, ey) {
-  // Si ya respondió bien, solo mover la rana
   if (STATE.entryUnlocked) {
     jumpFrogTo(ex, ey);
     return;
   }
 
-  const overlay = document.createElement('div');
-  overlay.id = 'entry-overlay';
-  overlay.style.cssText = `
-    position:fixed;inset:0;background:rgba(0,0,0,0.88);
-    display:flex;align-items:center;justify-content:center;
-    z-index:2000;padding:20px;
+  // Cerrar si ya hay una abierta
+  const old = document.getElementById('entry-card');
+  if (old) old.remove();
+
+  const card = document.createElement('div');
+  card.id = 'entry-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #BFFF00;border-radius:16px;
+    padding:18px;z-index:500;
+    box-shadow:0 0 40px rgba(191,255,0,0.3);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
   `;
-  overlay.innerHTML = `
-    <div style="
-      background:#0d0d0d;border:2px solid #BFFF00;border-radius:16px;
-      padding:28px 24px;width:min(380px,100%);
-      box-shadow:0 0 40px rgba(191,255,0,0.3);font-family:'Fira Code',monospace;
-    ">
-      <div style="font-size:13px;font-weight:700;color:#BFFF00;margin-bottom:16px;
-                  line-height:1.7;text-shadow:0 0 8px rgba(191,255,0,0.3);">
-        🧠 De forma individual, y sin olvidar que eres parte de una comunidad
+  card.innerHTML = `
+    <div style="display:flex;align-items:flex-start;gap:10px;margin-bottom:12px;">
+      <span style="font-size:22px;flex-shrink:0;">🧠</span>
+      <div style="font-size:11px;color:rgba(255,255,255,0.75);line-height:1.7;">
+        De forma individual, y sin olvidar que eres parte de una comunidad
         emancipada que será guiada hacia la liberación por una vanguardia
         revolucionaria y humanista, responde:
       </div>
-      <div style="font-size:22px;font-weight:700;color:#FACC15;text-align:center;
-                  margin-bottom:20px;text-shadow:0 0 10px rgba(250,204,21,0.4);">
-        ¿Cuánto es 2 + 2?
-      </div>
-      <input id="entry-input" type="number" min="0" max="99" placeholder="Tu respuesta..."
+    </div>
+    <div style="font-size:18px;font-weight:700;color:#FACC15;text-align:center;
+                margin-bottom:14px;text-shadow:0 0 8px rgba(250,204,21,0.4);">
+      ¿Cuánto es 2 + 2?
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input id="entry-input" type="number" min="0" max="99" placeholder="?"
         style="
-          width:100%;background:rgba(255,255,255,0.05);
-          border:2px solid rgba(191,255,0,0.4);border-radius:8px;
-          padding:12px;color:#BFFF00;font-family:'Fira Code',monospace;
-          font-size:20px;text-align:center;outline:none;margin-bottom:12px;
+          flex:1;background:rgba(255,255,255,0.05);
+          border:2px solid rgba(191,255,0,0.35);border-radius:8px;
+          padding:10px;color:#BFFF00;font-family:'Fira Code',monospace;
+          font-size:18px;font-weight:700;text-align:center;outline:none;
         ">
-      <div id="entry-feedback" style="
-        min-height:18px;font-size:11px;text-align:center;
-        color:#ef4444;margin-bottom:12px;
-      "></div>
       <button id="entry-btn" style="
-        width:100%;background:#BFFF00;border:none;border-radius:8px;
-        padding:12px;color:#000;font-family:'Fira Code',monospace;
-        font-size:14px;font-weight:700;cursor:pointer;
+        background:#BFFF00;border:none;border-radius:8px;
+        padding:10px 16px;color:#000;font-family:'Fira Code',monospace;
+        font-size:13px;font-weight:700;cursor:pointer;white-space:nowrap;
       ">Entrar</button>
     </div>
+    <div id="entry-feedback" style="
+      min-height:16px;font-size:11px;text-align:center;
+      color:#ef4444;margin-top:8px;
+    "></div>
   `;
-  document.body.appendChild(overlay);
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
 
   const input    = document.getElementById('entry-input');
   const btn      = document.getElementById('entry-btn');
@@ -383,18 +395,16 @@ function showEntryQuestion(ex, ey) {
   function tryEnter() {
     const val = parseInt(input.value.trim());
     if (val === 4) {
-      // ¡Correcto!
       STATE.entryUnlocked = true;
-      overlay.remove();
-      // Mover la rana a la entrada
+      card.style.transform = 'translateX(-50%) translateY(120%)';
+      setTimeout(() => card.remove(), 400);
       jumpFrogTo(ex, ey);
-      // Mostrar bienvenida
-      setTimeout(() => showWelcome(), 600);
+      setTimeout(() => showWelcome(), 700);
     } else {
       feedback.textContent = '❌ Respuesta incorrecta. ¡Piénsalo bien!';
       input.style.borderColor = '#ef4444';
       setTimeout(() => {
-        input.style.borderColor = 'rgba(191,255,0,0.4)';
+        input.style.borderColor = 'rgba(191,255,0,0.35)';
         feedback.textContent = '';
       }, 1200);
     }
@@ -406,51 +416,47 @@ function showEntryQuestion(ex, ey) {
 
 function showWelcome() {
   const name = STATE.frogName || 'Explorador';
-  const overlay = document.createElement('div');
-  overlay.id = 'welcome-overlay';
-  overlay.style.cssText = `
-    position:fixed;inset:0;background:rgba(0,0,0,0.75);
-    display:flex;align-items:center;justify-content:center;
-    z-index:2000;padding:20px;
+  const card = document.createElement('div');
+  card.id = 'welcome-overlay';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #BFFF00;border-radius:16px;
+    padding:18px;z-index:500;
+    box-shadow:0 0 40px rgba(191,255,0,0.4);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
   `;
-  overlay.innerHTML = `
-    <div style="
-      background:#0d0d0d;border:2px solid #BFFF00;border-radius:16px;
-      padding:32px 24px;width:min(340px,100%);text-align:center;
-      box-shadow:0 0 50px rgba(191,255,0,0.4);font-family:'Fira Code',monospace;
-      animation:popIn 0.4s cubic-bezier(.34,1.56,.64,1);
-    ">
-      <style>@keyframes popIn{from{transform:scale(0.8);opacity:0;}to{transform:scale(1);opacity:1;}}</style>
-      <div style="font-size:48px;margin-bottom:14px;">🐸</div>
-      <div style="font-size:18px;font-weight:700;color:#BFFF00;
-                  text-shadow:0 0 14px rgba(191,255,0,0.5);margin-bottom:8px;">
-        ¡Bienvenido, ${name}!
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px;">
+      <span style="font-size:32px;">🐸</span>
+      <div>
+        <div style="font-size:15px;font-weight:700;color:#BFFF00;
+                    text-shadow:0 0 10px rgba(191,255,0,0.4);">
+          ¡Bienvenido, ${name}!
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.5);margin-top:2px;">
+          Tu rana ya está dentro de la escuela
+        </div>
       </div>
-      <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:22px;">
-        Tu rana ya está dentro de la escuela.<br>
-        Explora todos los espacios de ExpoEduca 2026.
-      </div>
-      <button style="
-        background:#BFFF00;border:none;border-radius:8px;
-        padding:12px 32px;color:#000;font-family:'Fira Code',monospace;
-        font-size:14px;font-weight:700;cursor:pointer;
-      " onclick="document.getElementById('welcome-overlay').remove()">¡A explorar! 🗺️</button>
     </div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.65);line-height:1.7;margin-bottom:14px;">
+      Explora todos los espacios de ExpoEduca 2026.<br>
+      Acércate a los edificios para descubrirlos. 🗺️
+    </div>
+    <button onclick="document.getElementById('welcome-overlay').remove()"
+      style="
+        width:100%;background:#BFFF00;border:none;border-radius:8px;
+        padding:10px;color:#000;font-family:'Fira Code',monospace;
+        font-size:13px;font-weight:700;cursor:pointer;
+      ">¡A explorar!</button>
   `;
-  document.body.appendChild(overlay);
-}
-
-/* ─── Árbol ────────────────────────────────────── */
-function buildTree(x, y) {
-  const g = svgEl('g', {transform:`translate(${x},${y})`});
-  g.appendChild(svgEl('ellipse', {cx:0, cy:17, rx:13, ry:5, fill:'rgba(0,0,0,0.45)'}));
-  g.appendChild(svgEl('rect',    {x:-3, y:8, width:6, height:10, rx:2, fill:'#5D4037'}));
-  const leafColors = ['#2E7D32','#388E3C','#4CAF50','#66BB6A'];
-  [[0,-10,12],[0,-17,9]].forEach(([dx,dy,r],i) => {
-    g.appendChild(svgEl('circle', {cx:dx, cy:dy, r, fill:leafColors[i+2], opacity:'0.9'}));
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
   });
-  g.appendChild(svgEl('circle', {cx:0, cy:-2, r:15, fill:leafColors[0], opacity:'0.9'}));
-  return g;
 }
 
 /* ─── Edificio ─────────────────────────────────── */
