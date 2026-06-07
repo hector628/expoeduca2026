@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="theme-color" content="#000000">
   <title>Misión Matemáticas · ExpoEduca 2026</title>
+  <!-- Favicon igual que el mapa principal -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23000'/><text y='24' x='4' font-size='22'>🐸</text></svg>">
+  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='6' fill='%23000'/><text y='24' x='4' font-size='22'>🐸</text></svg>">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
   <style>
@@ -83,10 +86,13 @@
     }
     .vaso-img {
       width: 100%;
-      height: auto;        /* altura automática = imagen completa, sin recorte */
-      max-height: none;    /* sin límite de altura */
+      height: auto;
       display: block;
-      object-fit: unset;   /* desactivar cover que recortaba */
+      max-height: 320px;        /* límite en escritorio */
+      object-fit: contain;      /* muestra completa sin recorte */
+    }
+    @media (max-width: 600px) {
+      .vaso-img { max-height: none; } /* en celular sin límite */
     }
     .intro-text {
       padding:14px 16px;
@@ -431,12 +437,12 @@ const CLUES = [
 ];
 
 const ANSWER = 39;
-const SEEN   = new Set(JSON.parse(localStorage.getItem('mat_seen') || '[]'));
-let finalAttempts = parseInt(localStorage.getItem('mat_attempts') || '0');
-let solved = localStorage.getItem('mat_solved') === '1';
+const SEEN   = new Set();   // reinicia cada visita
+let finalAttempts = 0;
+let solved = false;
 let userEstimate = null;
 
-function saveSeen() { localStorage.setItem('mat_seen', JSON.stringify([...SEEN])); }
+function saveSeen() { /* sin persistencia — reinicia cada visita */ }
 
 /* ── Render pistas ── */
 function render() {
@@ -561,13 +567,12 @@ function checkFinal() {
   }
   userEstimate = val;
   finalAttempts++;
-  localStorage.setItem('mat_attempts', finalAttempts);
+  // sin persistencia
 
   if (val === ANSWER) {
     // ¡Correcto!
     inp.classList.add('right');
     solved = true;
-    localStorage.setItem('mat_solved', '1');
     showFinal(true, val);
     showToast('🎉 ¡Correcto!', 'var(--lime)');
   } else {
