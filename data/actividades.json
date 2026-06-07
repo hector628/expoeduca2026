@@ -43,11 +43,11 @@
     "id": "banos",
     "nombre": "Baños",
     "actividad": "Servicios Sanitarios",
-    "horario": "07:00 - 14:00",
+    "horario": "Siempre abierto",
     "responsable": "Personal de Intendencia",
-    "descripcion": "Instalaciones sanitarias disponibles para visitantes y alumnos durante todo el evento.",
+    "descripcion": "Peligro: Zona de riesgo biológico. Vapores en niveles tóxicos. Entre bajo su propio riesgo de asfixia.",
     "color": "#38BDF8",
-    "emoji": "🚿"
+    "emoji": "🚽"
   },
   {
     "id": "laboratorios",
@@ -85,7 +85,7 @@
     "actividad": "IA y Robótica",
     "horario": "10:00 - 12:00",
     "responsable": "Academia de Tecnología",
-    "descripcion": "Demostración de proyectos de inteligencia artificial y robótica desarrollados por los alumnos.",
+    "descripcion": "Error 404: Procesador Intel Celeron de 2008 detectado",
     "color": "#8B5CF6",
     "emoji": "🤖"
   },
@@ -125,7 +125,7 @@
     "actividad": "Feria Gastronómica Estudiantil",
     "horario": "09:00 - 14:00",
     "responsable": "Comité de Padres de Familia",
-    "descripcion": "Venta de alimentos preparados por alumnos como proyecto emprendedor. ¡Antojitos y postres!",
+    "descripcion": "Papas locas con salsa sospechosa que desafía las leyes de la Cofepris.",
     "color": "#F97316",
     "emoji": "🍕"
   },
@@ -133,9 +133,9 @@
     "id": "banos_contr",
     "nombre": "Contador de Baños",
     "actividad": "Servicios Sanitarios",
-    "horario": "07:00 - 14:00",
+    "horario": "Siempre abierto",
     "responsable": "Personal de Intendencia",
-    "descripcion": "Módulo adicional de sanitarios para visitantes del evento ExpoEduca 2026.",
+    "descripcion": "Peligro: Zona de riesgo biológico. Vapores en niveles tóxicos. Entre bajo su propio riesgo de asfixia.",
     "color": "#38BDF8",
     "emoji": "🚻"
   }
