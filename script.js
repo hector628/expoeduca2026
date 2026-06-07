@@ -263,8 +263,11 @@ function buildSVGMap() {
   // Mascota — esquina superior derecha
   svg.appendChild(buildMascota(720, 10, 115, 115));
 
-  // Gato Bigotes
+  // Vaquita sabia
   svg.appendChild(buildCat(170, 430));
+
+  // Cartón de leche — junto a la tienda escolar (x:498+140=638, y:385)
+  svg.appendChild(buildMilk(648, 385));
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
@@ -606,70 +609,77 @@ function buildMascota(x, y, w, h) {
   return g;
 }
 
-/* ─── Gato Bigotes ── */
+/* ─── Vaquita Sabia ── */
 function buildCat(x, y) {
   const g = svgEl('g', {class:'wise-cat', 'data-id':'cat',
     transform:`translate(${x},${y})`, style:'cursor:pointer'});
 
   // Sombra
-  g.appendChild(svgEl('ellipse', {cx:0, cy:22, rx:16, ry:5,
+  g.appendChild(svgEl('ellipse', {cx:0, cy:26, rx:18, ry:6,
     fill:'rgba(0,0,0,0.4)'}));
 
-  // Cuerpo
-  g.appendChild(svgEl('ellipse', {cx:0, cy:8, rx:14, ry:16,
-    fill:'#4A4A5A'}));
+  // Cuerpo blanco
+  g.appendChild(svgEl('ellipse', {cx:0, cy:10, rx:17, ry:18,
+    fill:'#FFFFFF'}));
 
-  // Cabeza
-  g.appendChild(svgEl('circle', {cx:0, cy:-12, r:13,
-    fill:'#4A4A5A'}));
+  // Manchas negras cuerpo
+  g.appendChild(svgEl('ellipse', {cx:-6, cy:4,  rx:7, ry:9,
+    fill:'#1A1A1A', opacity:'0.85'}));
+  g.appendChild(svgEl('ellipse', {cx:9,  cy:14, rx:5, ry:6,
+    fill:'#1A1A1A', opacity:'0.85'}));
 
-  // Orejas
-  g.appendChild(svgEl('polygon', {
-    points:'-13,-22 -7,-8 -3,-22', fill:'#4A4A5A'}));
-  g.appendChild(svgEl('polygon', {
-    points:'13,-22 7,-8 3,-22',  fill:'#4A4A5A'}));
-  // Interior orejas
-  g.appendChild(svgEl('polygon', {
-    points:'-11,-20 -7,-10 -4,-20', fill:'#EC4899', opacity:'0.7'}));
-  g.appendChild(svgEl('polygon', {
-    points:'11,-20 7,-10 4,-20',  fill:'#EC4899', opacity:'0.7'}));
+  // Patas
+  g.appendChild(svgEl('ellipse', {cx:-11, cy:24, rx:5, ry:4, fill:'#FFFFFF'}));
+  g.appendChild(svgEl('ellipse', {cx:11,  cy:24, rx:5, ry:4, fill:'#FFFFFF'}));
 
-  // Ojos
-  g.appendChild(svgEl('ellipse', {cx:-5, cy:-13, rx:3, ry:4,
-    fill:'#FACC15'}));
-  g.appendChild(svgEl('ellipse', {cx:5,  cy:-13, rx:3, ry:4,
-    fill:'#FACC15'}));
-  // Pupilas
-  g.appendChild(svgEl('ellipse', {cx:-5, cy:-13, rx:1.2, ry:3.5,
-    fill:'#000'}));
-  g.appendChild(svgEl('ellipse', {cx:5,  cy:-13, rx:1.2, ry:3.5,
-    fill:'#000'}));
-  // Brillo ojos
-  g.appendChild(svgEl('circle', {cx:-4, cy:-14, r:0.8, fill:'#fff'}));
-  g.appendChild(svgEl('circle', {cx:6,  cy:-14, r:0.8, fill:'#fff'}));
+  // Cabeza blanca
+  g.appendChild(svgEl('circle', {cx:0, cy:-14, r:14, fill:'#FFFFFF'}));
 
-  // Nariz
-  g.appendChild(svgEl('polygon', {
-    points:'0,-8 -2,-6 2,-6', fill:'#EC4899'}));
+  // Mancha negra cabeza
+  g.appendChild(svgEl('ellipse', {cx:5, cy:-14, rx:7, ry:9,
+    fill:'#1A1A1A', opacity:'0.8'}));
 
-  // Bigotes
-  [[-14,-7,-4,-7],[-14,-5,-4,-6],[4,-7,14,-7],[4,-6,14,-5]].forEach(
-    ([x1,y1,x2,y2]) => g.appendChild(svgEl('line', {
-      x1,y1,x2,y2, stroke:'rgba(255,255,255,0.6)', 'stroke-width':0.8
-    }))
-  );
+  // Orejas redondas (vaca, no puntiagudas)
+  g.appendChild(svgEl('ellipse', {cx:-14, cy:-22, rx:5, ry:4, fill:'#FFFFFF'}));
+  g.appendChild(svgEl('ellipse', {cx:14,  cy:-22, rx:5, ry:4, fill:'#FFFFFF'}));
+  g.appendChild(svgEl('ellipse', {cx:-14, cy:-22, rx:3, ry:2.5, fill:'#F9A8D4', opacity:'0.8'}));
+  g.appendChild(svgEl('ellipse', {cx:14,  cy:-22, rx:3, ry:2.5, fill:'#F9A8D4', opacity:'0.8'}));
 
-  // Cola
+  // Cuernos
+  g.appendChild(svgEl('rect', {x:-11, y:-34, width:4, height:10, rx:2, fill:'#D4A017'}));
+  g.appendChild(svgEl('rect', {x:7,   y:-34, width:4, height:10, rx:2, fill:'#D4A017'}));
+  g.appendChild(svgEl('circle', {cx:-9,  cy:-35, r:2.5, fill:'#F5C842'}));
+  g.appendChild(svgEl('circle', {cx:9,   cy:-35, r:2.5, fill:'#F5C842'}));
+
+  // Hocico
+  g.appendChild(svgEl('ellipse', {cx:0, cy:-10, rx:7, ry:5, fill:'#F5E6D3'}));
+  g.appendChild(svgEl('ellipse', {cx:-3, cy:-9,  rx:2, ry:1.5, fill:'#D4A0A0', opacity:'0.7'}));
+  g.appendChild(svgEl('ellipse', {cx:3,  cy:-9,  rx:2, ry:1.5, fill:'#D4A0A0', opacity:'0.7'}));
+
+  // Boca
   g.appendChild(svgEl('path', {
-    d:'M 10,18 Q 28,10 24,0 Q 20,-8 14,-4',
-    stroke:'#4A4A5A', 'stroke-width':5,
-    fill:'none', 'stroke-linecap':'round'
+    d:'M -3,-6 Q 0,-4 3,-6',
+    stroke:'#888', 'stroke-width':1, fill:'none', 'stroke-linecap':'round'
   }));
 
-  // Animación idle — pulso suave en CSS
+  // Ojos
+  g.appendChild(svgEl('circle', {cx:-5, cy:-16, r:3.5, fill:'#1A1A1A'}));
+  g.appendChild(svgEl('circle', {cx:5,  cy:-16, r:3.5, fill:'#1A1A1A'}));
+  g.appendChild(svgEl('circle', {cx:-4, cy:-17, r:1.2, fill:'#fff'}));
+  g.appendChild(svgEl('circle', {cx:6,  cy:-17, r:1.2, fill:'#fff'}));
+
+  // Cola con punta
+  g.appendChild(svgEl('path', {
+    d:'M 14,16 Q 30,6 26,-6',
+    stroke:'#CCCCCC', 'stroke-width':4,
+    fill:'none', 'stroke-linecap':'round'
+  }));
+  g.appendChild(svgEl('ellipse', {cx:26, cy:-8, rx:4, ry:6,
+    fill:'#999', opacity:'0.8'}));
+
+  // Animación
   g.style.animation = 'catIdle 2.5s ease-in-out infinite';
 
-  // Evento clic
   g.addEventListener('click',    () => showCatMessage());
   g.addEventListener('touchend', (e) => { e.preventDefault(); showCatMessage(); },
     {passive:false});
@@ -678,7 +688,6 @@ function buildCat(x, y) {
 }
 
 function showCatMessage() {
-  // Cerrar si ya hay una abierta
   const old = document.getElementById('cat-card');
   if (old) { old.remove(); return; }
 
@@ -697,10 +706,10 @@ function showCatMessage() {
   `;
   card.innerHTML = `
     <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
-      <span style="font-size:30px;">🐱</span>
+      <span style="font-size:30px;">🐄</span>
       <div>
         <div style="font-size:13px;font-weight:700;color:#EC4899;">
-          Bigotes
+          Vaquita Sabia
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
           Habitante permanente del plantel
@@ -718,6 +727,164 @@ function showCatMessage() {
                 font-style:italic;">
       "Este gato antes era un estudiante, luego fue maestro, ahora es un gato. ¡Cuidado el siguiente podrías ser tú!"
     </div>
+  `;
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
+}
+
+/* ─── Cartón de Leche ── */
+function buildMilk(x, y) {
+  const g = svgEl('g', {transform:`translate(${x},${y})`,
+    style:'cursor:pointer'});
+
+  // Sombra
+  g.appendChild(svgEl('ellipse', {cx:0, cy:28, rx:12, ry:4,
+    fill:'rgba(0,0,0,0.4)'}));
+
+  // Cuerpo
+  g.appendChild(svgEl('rect', {x:-11, y:-5, width:22, height:32,
+    rx:2, fill:'#F0F4FF'}));
+
+  // Techo izquierdo
+  g.appendChild(svgEl('polygon', {
+    points:'-11,-5 0,-22 0,-5', fill:'#E2E8FF'}));
+
+  // Techo derecho
+  g.appendChild(svgEl('polygon', {
+    points:'11,-5 0,-22 0,-5', fill:'#CBD5FF'}));
+
+  // Franja roja
+  g.appendChild(svgEl('rect', {x:-11, y:4, width:22, height:5,
+    fill:'#EF4444', opacity:'0.85'}));
+
+  // Texto LECHE
+  const txt = svgEl('text', {
+    x:0, y:16,
+    'font-family':"'Fira Code',monospace",
+    'font-size':'5.5', 'font-weight':'700',
+    fill:'#1E3A8A', 'text-anchor':'middle'
+  });
+  txt.textContent = 'LECHE';
+  g.appendChild(txt);
+
+  // Ojos (conciencia)
+  g.appendChild(svgEl('circle', {cx:-4, cy:9, r:2.5, fill:'#1E3A8A'}));
+  g.appendChild(svgEl('circle', {cx:4,  cy:9, r:2.5, fill:'#1E3A8A'}));
+  g.appendChild(svgEl('circle', {cx:-3, cy:8, r:0.9, fill:'#fff'}));
+  g.appendChild(svgEl('circle', {cx:5,  cy:8, r:0.9, fill:'#fff'}));
+
+  // Boca seria
+  g.appendChild(svgEl('path', {
+    d:'M -3,21 Q 0,19 3,21',
+    stroke:'#1E3A8A', 'stroke-width':1,
+    fill:'none', 'stroke-linecap':'round'
+  }));
+
+  // Animación
+  g.style.animation = 'catIdle 3.8s ease-in-out infinite';
+
+  g.addEventListener('click',    () => showMilkMessage());
+  g.addEventListener('touchend', (e) => {
+    e.preventDefault(); showMilkMessage();
+  }, {passive:false});
+
+  return g;
+}
+
+function showMilkMessage() {
+  const old = document.getElementById('milk-card');
+  if (old) { old.remove(); return; }
+
+  const card = document.createElement('div');
+  card.id = 'milk-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #60A5FA;border-radius:16px;
+    padding:18px;z-index:500;
+    box-shadow:0 0 30px rgba(96,165,250,0.3);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  `;
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <span style="font-size:28px;">🥛</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#60A5FA;">
+          Cartón de Leche
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
+          Residente desde hace 16 años
+        </div>
+      </div>
+      <button onclick="document.getElementById('milk-card').remove()"
+        style="margin-left:auto;background:none;border:1px solid #60A5FA;
+               color:#60A5FA;width:26px;height:26px;border-radius:6px;
+               cursor:pointer;font-size:13px;font-family:'Fira Code',monospace;">
+        ✕
+      </button>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.8;
+                border-left:3px solid #60A5FA;padding-left:12px;
+                font-style:italic;">
+      "Cartón de leche abandonado en la cafetería hace 16 años.
+      Ha desarrollado conciencia. Ahora observa a los estudiantes
+      y juzga sus decisiones."
+    </div>
+  `;
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
+}
+
+/* ─── Tarjeta de felicitación al completar todos los lugares ── */
+function showCompleteCard() {
+  const old = document.getElementById('complete-card');
+  if (old) return;
+
+  const card = document.createElement('div');
+  card.id = 'complete-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.95);
+    border:2px solid #BFFF00;border-radius:16px;
+    padding:20px;z-index:500;
+    box-shadow:0 0 40px rgba(191,255,0,0.4);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+    text-align:center;
+  `;
+  card.innerHTML = `
+    <div style="font-size:36px;margin-bottom:10px;">🎉</div>
+    <div style="font-size:15px;font-weight:700;color:#BFFF00;
+                text-shadow:0 0 12px rgba(191,255,0,0.5);margin-bottom:6px;">
+      ¡Mapa Completo!
+    </div>
+    <div style="font-size:13px;font-weight:700;color:#FACC15;margin-bottom:12px;">
+      Bienvenido al Turno Vespertino
+    </div>
+    <div style="font-size:11px;color:rgba(255,255,255,0.7);
+                line-height:1.8;margin-bottom:16px;
+                border-top:1px solid rgba(191,255,0,0.15);
+                padding-top:12px;">
+      Has explorado los <strong style="color:#BFFF00;">13 espacios</strong>
+      de la Escuela Secundaria<br>
+      <strong style="color:#FACC15;">Dr. Gabino Barreda</strong><br>
+      Turno Vespertino · ExpoEduca 2026 🐸
+    </div>
+    <button onclick="document.getElementById('complete-card').remove()"
+      style="width:100%;background:#BFFF00;border:none;border-radius:8px;
+             padding:10px;color:#000;font-family:'Fira Code',monospace;
+             font-size:13px;font-weight:700;cursor:pointer;">
+      ¡Gracias por explorar! 🗺️
+    </button>
   `;
   document.body.appendChild(card);
   requestAnimationFrame(() => {
@@ -992,6 +1159,13 @@ function checkAchievements() {
       showAchievement(ach);
     }
   });
+
+  // Tarjeta especial al completar todos los lugares
+  if (STATE.discovered.size >= BUILDINGS.length &&
+      !STATE.unlockedAchievements.has('complete_card')) {
+    STATE.unlockedAchievements.add('complete_card');
+    setTimeout(() => showCompleteCard(), 1200);
+  }
 }
 
 function showAchievement(ach) {
