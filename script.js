@@ -598,7 +598,7 @@ function buildBench(x, y) {
 
 /* ─── Mascota ── */
 function buildMascota(x, y, w, h) {
-  const g = svgEl('g', {});
+  const g = svgEl('g', {style:'cursor:pointer'});
   const img = svgEl('image', {
     href: 'assets/mascota.png',
     x: x, y: y, width: w, height: h,
@@ -606,7 +606,60 @@ function buildMascota(x, y, w, h) {
     'image-rendering': 'optimizeQuality'
   });
   g.appendChild(img);
+
+  g.addEventListener('click', () => showMascotaMessage());
+  g.addEventListener('touchend', (e) => {
+    e.preventDefault(); showMascotaMessage();
+  }, {passive:false});
+
   return g;
+}
+
+function showMascotaMessage() {
+  const old = document.getElementById('mascota-card');
+  if (old) { old.remove(); return; }
+
+  const card = document.createElement('div');
+  card.id = 'mascota-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #BFFF00;border-radius:16px;
+    padding:18px;z-index:500;
+    box-shadow:0 0 30px rgba(191,255,0,0.3);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  `;
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <span style="font-size:28px;">🐸</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#BFFF00;">
+          Mascota Oficial
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
+          Turno Vespertino · Dr. Gabino Barreda
+        </div>
+      </div>
+      <button onclick="document.getElementById('mascota-card').remove()"
+        style="margin-left:auto;background:none;border:1px solid #BFFF00;
+               color:#BFFF00;width:26px;height:26px;border-radius:6px;
+               cursor:pointer;font-size:13px;font-family:'Fira Code',monospace;">
+        ✕
+      </button>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.85);line-height:1.8;
+                border-left:3px solid #BFFF00;padding-left:12px;
+                font-style:italic;">
+      "El turno matutino llega primero a la escuela; el VESPERTINO llega primero a la META. 🏆"
+    </div>
+  `;
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
 }
 
 /* ─── Gato Bigotes ── */
