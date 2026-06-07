@@ -22,12 +22,12 @@
   {
     "id": "snte",
     "nombre": "SNTE",
-    "actividad": "Información Sindical y Cultura",
+    "actividad": "Retos de estimación.",
     "horario": "09:00 - 14:00",
-    "responsable": "Representante Sindical",
-    "descripcion": "Información sobre derechos laborales y actividades culturales del SNTE.",
+    "responsable": "Academia de Matemáticas",
+    "descripcion": "Calculo de valores aproximados sin realizar un conteo o medición exacta.",
     "color": "#EC4899",
-    "emoji": "📋"
+    "emoji": "🔢"
   },
   {
     "id": "terceros_primeros",
