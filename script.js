@@ -264,6 +264,19 @@ function buildSVGMap() {
   svg.appendChild(buildMascota(720, 10, 115, 115));
 }
 
+/* ─── Mascota ── */
+function buildMascota(x, y, w, h) {
+  const g = svgEl('g', {});
+  const img = svgEl('image', {
+    href: 'assets/mascota.png',
+    x: x, y: y, width: w, height: h,
+    preserveAspectRatio: 'xMidYMid meet',
+    'image-rendering': 'optimizeQuality'
+  });
+  g.appendChild(img);
+  return g;
+}
+
 /* ─── SVG Defs ─────────────────────────────────── */
 function createSVGDefs() {
   const defs = svgEl('defs', {});
