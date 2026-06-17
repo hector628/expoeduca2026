@@ -1184,53 +1184,61 @@ function playBip() {
 STATE.musicPlaying = false;
 STATE.musicTimeouts = [];
 
-// Notas en Hz — escala pentatónica alegre
+// Notas en Hz — escala pentatónica
 const MELODY = [
-  // Frase 1: arpegio menor ascendente, tensión moderna
-  {note: 220.00, dur: 0.18}, // A3
-  {note: 261.63, dur: 0.18}, // C4
+  // Golpe de apertura, fuerte y directo
+  {note: 220.00, dur: 0.35}, // A3 — golpe
+  {note: 0,      dur: 0.05},
+  {note: 261.63, dur: 0.35}, // C4 — golpe
+  {note: 0,      dur: 0.05},
+
+  // Subida dramática
   {note: 329.63, dur: 0.18}, // E4
-  {note: 440.00, dur: 0.28}, // A4 (acento)
-  {note: 0,      dur: 0.08},
+  {note: 392.00, dur: 0.18}, // G4
+  {note: 440.00, dur: 0.5},  // A4 — clímax sostenido
+  {note: 0,      dur: 0.15},
 
-  // Frase 2: salto dramático con caída
-  {note: 523.25, dur: 0.22}, // C5
-  {note: 392.00, dur: 0.14}, // G4
-  {note: 440.00, dur: 0.22}, // A4
-  {note: 0,      dur: 0.12},
+  // Segunda ola, más alta
+  {note: 440.00, dur: 0.18}, // A4
+  {note: 523.25, dur: 0.18}, // C5
+  {note: 587.33, dur: 0.6},  // D5 — clímax más alto, sostenido
+  {note: 0,      dur: 0.2},
 
-  // Frase 3: corrida sincopada, sensación de movimiento
-  {note: 329.63, dur: 0.12}, // E4
-  {note: 392.00, dur: 0.1},  // G4
-  {note: 440.00, dur: 0.12}, // A4
-  {note: 523.25, dur: 0.1},  // C5
-  {note: 587.33, dur: 0.22}, // D5 (clímax)
-  {note: 0,      dur: 0.1},
-
-  // Frase 4: resolución con séptima, sabor más "actual"
-  {note: 493.88, dur: 0.16}, // B4
-  {note: 392.00, dur: 0.16}, // G4
-  {note: 440.00, dur: 0.4},  // A4 (cierre suspendido, no resuelve del todo)
-  {note: 0,      dur: 0.5},  // silencio antes del loop
+  // Resolución poderosa
+  {note: 523.25, dur: 0.18}, // C5
+  {note: 440.00, dur: 0.18}, // A4
+  {note: 329.63, dur: 0.18}, // E4
+  {note: 220.00, dur: 0.7},  // A3 — cierre grave y largo
+  {note: 0,      dur: 0.5},
 ];
 
 function playMusicNote(freq, duration, startTime) {
-  if (freq === 0) return; // silencio, no generar onda
-  const ctx  = STATE.audioCtx;
-  const osc  = ctx.createOscillator();
-  const gain = ctx.createGain();
+  if (freq === 0) return;
+  const ctx = STATE.audioCtx;
 
-  osc.connect(gain);
-  gain.connect(ctx.destination);
+  // Voz principal (melodía)
+  const osc1  = ctx.createOscillator();
+  const gain1 = ctx.createGain();
+  osc1.connect(gain1);
+  gain1.connect(ctx.destination);
+  osc1.type = 'sawtooth';
+  osc1.frequency.setValueAtTime(freq, startTime);
+  gain1.gain.setValueAtTime(0.15, startTime);
+  gain1.gain.exponentialRampToValueAtTime(0.001, startTime + duration * 0.9);
+  osc1.start(startTime);
+  osc1.stop(startTime + duration);
 
-  osc.type = 'sawtooth'; // onda diente de sierra = más rica armónicamente, sonido más "sintetizador moderno"
-  osc.frequency.setValueAtTime(freq, startTime);
-
-  gain.gain.setValueAtTime(0.05, startTime); // volumen bajo, ambiental
-  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration * 0.9);
-
-  osc.start(startTime);
-  osc.stop(startTime + duration);
+  // Voz de refuerzo (una octava abajo, da grosor "épico")
+  const osc2  = ctx.createOscillator();
+  const gain2 = ctx.createGain();
+  osc2.connect(gain2);
+  gain2.connect(ctx.destination);
+  osc2.type = 'triangle';
+  osc2.frequency.setValueAtTime(freq / 2, startTime);
+  gain2.gain.setValueAtTime(0.1, startTime);
+  gain2.gain.exponentialRampToValueAtTime(0.001, startTime + duration * 0.9);
+  osc2.start(startTime);
+  osc2.stop(startTime + duration);
 }
 
 function playMelodyLoop() {
