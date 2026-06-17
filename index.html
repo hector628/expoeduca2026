@@ -151,33 +151,18 @@
 <script src="script.js"></script>
 <script data-goatcounter="https://expoeduca.goatcounter.com/count"
         async src="//gc.zgo.at/count.js"></script>
+
 <script>
   var t = setInterval(function() {
     if (window.goatcounter && window.goatcounter.visit_count) {
       clearInterval(t);
-      window.goatcounter.visit_count({append: '#gc-hidden', no_onload: true});
-      waitForCount();
+      window.goatcounter.visit_count({append: '#visitor-badge', no_onload: true});
     }
   }, 100);
+</script>
+<script data-goatcounter="https://expoeduca.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
 
-  function waitForCount() {
-    let attempts = 0;
-    const checkInterval = setInterval(function() {
-      attempts++;
-      const hidden = document.getElementById('gc-hidden');
-      const text = hidden ? hidden.textContent : '';
-      const match = text.match(/(\d[\d,]*)/);
-
-      if (match) {
-        clearInterval(checkInterval);
-        const badge = document.getElementById('visitor-badge');
-        if (badge) badge.innerHTML = '👁️ <span style="font-weight:700;">' + match[1] + '</span> visitas';
-      } else if (attempts > 30) {
-        // Después de 6 segundos, si no llegó, dejarlo en blanco
-        clearInterval(checkInterval);
-      }
-    }, 200);
-  }
 </script>
   
 </body>
