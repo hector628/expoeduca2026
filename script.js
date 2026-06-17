@@ -1184,35 +1184,34 @@ function playBip() {
 STATE.musicPlaying = false;
 STATE.musicTimeouts = [];
 
-// Notas en Hz — escala pentatónica alegre, estilo overworld retro
+// Notas en Hz — escala pentatónica alegre
 const MELODY = [
-  // Frase 1: salto ascendente triunfal
-  {note: 261.63, dur: 0.15}, // C4
-  {note: 329.63, dur: 0.15}, // E4
-  {note: 392.00, dur: 0.15}, // G4
-  {note: 523.25, dur: 0.35}, // C5 (golpe fuerte)
-  {note: 0,      dur: 0.1},  // respiro
+  // Frase 1: arpegio menor ascendente, tensión moderna
+  {note: 220.00, dur: 0.18}, // A3
+  {note: 261.63, dur: 0.18}, // C4
+  {note: 329.63, dur: 0.18}, // E4
+  {note: 440.00, dur: 0.28}, // A4 (acento)
+  {note: 0,      dur: 0.08},
 
-  // Frase 2: eco descendente con rebote
-  {note: 466.16, dur: 0.15}, // Bb4
-  {note: 392.00, dur: 0.15}, // G4
-  {note: 523.25, dur: 0.3},  // C5
-  {note: 0,      dur: 0.15}, // respiro
+  // Frase 2: salto dramático con caída
+  {note: 523.25, dur: 0.22}, // C5
+  {note: 392.00, dur: 0.14}, // G4
+  {note: 440.00, dur: 0.22}, // A4
+  {note: 0,      dur: 0.12},
 
-  // Frase 3: corrida rápida tipo "aventura"
+  // Frase 3: corrida sincopada, sensación de movimiento
+  {note: 329.63, dur: 0.12}, // E4
   {note: 392.00, dur: 0.1},  // G4
-  {note: 440.00, dur: 0.1},  // A4
-  {note: 493.88, dur: 0.1},  // B4
+  {note: 440.00, dur: 0.12}, // A4
   {note: 523.25, dur: 0.1},  // C5
-  {note: 587.33, dur: 0.1},  // D5
-  {note: 659.25, dur: 0.3},  // E5 (clímax)
-  {note: 0,      dur: 0.1},  // respiro
+  {note: 587.33, dur: 0.22}, // D5 (clímax)
+  {note: 0,      dur: 0.1},
 
-  // Frase 4: resolución heroica final
-  {note: 523.25, dur: 0.15}, // C5
-  {note: 440.00, dur: 0.15}, // A4
-  {note: 523.25, dur: 0.45}, // C5 (cierre)
-  {note: 0,      dur: 0.4},  // silencio antes de repetir
+  // Frase 4: resolución con séptima, sabor más "actual"
+  {note: 493.88, dur: 0.16}, // B4
+  {note: 392.00, dur: 0.16}, // G4
+  {note: 440.00, dur: 0.4},  // A4 (cierre suspendido, no resuelve del todo)
+  {note: 0,      dur: 0.5},  // silencio antes del loop
 ];
 
 function playMusicNote(freq, duration, startTime) {
@@ -1224,7 +1223,7 @@ function playMusicNote(freq, duration, startTime) {
   osc.connect(gain);
   gain.connect(ctx.destination);
 
-  osc.type = 'square'; // onda cuadrada = sonido 8-bit clásico
+  osc.type = 'sawtooth'; // onda diente de sierra = más rica armónicamente, sonido más "sintetizador moderno"
   osc.frequency.setValueAtTime(freq, startTime);
 
   gain.gain.setValueAtTime(0.05, startTime); // volumen bajo, ambiental
