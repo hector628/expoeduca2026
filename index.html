@@ -30,7 +30,7 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div id="gc-hidden" style="position:fixed !important;left:-9999px !important;top:-9999px !important;width:1px;height:1px;overflow:hidden;"></div>
+
 <!-- ══ PANTALLA DE CARGA ══════════════════════════ -->
 <div id="loading-screen">
   <div id="loading-logo">EXPO<span style="color:#fff">EDUCA</span> 2026</div>
@@ -61,7 +61,7 @@
   </div>
 
   <div id="progress-hud">
-    <span id="progress-text">0/14 lugares</span>
+    <span id="progress-text">0/13 lugares</span>
     <div id="progress-bar-wrap"><div id="progress-bar-fill"></div></div>
   </div>
 </header>
@@ -143,27 +143,11 @@
     border-left: none; border-right: none; border-bottom: none;
   }
   #zoom-controls { bottom: 80px; right: 10px; }
-  #header-title { display: none; }
 }
 :focus-visible { outline: 2px solid #BFFF00; outline-offset: 2px; }
 </style>
 
 <script src="script.js"></script>
-<script data-goatcounter="https://expoeduca.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-
-<script>
-  var t = setInterval(function() {
-    if (window.goatcounter && window.goatcounter.visit_count) {
-      clearInterval(t);
-      window.goatcounter.visit_count({append: '#visitor-badge', no_onload: true});
-    }
-  }, 100);
-</script>
-<script data-goatcounter="https://expoeduca.goatcounter.com/count"
-        async src="//gc.zgo.at/count.js"></script>
-
-</script>
   
 </body>
 </html>
