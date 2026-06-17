@@ -1481,7 +1481,14 @@ function showVisitorBadge() {
     font-size:10px;color:#BFFF00;
     box-shadow:0 0 12px rgba(191,255,0,0.3);
   `;
+  badge.innerHTML = '👁️ cargando visitas...';
   document.body.appendChild(badge);
+
+  // Contenedor oculto donde GoatCounter inserta su widget feo
+  const hidden = document.createElement('div');
+  hidden.id = 'gc-hidden';
+  hidden.style.cssText = 'position:absolute;left:-9999px;top:-9999px;';
+  document.body.appendChild(hidden);
 }
 
 document.getElementById('btn-zoom-in').addEventListener('click', () => {
