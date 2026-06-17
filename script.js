@@ -1186,22 +1186,33 @@ STATE.musicTimeouts = [];
 
 // Notas en Hz — escala pentatónica alegre, estilo overworld retro
 const MELODY = [
-  {note: 392.00, dur: 0.25}, // G4
-  {note: 440.00, dur: 0.25}, // A4
-  {note: 523.25, dur: 0.25}, // C5
-  {note: 587.33, dur: 0.25}, // D5
-  {note: 523.25, dur: 0.25}, // C5
-  {note: 440.00, dur: 0.25}, // A4
-  {note: 392.00, dur: 0.5},  // G4
-  {note: 0,      dur: 0.25}, // silencio
-  {note: 440.00, dur: 0.25}, // A4
-  {note: 523.25, dur: 0.25}, // C5
-  {note: 587.33, dur: 0.25}, // D5
-  {note: 659.25, dur: 0.25}, // E5
-  {note: 587.33, dur: 0.25}, // D5
-  {note: 523.25, dur: 0.25}, // C5
-  {note: 440.00, dur: 0.5},  // A4
-  {note: 0,      dur: 0.5},  // silencio
+  // Frase 1: salto ascendente triunfal
+  {note: 261.63, dur: 0.15}, // C4
+  {note: 329.63, dur: 0.15}, // E4
+  {note: 392.00, dur: 0.15}, // G4
+  {note: 523.25, dur: 0.35}, // C5 (golpe fuerte)
+  {note: 0,      dur: 0.1},  // respiro
+
+  // Frase 2: eco descendente con rebote
+  {note: 466.16, dur: 0.15}, // Bb4
+  {note: 392.00, dur: 0.15}, // G4
+  {note: 523.25, dur: 0.3},  // C5
+  {note: 0,      dur: 0.15}, // respiro
+
+  // Frase 3: corrida rápida tipo "aventura"
+  {note: 392.00, dur: 0.1},  // G4
+  {note: 440.00, dur: 0.1},  // A4
+  {note: 493.88, dur: 0.1},  // B4
+  {note: 523.25, dur: 0.1},  // C5
+  {note: 587.33, dur: 0.1},  // D5
+  {note: 659.25, dur: 0.3},  // E5 (clímax)
+  {note: 0,      dur: 0.1},  // respiro
+
+  // Frase 4: resolución heroica final
+  {note: 523.25, dur: 0.15}, // C5
+  {note: 440.00, dur: 0.15}, // A4
+  {note: 523.25, dur: 0.45}, // C5 (cierre)
+  {note: 0,      dur: 0.4},  // silencio antes de repetir
 ];
 
 function playMusicNote(freq, duration, startTime) {
