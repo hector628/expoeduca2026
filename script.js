@@ -1476,12 +1476,10 @@ function showVisitorBadge() {
     position:fixed;bottom:10px;left:10px;
     background:rgba(0,0,0,0.85);
     border:1.5px solid #BFFF00;border-radius:10px;
-    padding:6px 12px;z-index:200;
-    font-family:'Fira Code',monospace;
-    font-size:10px;color:#BFFF00;
+    padding:4px;z-index:200;
     box-shadow:0 0 12px rgba(191,255,0,0.3);
+    overflow:hidden;
   `;
-  badge.innerHTML = '👁️ cargando visitas...';
   document.body.appendChild(badge);
 }
 
