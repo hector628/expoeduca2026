@@ -127,6 +127,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupZoom();
   centerMap();
   updateHUD();
+  showVisitorBadge();
 
   // Quitar pantalla de carga
   setTimeout(() => {
@@ -1466,6 +1467,21 @@ function centerMap() {
   STATE.panY = (H - svgH * STATE.zoom) / 2;
   applyTransform();
   moveFrogTo(STATE.frogX, STATE.frogY);
+}
+
+function showVisitorBadge() {
+  const badge = document.createElement('div');
+  badge.id = 'visitor-badge';
+  badge.style.cssText = `
+    position:fixed;bottom:10px;left:10px;
+    background:rgba(0,0,0,0.85);
+    border:1.5px solid #BFFF00;border-radius:10px;
+    padding:6px 12px;z-index:200;
+    font-family:'Fira Code',monospace;
+    font-size:10px;color:#BFFF00;
+    box-shadow:0 0 12px rgba(191,255,0,0.3);
+  `;
+  document.body.appendChild(badge);
 }
 
 document.getElementById('btn-zoom-in').addEventListener('click', () => {
