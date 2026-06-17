@@ -38,7 +38,7 @@ const STATE = {
     { id:'explorer', threshold:4,  icon:'🗺️', title:'Explorador',           desc:'4 espacios descubiertos.' },
     { id:'half',     threshold:6,  icon:'⭐', title:'Mitad del Camino',     desc:'Más de la mitad explorado.' },
     { id:'expert',   threshold:9,  icon:'🏆', title:'Casi Experto',         desc:'9 espacios visitados.' },
-    { id:'master',   threshold:14, icon:'🎓', title:'¡Maestro ExpoEduca!',  desc:'¡Mapa completo explorado!' }
+    { id:'master',   threshold:13, icon:'🎓', title:'¡Maestro ExpoEduca!',  desc:'¡Mapa completo explorado!' }
   ],
   unlockedAchievements: new Set()
 };
@@ -127,7 +127,6 @@ document.addEventListener('DOMContentLoaded', async () => {
   setupZoom();
   centerMap();
   updateHUD();
-  showVisitorBadge();
 
   // Quitar pantalla de carga
   setTimeout(() => {
@@ -267,7 +266,7 @@ function buildSVGMap() {
   // Bigotes
   svg.appendChild(buildCat(170, 430));
 
-  // Cartón de leche — junto a la tienda escolar (x:498+140=638, y:385)
+  // Cartón de leche — junto a la tienda escolar
   svg.appendChild(buildMilk(650, 455));
 }
 
@@ -1469,19 +1468,6 @@ function centerMap() {
   moveFrogTo(STATE.frogX, STATE.frogY);
 }
 
-function showVisitorBadge() {
-  const badge = document.createElement('div');
-  badge.id = 'visitor-badge';
-  badge.style.cssText = `
-    position:fixed;bottom:10px;left:10px;
-    background:rgba(0,0,0,0.85);
-    border:1.5px solid #BFFF00;border-radius:10px;
-    padding:4px;z-index:200;
-    box-shadow:0 0 12px rgba(191,255,0,0.3);
-    overflow:hidden;
-  `;
-  document.body.appendChild(badge);
-}
 
 document.getElementById('btn-zoom-in').addEventListener('click', () => {
   const a = document.getElementById('app');
