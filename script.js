@@ -1178,6 +1178,82 @@ function playBip() {
 }
 
 /* ═══════════════════════════════════════════════════
+   MÚSICA AMBIENTAL RETRO — generada con Web Audio API
+   Melodía de 8 notas en loop, estilo videojuego clásico
+═══════════════════════════════════════════════════ */
+STATE.musicPlaying = false;
+STATE.musicTimeouts = [];
+
+// Notas en Hz — escala pentatónica alegre, estilo overworld retro
+const MELODY = [
+  {note: 392.00, dur: 0.25}, // G4
+  {note: 440.00, dur: 0.25}, // A4
+  {note: 523.25, dur: 0.25}, // C5
+  {note: 587.33, dur: 0.25}, // D5
+  {note: 523.25, dur: 0.25}, // C5
+  {note: 440.00, dur: 0.25}, // A4
+  {note: 392.00, dur: 0.5},  // G4
+  {note: 0,      dur: 0.25}, // silencio
+  {note: 440.00, dur: 0.25}, // A4
+  {note: 523.25, dur: 0.25}, // C5
+  {note: 587.33, dur: 0.25}, // D5
+  {note: 659.25, dur: 0.25}, // E5
+  {note: 587.33, dur: 0.25}, // D5
+  {note: 523.25, dur: 0.25}, // C5
+  {note: 440.00, dur: 0.5},  // A4
+  {note: 0,      dur: 0.5},  // silencio
+];
+
+function playMusicNote(freq, duration, startTime) {
+  if (freq === 0) return; // silencio, no generar onda
+  const ctx  = STATE.audioCtx;
+  const osc  = ctx.createOscillator();
+  const gain = ctx.createGain();
+
+  osc.connect(gain);
+  gain.connect(ctx.destination);
+
+  osc.type = 'square'; // onda cuadrada = sonido 8-bit clásico
+  osc.frequency.setValueAtTime(freq, startTime);
+
+  gain.gain.setValueAtTime(0.05, startTime); // volumen bajo, ambiental
+  gain.gain.exponentialRampToValueAtTime(0.001, startTime + duration * 0.9);
+
+  osc.start(startTime);
+  osc.stop(startTime + duration);
+}
+
+function playMelodyLoop() {
+  if (!STATE.musicPlaying) return;
+  const ctx = STATE.audioCtx;
+  let time = ctx.currentTime;
+
+  MELODY.forEach(({note, dur}) => {
+    playMusicNote(note, dur, time);
+    time += dur;
+  });
+
+  const totalDuration = MELODY.reduce((sum, n) => sum + n.dur, 0);
+  const timeoutId = setTimeout(() => playMelodyLoop(), totalDuration * 1000);
+  STATE.musicTimeouts.push(timeoutId);
+}
+
+function toggleMusic() {
+  initAudio();
+  STATE.musicPlaying = !STATE.musicPlaying;
+
+  const btn = document.getElementById('music-toggle');
+  if (btn) btn.textContent = STATE.musicPlaying ? '🔊' : '🔇';
+
+  if (STATE.musicPlaying) {
+    playMelodyLoop();
+  } else {
+    STATE.musicTimeouts.forEach(id => clearTimeout(id));
+    STATE.musicTimeouts = [];
+  }
+}
+
+/* ═══════════════════════════════════════════════════
    PROXIMIDAD DE LA RANA A EDIFICIOS
 ═══════════════════════════════════════════════════ */
 const PROXIMITY = 72;
