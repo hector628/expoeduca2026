@@ -301,14 +301,68 @@ function buildGrid(W, H) {
 
 /* ─── Carretera ────────────────────────────────── */
 function buildRoad() {
-  const g = svgEl('g', {});
-  // La carretera pasa por el lado izquierdo y gira hacia el sur
-  // pasando al COSTADO de la tienda escolar (no entra al campus)
+  const g = svgEl('g', {style:'cursor:pointer'});
   const d = 'M 0,220 Q 20,300 14,370 Q 8,440 30,500 Q 55,545 80,555 Q 200,570 370,560 Q 500,552 640,558';
   g.appendChild(svgEl('path', {d, stroke:'#444', 'stroke-width':40, fill:'none', 'stroke-linecap':'round'}));
   g.appendChild(svgEl('path', {d, stroke:'#2a2a2a', 'stroke-width':32, fill:'none', 'stroke-linecap':'round'}));
   g.appendChild(svgEl('path', {d, stroke:'#555', 'stroke-width':2,  fill:'none', 'stroke-linecap':'round', 'stroke-dasharray':'16,14'}));
+  // Área invisible más ancha para que sea fácil tocarla
+  const hitbox = svgEl('path', {d, stroke:'transparent', 'stroke-width':45, fill:'none'});
+  g.appendChild(hitbox);
+
+  g.addEventListener('click',    () => showRoadMessage());
+  g.addEventListener('touchend', (e) => { e.preventDefault(); showRoadMessage(); }, {passive:false});
+
   return g;
+}
+
+function showRoadMessage() {
+  const old = document.getElementById('road-card');
+  if (old) { old.remove(); return; }
+
+  const card = document.createElement('div');
+  card.id = 'road-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #6B7280;border-radius:16px;
+    padding:18px;z-index:500;
+    box-shadow:0 0 30px rgba(107,114,128,0.3);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  `;
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <span style="font-size:28px;">🛣️</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#9CA3AF;">
+          La Carretera
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
+          Testigo silenciosa de todo
+        </div>
+      </div>
+      <button onclick="document.getElementById('road-card').remove()"
+        style="margin-left:auto;background:none;border:1px solid #9CA3AF;
+               color:#9CA3AF;width:26px;height:26px;border-radius:6px;
+               cursor:pointer;font-size:13px;font-family:'Fira Code',monospace;">
+        ✕
+      </button>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.8;
+                border-left:3px solid #9CA3AF;padding-left:12px;
+                font-style:italic;">
+      "He visto a más estudiantes correr para llegar a tiempo que
+      autos pasar por aquí. Tu falta no se justifica con tráfico.
+      Se justifica con que te dormiste."
+    </div>
+  `;
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
 }
 
 /* ─── Entrada ──────────────────────────────────── */
