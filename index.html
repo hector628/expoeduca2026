@@ -156,17 +156,27 @@
     if (window.goatcounter && window.goatcounter.visit_count) {
       clearInterval(t);
       window.goatcounter.visit_count({append: '#gc-hidden', no_onload: true});
-      setTimeout(extractVisitCount, 800);
+      waitForCount();
     }
   }, 100);
 
-  function extractVisitCount() {
-    const hidden = document.getElementById('gc-hidden');
-    const text = hidden ? hidden.textContent : '';
-    const match = text.match(/(\d[\d,]*)/);
-    const number = match ? match[1] : '0';
-    const badge = document.getElementById('visitor-badge');
-    if (badge) badge.innerHTML = '👁️ <span style="font-weight:700;">' + number + '</span> visitas';
+  function waitForCount() {
+    let attempts = 0;
+    const checkInterval = setInterval(function() {
+      attempts++;
+      const hidden = document.getElementById('gc-hidden');
+      const text = hidden ? hidden.textContent : '';
+      const match = text.match(/(\d[\d,]*)/);
+
+      if (match) {
+        clearInterval(checkInterval);
+        const badge = document.getElementById('visitor-badge');
+        if (badge) badge.innerHTML = '👁️ <span style="font-weight:700;">' + match[1] + '</span> visitas';
+      } else if (attempts > 30) {
+        // Después de 6 segundos, si no llegó, dejarlo en blanco
+        clearInterval(checkInterval);
+      }
+    }, 200);
   }
 </script>
   
