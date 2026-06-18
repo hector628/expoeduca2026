@@ -354,9 +354,8 @@ function showRoadMessage() {
     <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.8;
                 border-left:3px solid #9CA3AF;padding-left:12px;
                 font-style:italic;">
-      "He visto a más estudiantes correr para llegar a tiempo que
-      autos pasar por aquí. Tu falta no se justifica con tráfico.
-      Se justifica con que te dormiste."
+      "He visto a más estudiantes llegando tarde que
+      autos pasar por aquí."
     </div>
   `;
   document.body.appendChild(card);
