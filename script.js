@@ -990,29 +990,41 @@ function showCompleteCard() {
    RANA — SVG + animaciones + arrastre
 ═══════════════════════════════════════════════════ */
 function buildFrogSVG() {
-  return `<svg id="frog-svg" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg" overflow="visible">
+  return `<svg id="frog-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg" overflow="visible">
   <g id="frog-body">
-    <ellipse cx="26" cy="50" rx="14" ry="4" fill="rgba(0,0,0,0.4)"/>
-    <ellipse cx="12" cy="40" rx="8" ry="5" fill="#2E7D32" transform="rotate(-20,12,40)"/>
-    <ellipse cx="40" cy="40" rx="8" ry="5" fill="#2E7D32" transform="rotate(20,40,40)"/>
-    <ellipse cx="8"  cy="44" rx="7" ry="3.5" fill="#388E3C" transform="rotate(-10,8,44)"/>
-    <ellipse cx="44" cy="44" rx="7" ry="3.5" fill="#388E3C" transform="rotate(10,44,44)"/>
-    <ellipse cx="26" cy="32" rx="17" ry="14" fill="#43A047"/>
-    <ellipse cx="26" cy="35" rx="11" ry="9"  fill="#A5D6A7" opacity="0.7"/>
-    <circle cx="17" cy="22" r="6" fill="#C8E6C9"/>
-    <circle cx="35" cy="22" r="6" fill="#C8E6C9"/>
-    <circle cx="17" cy="22" r="3.5" fill="#1A1A1A"/>
-    <circle cx="35" cy="22" r="3.5" fill="#1A1A1A"/>
-    <circle cx="18.5" cy="20.5" r="1.2" fill="white"/>
-    <circle cx="36.5" cy="20.5" r="1.2" fill="white"/>
-    <path d="M 20 38 Q 26 43 32 38" stroke="#1B5E20" stroke-width="1.8" fill="none" stroke-linecap="round"/>
-    <circle cx="23" cy="31" r="1.2" fill="#2E7D32"/>
-    <circle cx="29" cy="31" r="1.2" fill="#2E7D32"/>
-    <ellipse cx="11" cy="33" rx="5" ry="3.5" fill="#43A047" transform="rotate(-30,11,33)"/>
-    <ellipse cx="41" cy="33" rx="5" ry="3.5" fill="#43A047" transform="rotate(30,41,33)"/>
-    <rect x="18" y="12" width="16" height="10" rx="3" fill="#BFFF00"/>
-    <rect x="14" y="16" width="24" height="4"  rx="2" fill="#BFFF00"/>
-    <text x="26" y="20" font-family="'Fira Code',monospace" font-size="4.5" font-weight="700" fill="#000" text-anchor="middle">GB</text>
+    <ellipse cx="30" cy="56" rx="17" ry="4" fill="rgba(0,0,0,0.4)"/>
+
+    <path d="M 10,38 Q 3,42 3,50 Q 3,56 10,55 Q 14,52 14,42 Z" fill="#43A047"/>
+    <path d="M 50,38 Q 57,42 57,50 Q 57,56 50,55 Q 46,52 46,42 Z" fill="#43A047"/>
+    <ellipse cx="8" cy="52" rx="6" ry="4" fill="#5DB85C"/>
+    <ellipse cx="52" cy="52" rx="6" ry="4" fill="#5DB85C"/>
+
+    <ellipse cx="30" cy="36" rx="19" ry="17" fill="#4CAF50"/>
+    <ellipse cx="30" cy="38" rx="13" ry="14" fill="#F5F0B8"/>
+
+    <ellipse cx="30" cy="18" rx="22" ry="15" fill="#4CAF50"/>
+
+    <ellipse cx="20" cy="8" rx="9.5" ry="10.5" fill="white" stroke="#1A1A1A" stroke-width="1"/>
+    <circle cx="19" cy="9" r="6" fill="#2B2118"/>
+    <circle cx="21" cy="6.5" r="1.8" fill="white"/>
+    <circle cx="17" cy="11" r="0.9" fill="white" opacity="0.7"/>
+
+    <ellipse cx="40" cy="6" rx="8.5" ry="9.5" fill="white" stroke="#1A1A1A" stroke-width="1"/>
+    <circle cx="40" cy="7" r="5.5" fill="#2B2118"/>
+    <circle cx="42" cy="4.5" r="1.6" fill="white"/>
+    <circle cx="38" cy="9" r="0.8" fill="white" opacity="0.7"/>
+
+    <circle cx="26" cy="22" r="0.9" fill="#2E7D32"/>
+    <circle cx="34" cy="22" r="0.9" fill="#2E7D32"/>
+
+    <path d="M 12,24 Q 30,33 48,24" stroke="#1A1A1A" stroke-width="1.3" fill="none" stroke-linecap="round"/>
+    <path d="M 24,27 Q 30,33 36,27 Q 34,32 30,33 Q 26,32 24,27 Z" fill="#D9534F"/>
+    <ellipse cx="30" cy="29" rx="3" ry="2" fill="#C9302C" opacity="0.5"/>
+
+    <ellipse cx="8" cy="30" rx="6" ry="4" fill="#4CAF50" transform="rotate(-35,8,30)"/>
+    <ellipse cx="52" cy="30" rx="6" ry="4" fill="#4CAF50" transform="rotate(35,52,30)"/>
+    <ellipse cx="4" cy="36" rx="3.5" ry="2.5" fill="#5DB85C" transform="rotate(-35,4,36)"/>
+    <ellipse cx="56" cy="36" rx="3.5" ry="2.5" fill="#5DB85C" transform="rotate(35,56,36)"/>
   </g>
 </svg>`;
 }
@@ -1122,8 +1134,8 @@ function jumpFrogTo(tx, ty) {
 }
 
 function moveFrogTo(x, y) {
-  const px = x * STATE.zoom + STATE.panX - 26;
-  const py = y * STATE.zoom + STATE.panY - 26;
+  const px = x * STATE.zoom + STATE.panX - 30;
+  const py = y * STATE.zoom + STATE.panY - 30;
   const sx  = STATE.frogFaceLeft ? -1 : 1;
   document.getElementById('frog-wrapper').style.transform =
     `translate(${px}px,${py}px) scaleX(${sx})`;
