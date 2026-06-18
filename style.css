@@ -210,8 +210,8 @@ body::before {
 /* ── FROG CHARACTER ── */
 #frog-wrapper {
   position: absolute;
-  width: 52px;
-  height: 52px;
+  width: 60px;
+  height: 60px;
   pointer-events: all;
   touch-action: none;
   z-index: 200;
