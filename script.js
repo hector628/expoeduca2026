@@ -271,6 +271,9 @@ function buildSVGMap() {
 
   // Perro hambriento — esquina superior izquierda
   svg.appendChild(buildDog(50, 50));
+
+  // Chilaquil — perro pachón, no muy cerca del primero
+  svg.appendChild(buildFluffyDog(130, 95));
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
@@ -1019,7 +1022,7 @@ function showDogMessage() {
       <span style="font-size:28px;">🐕</span>
       <div>
         <div style="font-size:13px;font-weight:700;color:#D9A066;">
-          Perro del Plantel
+          Pulgas
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
           Eternamente hambriento
@@ -1037,6 +1040,117 @@ function showDogMessage() {
                 font-style:italic;">
       "Alto ahí. Dame tu torta de milanesa o le cuento a todos
       que te gusta Lupita TikTok."
+    </div>
+  `;
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
+}
+
+/* ─── Chilaquil — Perro Pachón ── */
+function buildFluffyDog(x, y) {
+  const outer = svgEl('g', {transform:`translate(${x},${y})`});
+  const g = svgEl('g', {style:'cursor:pointer'});
+  outer.appendChild(g);
+
+  // Sombra
+  g.appendChild(svgEl('ellipse', {cx:0, cy:32, rx:24, ry:5, fill:'rgba(0,0,0,0.4)'}));
+
+  // Cuerpo esponjoso
+  g.appendChild(svgEl('ellipse', {cx:0, cy:16, rx:20, ry:17, fill:'#9C9C9C'}));
+  g.appendChild(svgEl('ellipse', {cx:-13, cy:20, rx:6, ry:8, fill:'#B5B5B5'}));
+  g.appendChild(svgEl('ellipse', {cx:13,  cy:20, rx:6, ry:8, fill:'#B5B5B5'}));
+  g.appendChild(svgEl('ellipse', {cx:0,   cy:26, rx:10, ry:7, fill:'#B5B5B5'}));
+
+  // Patas peludas
+  g.appendChild(svgEl('ellipse', {cx:-13, cy:30, rx:5, ry:6, fill:'#A8A8A8'}));
+  g.appendChild(svgEl('ellipse', {cx:13,  cy:30, rx:5, ry:6, fill:'#A8A8A8'}));
+
+  // Cabeza muy peluda
+  g.appendChild(svgEl('circle', {cx:0, cy:-6, r:17, fill:'#9C9C9C'}));
+
+  // Mechones de pelo
+  g.appendChild(svgEl('ellipse', {cx:-15, cy:-10, rx:6, ry:9, fill:'#B5B5B5', transform:'rotate(-20,-15,-10)'}));
+  g.appendChild(svgEl('ellipse', {cx:15,  cy:-10, rx:6, ry:9, fill:'#B5B5B5', transform:'rotate(20,15,-10)'}));
+  g.appendChild(svgEl('ellipse', {cx:-10, cy:-18, rx:5, ry:7, fill:'#B5B5B5', transform:'rotate(-30,-10,-18)'}));
+  g.appendChild(svgEl('ellipse', {cx:10,  cy:-18, rx:5, ry:7, fill:'#B5B5B5', transform:'rotate(30,10,-18)'}));
+  g.appendChild(svgEl('ellipse', {cx:0,   cy:-20, rx:6, ry:6, fill:'#B5B5B5'}));
+
+  // Hocico
+  g.appendChild(svgEl('ellipse', {cx:0, cy:0,  rx:7, ry:5, fill:'#C9C9C9'}));
+  g.appendChild(svgEl('ellipse', {cx:0, cy:-2, rx:2.8, ry:2, fill:'#2A2A2A'}));
+
+  // Ojos casi tapados
+  g.appendChild(svgEl('ellipse', {cx:-7, cy:-9, rx:2.5, ry:3, fill:'#2A2A2A'}));
+  g.appendChild(svgEl('ellipse', {cx:7,  cy:-9, rx:2.5, ry:3, fill:'#2A2A2A'}));
+  g.appendChild(svgEl('circle', {cx:-6.3, cy:-10, r:0.7, fill:'white'}));
+  g.appendChild(svgEl('circle', {cx:7.7,  cy:-10, r:0.7, fill:'white'}));
+
+  // Mechón sobre un ojo
+  g.appendChild(svgEl('ellipse', {cx:-6, cy:-13, rx:3, ry:5, fill:'#B5B5B5', transform:'rotate(-10,-6,-13)', opacity:'0.9'}));
+
+  // Boca
+  g.appendChild(svgEl('path', {d:'M -4,3 Q 0,6 4,3', stroke:'#2A2A2A', 'stroke-width':1, fill:'none', 'stroke-linecap':'round'}));
+
+  // Orejas peludas y caídas
+  g.appendChild(svgEl('ellipse', {cx:-16, cy:-2, rx:5, ry:9, fill:'#8A8A8A', transform:'rotate(-15,-16,-2)'}));
+  g.appendChild(svgEl('ellipse', {cx:16,  cy:-2, rx:5, ry:9, fill:'#8A8A8A', transform:'rotate(15,16,-2)'}));
+
+  // Cola esponjosa
+  g.appendChild(svgEl('ellipse', {cx:20, cy:14, rx:6, ry:10, fill:'#9C9C9C', transform:'rotate(25,20,14)'}));
+
+  // Animación flotante
+  g.style.animation = 'catIdle 2.6s ease-in-out infinite';
+
+  outer.addEventListener('click', () => showFluffyDogMessage());
+  outer.addEventListener('touchend', (e) => {
+    e.preventDefault(); showFluffyDogMessage();
+  }, {passive:false});
+
+  return outer;
+}
+
+function showFluffyDogMessage() {
+  const old = document.getElementById('fluffydog-card');
+  if (old) { old.remove(); return; }
+
+  const card = document.createElement('div');
+  card.id = 'fluffydog-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #9C9C9C;border-radius:16px;
+    padding:18px;z-index:500;
+    box-shadow:0 0 30px rgba(156,156,156,0.3);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  `;
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <span style="font-size:28px;">🐩</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#C0C0C0;">
+          Chilaquil
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
+          Perro alfa
+        </div>
+      </div>
+      <button onclick="document.getElementById('fluffydog-card').remove()"
+        style="margin-left:auto;background:none;border:1px solid #C0C0C0;
+               color:#C0C0C0;width:26px;height:26px;border-radius:6px;
+               cursor:pointer;font-size:13px;font-family:'Fira Code',monospace;">
+        ✕
+      </button>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.8;
+                border-left:3px solid #C0C0C0;padding-left:12px;
+                font-style:italic;">
+      "Sobreviví a tres generaciones de prefectos. Ustedes no
+      durarán tanto. Digo Guau Guau."
     </div>
   `;
   document.body.appendChild(card);
