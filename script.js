@@ -266,8 +266,11 @@ function buildSVGMap() {
   // Bigotes
   svg.appendChild(buildCat(170, 430));
 
-  // Cartón de leche — junto a la tienda escolar
+  // Cartón de leche — junto a la tienda escolar (x:498+140=638, y:385)
   svg.appendChild(buildMilk(650, 455));
+
+  // Perro hambriento — esquina superior izquierda
+  svg.appendChild(buildDog(50, 50));
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
@@ -928,6 +931,112 @@ function showMilkMessage() {
       "Abandonado en la escuela hace 16 años.
       Ha desarrollado conciencia. Ahora observa a los estudiantes
       y juzga sus decisiones."
+    </div>
+  `;
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
+}
+
+/* ─── Perro Hambriento ── */
+function buildDog(x, y) {
+  const outer = svgEl('g', {transform:`translate(${x},${y})`});
+  const g = svgEl('g', {style:'cursor:pointer'});
+  outer.appendChild(g);
+
+  // Sombra
+  g.appendChild(svgEl('ellipse', {cx:0, cy:30, rx:22, ry:5, fill:'rgba(0,0,0,0.4)'}));
+
+  // Cuerpo
+  g.appendChild(svgEl('ellipse', {cx:0, cy:14, rx:18, ry:15, fill:'#C68642'}));
+  g.appendChild(svgEl('ellipse', {cx:0, cy:17, rx:11, ry:10, fill:'#E8C39E'}));
+
+  // Patas delanteras
+  g.appendChild(svgEl('ellipse', {cx:-12, cy:26, rx:4, ry:6, fill:'#C68642'}));
+  g.appendChild(svgEl('ellipse', {cx:12,  cy:26, rx:4, ry:6, fill:'#C68642'}));
+
+  // Cabeza
+  g.appendChild(svgEl('circle', {cx:0, cy:-8, r:16, fill:'#C68642'}));
+
+  // Hocico
+  g.appendChild(svgEl('ellipse', {cx:0, cy:-1, rx:8, ry:6, fill:'#E8C39E'}));
+  g.appendChild(svgEl('ellipse', {cx:0, cy:-4, rx:3, ry:2.2, fill:'#3E2723'}));
+
+  // Orejas caídas
+  g.appendChild(svgEl('path', {d:'M -13,-16 Q -22,-8 -16,2 Q -12,4 -10,-4 Z', fill:'#8D5524'}));
+  g.appendChild(svgEl('path', {d:'M 13,-16 Q 22,-8 16,2 Q 12,4 10,-4 Z', fill:'#8D5524'}));
+
+  // Ojos suplicantes
+  g.appendChild(svgEl('ellipse', {cx:-7, cy:-11, rx:4.5, ry:5, fill:'white'}));
+  g.appendChild(svgEl('ellipse', {cx:7,  cy:-11, rx:4.5, ry:5, fill:'white'}));
+  g.appendChild(svgEl('circle', {cx:-6.5, cy:-10, r:3, fill:'#3E2723'}));
+  g.appendChild(svgEl('circle', {cx:7.5,  cy:-10, r:3, fill:'#3E2723'}));
+  g.appendChild(svgEl('circle', {cx:-5.5, cy:-11.5, r:1, fill:'white'}));
+  g.appendChild(svgEl('circle', {cx:8.5,  cy:-11.5, r:1, fill:'white'}));
+
+  // Cejas tristes
+  g.appendChild(svgEl('path', {d:'M -11,-17 Q -7,-19 -3,-17', stroke:'#3E2723', 'stroke-width':1, fill:'none', 'stroke-linecap':'round'}));
+  g.appendChild(svgEl('path', {d:'M 3,-17 Q 7,-19 11,-17', stroke:'#3E2723', 'stroke-width':1, fill:'none', 'stroke-linecap':'round'}));
+
+  // Boca con lengua
+  g.appendChild(svgEl('path', {d:'M -6,2 Q 0,7 6,2 Q 5,5 0,6 Q -5,5 -6,2 Z', fill:'#3E2723'}));
+  g.appendChild(svgEl('path', {d:'M -3,2 Q 0,8 3,2 Q 2,5 0,6 Q -2,5 -3,2 Z', fill:'#E0707A'}));
+
+  // Cola
+  g.appendChild(svgEl('path', {d:'M 16,16 Q 26,10 24,0', stroke:'#C68642', 'stroke-width':5, fill:'none', 'stroke-linecap':'round'}));
+
+  // Animación flotante
+  g.style.animation = 'catIdle 2.2s ease-in-out infinite';
+
+  outer.addEventListener('click', () => showDogMessage());
+  outer.addEventListener('touchend', (e) => {
+    e.preventDefault(); showDogMessage();
+  }, {passive:false});
+
+  return outer;
+}
+
+function showDogMessage() {
+  const old = document.getElementById('dog-card');
+  if (old) { old.remove(); return; }
+
+  const card = document.createElement('div');
+  card.id = 'dog-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #C68642;border-radius:16px;
+    padding:18px;z-index:500;
+    box-shadow:0 0 30px rgba(198,134,66,0.3);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  `;
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <span style="font-size:28px;">🐕</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#D9A066;">
+          Perro del Plantel
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
+          Eternamente hambriento
+        </div>
+      </div>
+      <button onclick="document.getElementById('dog-card').remove()"
+        style="margin-left:auto;background:none;border:1px solid #D9A066;
+               color:#D9A066;width:26px;height:26px;border-radius:6px;
+               cursor:pointer;font-size:13px;font-family:'Fira Code',monospace;">
+        ✕
+      </button>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.8;
+                border-left:3px solid #D9A066;padding-left:12px;
+                font-style:italic;">
+      "Alto ahí. Dame tu torta de milanesa o le cuento a todos
+      que te gusta Lupita TikTok."
     </div>
   `;
   document.body.appendChild(card);
