@@ -812,7 +812,7 @@ function showCatMessage() {
           Bigotes
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
-          Habitante permanente del plantel
+          Habitante permanente
         </div>
       </div>
       <button onclick="document.getElementById('cat-card').remove()"
@@ -1025,7 +1025,7 @@ function showDogMessage() {
           Pulgas
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
-          Eternamente hambriento
+          Perro Alfa I
         </div>
       </div>
       <button onclick="document.getElementById('dog-card').remove()"
@@ -1136,7 +1136,7 @@ function showFluffyDogMessage() {
           Chilaquil
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
-          Perro alfa
+          Perro Alfa II
         </div>
       </div>
       <button onclick="document.getElementById('fluffydog-card').remove()"
