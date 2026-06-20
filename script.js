@@ -274,6 +274,9 @@ function buildSVGMap() {
 
   // Chilaquil — perro pachón, no muy cerca del primero
   svg.appendChild(buildFluffyDog(130, 95));
+
+  // Cheems — con capucha de rana, debajo de la Bodega
+  svg.appendChild(buildCheems(750, 240));
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
@@ -1085,10 +1088,7 @@ function buildFluffyDog(x, y) {
   g.appendChild(svgEl('ellipse', {cx:-7, cy:-9, rx:2.5, ry:3, fill:'#2A2A2A'}));
   g.appendChild(svgEl('ellipse', {cx:7,  cy:-9, rx:2.5, ry:3, fill:'#2A2A2A'}));
   g.appendChild(svgEl('circle', {cx:-6.3, cy:-10, r:0.7, fill:'white'}));
-  g.appendChild(svgEl('circle', {cx:7.7,  cy:-10, r:0.7, fill:'white'}));
-
-  // Mechón sobre un ojo
-  g.appendChild(svgEl('ellipse', {cx:-6, cy:-13, rx:3, ry:5, fill:'#B5B5B5', transform:'rotate(-10,-6,-13)', opacity:'0.9'}));
+  g.appendChild(svgEl('circle', {cx:7.7,  cy:-10, r:0.7, fill:'white'}))
 
   // Boca
   g.appendChild(svgEl('path', {d:'M -4,3 Q 0,6 4,3', stroke:'#2A2A2A', 'stroke-width':1, fill:'none', 'stroke-linecap':'round'}));
@@ -1151,6 +1151,132 @@ function showFluffyDogMessage() {
                 font-style:italic;">
       "Sobreviví a tres generaciones de prefectos. Ustedes no
       durarán tanto. Digo Guau Guau."
+    </div>
+  `;
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
+}
+
+/* ─── Cheems — con capucha de rana ── */
+function buildCheems(x, y) {
+  const outer = svgEl('g', {transform:`translate(${x},${y})`, id:'cheems-character'});
+  const g = svgEl('g', {style:'cursor:pointer'});
+  outer.appendChild(g);
+
+  // Sombra
+  g.appendChild(svgEl('ellipse', {cx:0, cy:44, rx:24, ry:5, fill:'rgba(0,0,0,0.4)'}));
+
+  // Patas traseras
+  g.appendChild(svgEl('ellipse', {cx:-15, cy:38, rx:6, ry:6, fill:'#D2A24C'}));
+  g.appendChild(svgEl('ellipse', {cx:15,  cy:38, rx:6, ry:6, fill:'#D2A24C'}));
+  g.appendChild(svgEl('ellipse', {cx:-18, cy:43, rx:3.5, ry:2.5, fill:'#E8C97A'}));
+  g.appendChild(svgEl('ellipse', {cx:18,  cy:43, rx:3.5, ry:2.5, fill:'#E8C97A'}));
+
+  // Cuerpo estilizado
+  g.appendChild(svgEl('ellipse', {cx:0, cy:20, rx:15, ry:22, fill:'#D2A24C'}));
+  g.appendChild(svgEl('ellipse', {cx:0, cy:24, rx:9,  ry:17, fill:'#F0DDA8'}));
+
+  // Patas delanteras delgadas
+  g.appendChild(svgEl('ellipse', {cx:-12, cy:36, rx:3.5, ry:9, fill:'#D2A24C', transform:'rotate(10,-12,36)'}));
+  g.appendChild(svgEl('ellipse', {cx:12,  cy:36, rx:3.5, ry:9, fill:'#D2A24C', transform:'rotate(-10,12,36)'}));
+  g.appendChild(svgEl('ellipse', {cx:-14, cy:43, rx:2.5, ry:2, fill:'#E8C97A'}));
+  g.appendChild(svgEl('ellipse', {cx:14,  cy:43, rx:2.5, ry:2, fill:'#E8C97A'}));
+
+  // Orejas reales del perro, redondeadas
+  g.appendChild(svgEl('path', {d:'M -11,-9 Q -16,-15 -13,-19 Q -9,-17 -7,-12 Z', fill:'#C08F3E'}));
+  g.appendChild(svgEl('path', {d:'M 11,-9 Q 16,-15 13,-19 Q 9,-17 7,-12 Z', fill:'#C08F3E'}));
+
+  // Cuello con capucha de rana
+  g.appendChild(svgEl('path', {d:'M -14,-8 Q -17,2 -12,8 L 12,8 Q 17,2 14,-8 Q 14,-18 0,-20 Q -14,-18 -14,-8 Z', fill:'#4CD437'}));
+
+  // Orejas de la capucha
+  g.appendChild(svgEl('ellipse', {cx:-8, cy:-24, rx:6, ry:9, fill:'#4CD437'}));
+  g.appendChild(svgEl('ellipse', {cx:8,  cy:-24, rx:6, ry:9, fill:'#4CD437'}));
+  g.appendChild(svgEl('ellipse', {cx:-8, cy:-25, rx:3.4, ry:5.5, fill:'white'}));
+  g.appendChild(svgEl('ellipse', {cx:8,  cy:-25, rx:3.4, ry:5.5, fill:'white'}));
+  g.appendChild(svgEl('circle', {cx:-8, cy:-24, r:1.8, fill:'#1A1A1A'}));
+  g.appendChild(svgEl('circle', {cx:8,  cy:-24, r:1.8, fill:'#1A1A1A'}));
+
+  // Cabeza
+  g.appendChild(svgEl('ellipse', {cx:0, cy:-3, rx:10, ry:9, fill:'#D2A24C'}));
+
+  // Hocico largo
+  g.appendChild(svgEl('path', {d:'M -7,2 Q -9,12 -4,15 L 4,15 Q 9,12 7,2 Q 6,8 0,9 Q -6,8 -7,2 Z', fill:'#D2A24C'}));
+  g.appendChild(svgEl('ellipse', {cx:0, cy:6, rx:6, ry:9, fill:'#F0DDA8'}));
+
+  // Nariz
+  g.appendChild(svgEl('ellipse', {cx:0, cy:13, rx:3.5, ry:2.6, fill:'#F5E8C8'}));
+  g.appendChild(svgEl('ellipse', {cx:0, cy:12, rx:1.6, ry:1.3, fill:'#2A2A2A'}));
+
+  // Ojos entrecerrados
+  g.appendChild(svgEl('path', {d:'M -6,-3 Q -3.5,-1.3 -0.8,-2.3', stroke:'#2A2A2A', 'stroke-width':1.4, fill:'none', 'stroke-linecap':'round'}));
+  g.appendChild(svgEl('path', {d:'M 0.8,-2.3 Q 3.5,-1.3 6,-3', stroke:'#2A2A2A', 'stroke-width':1.4, fill:'none', 'stroke-linecap':'round'}));
+
+  // Boca
+  g.appendChild(svgEl('path', {d:'M -3,15.5 Q 0,17 3,15.5', stroke:'#8A6D3B', 'stroke-width':0.8, fill:'none', 'stroke-linecap':'round'}));
+
+  // Cola
+  g.appendChild(svgEl('path', {d:'M 13,28 Q 22,20 19,8', stroke:'#D2A24C', 'stroke-width':5, fill:'none', 'stroke-linecap':'round'}));
+
+  // Animación flotante
+  g.style.animation = 'catIdle 2.4s ease-in-out infinite';
+
+  outer.addEventListener('click', () => showCheemsMessage());
+  outer.addEventListener('touchend', (e) => {
+    e.preventDefault(); showCheemsMessage();
+  }, {passive:false});
+
+  return outer;
+}
+
+function showCheemsMessage() {
+  const old = document.getElementById('cheems-card');
+  if (old) { old.remove(); return; }
+
+  // El texto cambia según si ya se completó el mapa
+  const isComplete = STATE.discovered.size >= BUILDINGS.length;
+  const mensaje = isComplete
+    ? 'Ya no tengo ansiedad.'
+    : 'Tengo ansiedad porque aún no terminas el recorrido.';
+  const emoji = isComplete ? '😌' : '😟';
+
+  const card = document.createElement('div');
+  card.id = 'cheems-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(340px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #4CD437;border-radius:16px;
+    padding:18px;z-index:500;
+    box-shadow:0 0 30px rgba(76,212,55,0.3);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  `;
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+      <span style="font-size:28px;">${emoji}</span>
+      <div>
+        <div style="font-size:13px;font-weight:700;color:#7FE070;">
+          Cheems
+        </div>
+        <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
+          Disfrazado de rana explorador
+        </div>
+      </div>
+      <button onclick="document.getElementById('cheems-card').remove()"
+        style="margin-left:auto;background:none;border:1px solid #7FE070;
+               color:#7FE070;width:26px;height:26px;border-radius:6px;
+               cursor:pointer;font-size:13px;font-family:'Fira Code',monospace;">
+        ✕
+      </button>
+    </div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.8);line-height:1.8;
+                border-left:3px solid #4CD437;padding-left:12px;
+                font-style:italic;">
+      "${mensaje}"
     </div>
   `;
   document.body.appendChild(card);
