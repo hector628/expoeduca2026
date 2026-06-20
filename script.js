@@ -918,7 +918,7 @@ function showMilkMessage() {
       <span style="font-size:28px;">🥛</span>
       <div>
         <div style="font-size:13px;font-weight:700;color:#60A5FA;">
-          Cartón de Leche
+          Jugo de Vaca
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
           Entidad biológica autoconsciente
@@ -1263,7 +1263,7 @@ function showCheemsMessage() {
           Cheems
         </div>
         <div style="font-size:10px;color:rgba(255,255,255,0.4);margin-top:2px;">
-          Disfrazado de rana explorador
+          ¡No puede ser!
         </div>
       </div>
       <button onclick="document.getElementById('cheems-card').remove()"
