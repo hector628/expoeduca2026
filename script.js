@@ -276,7 +276,7 @@ function buildSVGMap() {
   svg.appendChild(buildFluffyDog(130, 95));
 
   // Cheems — con capucha de rana, debajo de la Bodega
-  svg.appendChild(buildCheems(750, 240));
+  svg.appendChild(buildCheems(750, 350));
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
@@ -1240,7 +1240,7 @@ function showCheemsMessage() {
   const mensaje = isComplete
     ? 'Ya no tengo ansiedad.'
     : 'Tengo ansiedad porque aún no terminas el recorrido.';
-  const emoji = isComplete ? '😌' : '😟';
+  const emoji = isComplete ? '🐕' : '🐕';
 
   const card = document.createElement('div');
   card.id = 'cheems-card';
