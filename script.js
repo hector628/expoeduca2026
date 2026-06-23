@@ -390,13 +390,13 @@ function buildEntry(e) {
   g.appendChild(svgEl('rect', {x:e.x-2,  y:e.y+14, width:6, height:8, rx:2, fill:'#3B82F6'}));
   g.appendChild(svgEl('rect', {x:e.x+40, y:e.y+14, width:6, height:8, rx:2, fill:'#3B82F6'}));
 
-  // Flecha doble invitando a entrar
+  // Flecha doble apuntando hacia arriba
   g.appendChild(svgEl('path', {
-    d:`M ${e.x+12},${e.y-4} L ${e.x+22},${e.y+4} L ${e.x+32},${e.y-4}`,
+    d:`M ${e.x+12},${e.y+4} L ${e.x+22},${e.y-4} L ${e.x+32},${e.y+4}`,
     stroke:'#BFFF00', 'stroke-width':2.5, fill:'none', 'stroke-linecap':'round', 'stroke-linejoin':'round'
   }));
   g.appendChild(svgEl('path', {
-    d:`M ${e.x+12},${e.y+2} L ${e.x+22},${e.y+10} L ${e.x+32},${e.y+2}`,
+    d:`M ${e.x+12},${e.y+10} L ${e.x+22},${e.y+2} L ${e.x+32},${e.y+10}`,
     stroke:'#BFFF00', 'stroke-width':2, fill:'none', 'stroke-linecap':'round', 'stroke-linejoin':'round', opacity:'0.5'
   }));
 
@@ -409,15 +409,6 @@ function buildEntry(e) {
   });
   t.textContent = e.label;
   g.appendChild(t);
-
-  const sub = svgEl('text', {
-    x:e.x+22, y:e.y+44,
-    'font-family':"'Fira Code',monospace",
-    'font-size':'6.5',
-    fill:'rgba(191,255,0,0.5)', 'text-anchor':'middle'
-  });
-  sub.textContent = 'Iniciar';
-  g.appendChild(sub);
 
   // Al hacer clic lanza la pregunta
   g.style.cursor = 'pointer';
