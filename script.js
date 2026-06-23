@@ -121,6 +121,7 @@ const ENTRIES = [
 document.addEventListener('DOMContentLoaded', async () => {
   await loadActivities();
   buildSVGMap();
+  buildMinimap();
   buildExplorerList();
   setupFrog();
   setupMapPan();
@@ -276,6 +277,28 @@ function buildSVGMap() {
 
   // Cheems — con capucha de rana, debajo de la Bodega
   svg.appendChild(buildCheems(750, 350));
+}
+
+function buildMinimap() {
+  const svg = document.getElementById('minimap-svg');
+  svg.innerHTML = '';
+  svg.appendChild(svgEl('rect', {x:0, y:0, width:900, height:560, fill:'#0a0a0a'}));
+  BUILDINGS.forEach(b => {
+    svg.appendChild(svgEl('rect', {
+      x:b.x, y:b.y, width:b.w, height:b.h, rx:b.rx*0.6,
+      fill:b.color, opacity:'0.85'
+    }));
+  });
+}
+
+function updateMinimapDot() {
+  const wrap = document.getElementById('minimap-wrap');
+  if (!wrap) return;
+  const scaleX = wrap.clientWidth  / 900;
+  const scaleY = wrap.clientHeight / 560;
+  const dot = document.getElementById('minimap-dot');
+  dot.style.left = (STATE.frogX * scaleX) + 'px';
+  dot.style.top  = (STATE.frogY * scaleY) + 'px';
 }
 
 /* ─── SVG Defs ─────────────────────────────────── */
@@ -1511,6 +1534,7 @@ function moveFrogTo(x, y) {
   const sx  = STATE.frogFaceLeft ? -1 : 1;
   document.getElementById('frog-wrapper').style.transform =
     `translate(${px}px,${py}px) scaleX(${sx})`;
+  updateMinimapDot();
 }
 
 function setFrogAnimation(type) {
@@ -1741,6 +1765,7 @@ function checkAchievements() {
 }
 
 function showAchievement(ach) {
+  spawnConfetti();
   const panel = document.getElementById('achievements-panel');
   const toast = document.createElement('div');
   toast.className = 'achievement-toast';
@@ -1756,6 +1781,40 @@ function showAchievement(ach) {
     toast.classList.remove('show');
     setTimeout(() => toast.remove(), 600);
   }, 4000);
+}
+
+/* ─── Confeti al desbloquear logro ── */
+function spawnConfetti() {
+  const colors = ['#BFFF00', '#FACC15', '#EC4899', '#60A5FA', '#4ADE80'];
+  const count = 28;
+
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('div');
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size  = 5 + Math.random() * 5;
+    const startX = window.innerWidth / 2 + (Math.random() - 0.5) * 200;
+    const driftX = (Math.random() - 0.5) * 300;
+    const duration = 1.4 + Math.random() * 0.8;
+    const rotation  = Math.random() * 720 - 360;
+
+    piece.style.cssText = `
+      position:fixed; left:${startX}px; top:35%;
+      width:${size}px; height:${size}px;
+      background:${color};
+      border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+      z-index:600; pointer-events:none;
+      transform:translate(0,0) rotate(0deg);
+      transition:transform ${duration}s cubic-bezier(.25,.46,.45,.94), opacity ${duration}s ease;
+    `;
+    document.body.appendChild(piece);
+
+    requestAnimationFrame(() => {
+      piece.style.transform = `translate(${driftX}px, ${300 + Math.random()*150}px) rotate(${rotation}deg)`;
+      piece.style.opacity = '0';
+    });
+
+    setTimeout(() => piece.remove(), duration * 1000 + 100);
+  }
 }
 
 /* ═══════════════════════════════════════════════════
