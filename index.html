@@ -25,10 +25,12 @@
   <!-- Fira Code desde Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap">
   <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;600;700&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
 <!-- ══ PANTALLA DE CARGA ══════════════════════════ -->
@@ -98,6 +100,11 @@
 <div id="achievements-panel" aria-live="polite"></div>
 
 <!-- ══ CONTROLES DE ZOOM ══════════════════════════ -->
+<div id="minimap-wrap">
+  <svg id="minimap-svg" viewBox="0 0 900 560" xmlns="http://www.w3.org/2000/svg"></svg>
+  <div id="minimap-dot"></div>
+</div>
+
 <div id="zoom-controls">
   <button id="music-toggle" class="zoom-btn" aria-label="Música" onclick="toggleMusic()">🔇</button>
   <button id="btn-zoom-in"  class="zoom-btn" aria-label="Acercar">+</button>
