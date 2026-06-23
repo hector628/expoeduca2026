@@ -433,38 +433,6 @@ function buildEntry(e) {
   return g;
 }
 
-  // Postes laterales
-  g.appendChild(svgEl('rect', {x:e.x-2,  y:e.y+14, width:6, height:8, rx:2, fill:'#3B82F6'}));
-  g.appendChild(svgEl('rect', {x:e.x+40, y:e.y+14, width:6, height:8, rx:2, fill:'#3B82F6'}));
-
-  // Flecha doble apuntando hacia arriba
-  g.appendChild(svgEl('path', {
-    d:`M ${e.x+12},${e.y+4} L ${e.x+22},${e.y-4} L ${e.x+32},${e.y+4}`,
-    stroke:'#BFFF00', 'stroke-width':2.5, fill:'none', 'stroke-linecap':'round', 'stroke-linejoin':'round'
-  }));
-  g.appendChild(svgEl('path', {
-    d:`M ${e.x+12},${e.y+10} L ${e.x+22},${e.y+2} L ${e.x+32},${e.y+10}`,
-    stroke:'#BFFF00', 'stroke-width':2, fill:'none', 'stroke-linecap':'round', 'stroke-linejoin':'round', opacity:'0.5'
-  }));
-
-  // Texto
-  const t = svgEl('text', {
-    x:e.x+22, y:e.y+34,
-    'font-family':"'Fira Code',monospace",
-    'font-size':'9', 'font-weight':'700',
-    fill:'#BFFF00', 'text-anchor':'middle'
-  });
-  t.textContent = e.label;
-  g.appendChild(t);
-
-  // Al hacer clic lanza la pregunta
-  g.style.cursor = 'pointer';
-  g.addEventListener('click',    () => showEntryQuestion(e.x+22, e.y+8));
-  g.addEventListener('touchend', (ev) => { ev.preventDefault(); showEntryQuestion(e.x+22, e.y+8); }, {passive:false});
-
-  return g;
-}
-
 function showEntryQuestion(ex, ey) {
   if (STATE.entryUnlocked) {
     jumpFrogTo(ex, ey);
