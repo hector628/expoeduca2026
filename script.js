@@ -399,15 +399,39 @@ function showRoadMessage() {
 function buildEntry(e) {
   const g = svgEl('g', {class:'entry-point'});
 
-  // Resplandor de fondo
-  g.appendChild(svgEl('circle', {cx:e.x+22, cy:e.y, r:32, fill:'#3B82F6', opacity:'0.12'}));
-  g.appendChild(svgEl('circle', {cx:e.x+22, cy:e.y, r:22, fill:'#3B82F6', opacity:'0.15'}));
-
-  // Arco de pórtico
-  g.appendChild(svgEl('path', {
-    d:`M ${e.x},${e.y+18} L ${e.x},${e.y-8} Q ${e.x},${e.y-22} ${e.x+22},${e.y-22} Q ${e.x+44},${e.y-22} ${e.x+44},${e.y-8} L ${e.x+44},${e.y+18}`,
-    stroke:'#60A5FA', 'stroke-width':3.5, fill:'none', 'stroke-linecap':'round'
+  // Placa con borde verde lima
+  g.appendChild(svgEl('rect', {
+    x:e.x, y:e.y-20, width:44, height:40, rx:10,
+    fill:'rgba(0,0,0,0.85)', stroke:'#BFFF00', 'stroke-width':2
   }));
+
+  // Flecha doble apuntando hacia arriba
+  g.appendChild(svgEl('path', {
+    d:`M ${e.x+13},${e.y+2} L ${e.x+22},${e.y-8} L ${e.x+31},${e.y+2}`,
+    stroke:'#BFFF00', 'stroke-width':3, fill:'none', 'stroke-linecap':'round', 'stroke-linejoin':'round'
+  }));
+  g.appendChild(svgEl('path', {
+    d:`M ${e.x+13},${e.y+8} L ${e.x+22},${e.y-2} L ${e.x+31},${e.y+8}`,
+    stroke:'#BFFF00', 'stroke-width':2, fill:'none', 'stroke-linecap':'round', 'stroke-linejoin':'round', opacity:'0.4'
+  }));
+
+  // Texto
+  const t = svgEl('text', {
+    x:e.x+22, y:e.y+34,
+    'font-family':"'Fira Code',monospace",
+    'font-size':'9', 'font-weight':'700',
+    fill:'#BFFF00', 'text-anchor':'middle'
+  });
+  t.textContent = e.label;
+  g.appendChild(t);
+
+  // Al hacer clic lanza la pregunta
+  g.style.cursor = 'pointer';
+  g.addEventListener('click',    () => showEntryQuestion(e.x+22, e.y+8));
+  g.addEventListener('touchend', (ev) => { ev.preventDefault(); showEntryQuestion(e.x+22, e.y+8); }, {passive:false});
+
+  return g;
+}
 
   // Postes laterales
   g.appendChild(svgEl('rect', {x:e.x-2,  y:e.y+14, width:6, height:8, rx:2, fill:'#3B82F6'}));
