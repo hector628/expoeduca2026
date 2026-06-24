@@ -298,7 +298,7 @@ function buildSVGMap() {
   BUILDINGS.forEach(b => svg.appendChild(buildBuilding(b)));
 
   // Decoraciones sobre edificios
-  svg.appendChild(buildFlag(263, 325));
+  svg.appendChild(buildFlag(290, 325));
 
   // Árboles encima de edificios
   TREES.forEach(t => svg.appendChild(buildTree(t.x, t.y)));
