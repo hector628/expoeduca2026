@@ -3,8 +3,8 @@
   "id": "futbol",
   "nombre": "Cancha de Fútbol",
   "actividad": "Sin actividad programada",
-  "horario": "—",
-  "responsable": "—",
+  "horario": "16:00 - 18:00",
+  "responsable": "Julio El Profe Ibañez de TUDN y su novio.",
   "descripcion": "Aquí se formó Messi y Cristiano. Probablemente...",
   "color": "#22C55E",
   "emoji": "⚽"
@@ -12,10 +12,10 @@
   {
     "id": "snte",
     "nombre": "SNTE",
-    "actividad": "(Por definir)",
+    "actividad": "Sin actividad programada",
     "horario": "16:00 - 18:00",
-    "responsable": "Por definir",
-    "descripcion": "Actividad por definir.",
+    "responsable": "Algún oscuro dirigente",
+    "descripcion": "Haciendo el papeleo de Mike Wazowski",
     "color": "#EC4899",
     "emoji": "📋"
   },
@@ -45,17 +45,17 @@
     "actividad": "Acto Cívico y Bienvenida",
     "horario": "16:00 - 16:30",
     "responsable": "Dirección General",
-    "descripcion": "Espacio principal para la inauguración. Presentaciones artísticas y discursos de bienvenida.",
+    "descripcion": "Espacio principal para la inauguración y discurso de bienvenida.",
     "color": "#94A3B8",
     "emoji": "🎪"
   },
   {
     "id": "computacion",
     "nombre": "Computación",
-    "actividad": "IA y Robótica",
+    "actividad": "Sin actividad programada",
     "horario": "16:00 - 18:00",
-    "responsable": "Academia de Tecnología",
-    "descripcion": "Demostración de proyectos de inteligencia artificial y robótica desarrollados por los alumnos.",
+    "responsable": "El malvado Ultrón",
+    "descripcion": "Programando HOLA MUNDO en Paint.",
     "color": "#8B5CF6",
     "emoji": "🤖"
   },
@@ -75,27 +75,27 @@
     "actividad": "Torneo de Básquetbol",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Educación Física",
-    "descripcion": "Torneo relámpago de básquetbol entre equipos representativos de cada grupo.",
+    "descripcion": "Juego que ganaría una abuelita manca.",
     "color": "#D97706",
     "emoji": "🏀"
   },
   {
     "id": "taller_costura",
     "nombre": "Taller de Costura",
-    "actividad": "Moda Sustentable",
+    "actividad": "Sin actividad programada",
     "horario": "16:00 - 18:00",
     "responsable": "Academia Tecnológica",
-    "descripcion": "Exposición de prendas con materiales reciclados. Demostración en vivo de técnicas de costura.",
+    "descripcion": "Esto es una fábrica de sueños. La cuna de la magia y de la fantasía. Ahora limpia mi retrete.",
     "color": "#EC4899",
     "emoji": "🪡"
   },
   {
     "id": "bodega",
     "nombre": "Bodega",
-    "actividad": "Exposición de Materiales",
+    "actividad": "Sin actividad programada",
     "horario": "16:00 - 18:00",
     "responsable": "Personal Administrativo",
-    "descripcion": "Muestra de materiales didácticos y recursos educativos del ciclo escolar.",
+    "descripcion": "No entres aquí. Advertido estás.",
     "color": "#F97316",
     "emoji": "📦"
   },
@@ -111,7 +111,7 @@
   },
   {
     "id": "banos_contr",
-    "nombre": "Contraloría Baños",
+    "nombre": "Baños",
     "actividad": "Servicios Sanitarios",
     "horario": "Siempre abierto",
     "responsable": "Personal de Intendencia",
