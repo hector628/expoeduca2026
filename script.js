@@ -13,6 +13,33 @@
 
 'use strict';
 
+/* ── Estilos para botones de sub-actividad (inyectados aquí para no tocar style.css) ── */
+(function injectSubActivityStyles() {
+  const style = document.createElement('style');
+  style.textContent = `
+    #sub-activity-list {
+      display: flex; flex-direction: column; gap: 8px; margin-top: 12px;
+    }
+    .sub-activity-btn {
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%; text-align: left;
+      background: rgba(255,255,255,0.05);
+      border: 1.5px solid rgba(191,255,0,0.3);
+      border-radius: 8px; padding: 10px 12px;
+      color: #BFFF00; font-family: 'Fira Code', monospace;
+      font-size: 12px; font-weight: 600; cursor: pointer;
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .sub-activity-btn:hover { background: rgba(191,255,0,0.1); }
+    .sub-activity-btn.found {
+      border-color: rgba(191,255,0,0.6);
+      background: rgba(191,255,0,0.08);
+    }
+    .sub-activity-check { font-size: 13px; }
+  `;
+  document.head.appendChild(style);
+})();
+
 /* ═══════════════════════════════════════════════════
    ESTADO GLOBAL
 ═══════════════════════════════════════════════════ */
@@ -38,7 +65,7 @@ const STATE = {
     { id:'explorer', threshold:4,  icon:'🗺️', title:'Explorador',           desc:'4 espacios descubiertos.' },
     { id:'half',     threshold:6,  icon:'⭐', title:'Mitad del Camino',     desc:'Más de la mitad explorado.' },
     { id:'expert',   threshold:9,  icon:'🏆', title:'Casi Experto',         desc:'9 espacios visitados.' },
-    { id:'master',   threshold:13, icon:'🎓', title:'¡Maestro ExpoEduca!',  desc:'¡Mapa completo explorado!' }
+    { id:'master',   threshold:17, icon:'🎓', title:'¡Maestro ExpoEduca!',  desc:'¡Mapa completo explorado!' }
   ],
   unlockedAchievements: new Set()
 };
@@ -80,18 +107,32 @@ const BUILDINGS = [
   { id:'terceros_primeros',x:55, y:190, w:135, h:170, rx:18, color:'#FACC15', label:'TERCEROS\nPRIMEROS',            labelY:278, multiline:true },
   { id:'banos',            x:213,y:190, w:68,  h:68,  rx:12, color:'#38BDF8', label:'BAÑOS',                        labelY:227 },
   { id:'laboratorios',     x:284,y:185, w:115, h:78,  rx:14, color:'#FACC15', label:'LABORATORIOS',                 labelY:227 },
-  { id:'domo1',            x:263,y:270, w:110, h:95,  rx:16, color:'#94A3B8', label:'DOMO I',                       labelY:320 },
-  { id:'domo2',            x:500,y:258, w:105, h:90,  rx:14, color:'#94A3B8', label:'DOMO II',                      labelY:306 },
+  { id:'domo1',            x:263,y:270, w:110, h:95,  rx:16, color:'#94A3B8', label:'PLAZA\nCÍVICA',                 labelY:320, multiline:true },
+  { id:'domo2',            x:500,y:258, w:105, h:90,  rx:14, color:'#D97706', label:'CANCHA\nBÁSQUET',               labelY:306, multiline:true },
 
-  // ── Audiovisual — al sur del estacionamiento, columna derecha ──
+  // ── Edificio Medios/Segundos — al sur del estacionamiento, columna derecha ──
   { id:'audiovisual',      x:406,y:185, w:88,  h:165, rx:14, color:'#6B7280',
-    label:'AUDIOVISUAL\nSEGUNDOS\nDIRECCIÓN',  labelY:260, multiline3:true },
+    label:'MEDIOS\nSEGUNDOS',  labelY:260, multiline:true },
 
   // ── Fila sur ──
   { id:'computacion',      x:230,y:380, w:125, h:62,  rx:14, color:'#8B5CF6', label:'COMPUTACIÓN',                  labelY:414 },
   { id:'banos_contr',      x:370,y:380, w:118, h:62,  rx:14, color:'#38BDF8', label:'CONTR.\nBAÑOS',                labelY:414, multiline:true },
   { id:'tienda',           x:498,y:380, w:130, h:62,  rx:14, color:'#F97316', label:'TIENDA\nESCOLAR',              labelY:414, multiline:true },
 ];
+
+/* ═══════════════════════════════════════════════════
+   SUB-ACTIVIDADES — edificios con múltiples actividades
+   Cada entrada referencia un id de actividad del JSON
+   que tiene "parentId" apuntando a un edificio físico.
+═══════════════════════════════════════════════════ */
+const PARENT_BUILDINGS = ['terceros_primeros', 'audiovisual'];
+
+// Total de "espacios" a descubrir = edificios sin hijos + todas las sub-actividades
+function getTotalActivities() {
+  const directBuildings = BUILDINGS.filter(b => !PARENT_BUILDINGS.includes(b.id)).length;
+  const subActivities = STATE.activities.filter(a => a.parentId).length;
+  return directBuildings + subActivities;
+}
 
 /* ═══════════════════════════════════════════════════
    ÁRBOLES — posiciones claras, sin edificios encima
@@ -591,9 +632,24 @@ function buildBuilding(b) {
     g.appendChild(svgEl('rect',    {x:b.x+b.w-34, y:b.y+b.h/2-14, width:24, height:28, rx:2, fill:'none', stroke:'rgba(255,255,255,0.3)', 'stroke-width':1.2}));
   }
 
-  // Cancha Domo II — portería
+  // Cancha de Básquetbol — líneas reglamentarias completas
   if (b.id === 'domo2') {
-    g.appendChild(svgEl('rect', {x:b.x+10, y:b.y+10, width:b.w-20, height:b.h-20, rx:4, fill:'none', stroke:'rgba(255,255,255,0.3)', 'stroke-width':1.2}));
+    const mx = b.x + b.w/2;
+    const my = b.y + b.h/2;
+    const pad = 8;
+    // Borde de cancha
+    g.appendChild(svgEl('rect', {x:b.x+pad, y:b.y+pad, width:b.w-pad*2, height:b.h-pad*2, fill:'none', stroke:'rgba(255,255,255,0.5)', 'stroke-width':1.3}));
+    // Línea central + círculo
+    g.appendChild(svgEl('line', {x1:mx, y1:b.y+pad, x2:mx, y2:b.y+b.h-pad, stroke:'rgba(255,255,255,0.35)', 'stroke-width':1, 'stroke-dasharray':'3,3'}));
+    g.appendChild(svgEl('circle', {cx:mx, cy:my, r:13, fill:'none', stroke:'rgba(255,255,255,0.4)', 'stroke-width':1.2}));
+    // Áreas restrictivas (llave) en ambos extremos
+    g.appendChild(svgEl('rect', {x:b.x+pad, y:my-16, width:24, height:32, fill:'none', stroke:'rgba(255,255,255,0.4)', 'stroke-width':1}));
+    g.appendChild(svgEl('rect', {x:b.x+b.w-pad-24, y:my-16, width:24, height:32, fill:'none', stroke:'rgba(255,255,255,0.4)', 'stroke-width':1}));
+    // Tableros y aros
+    g.appendChild(svgEl('rect', {x:b.x+pad-2, y:my-9, width:3, height:18, fill:'#5C3A1E'}));
+    g.appendChild(svgEl('rect', {x:b.x+b.w-pad-1, y:my-9, width:3, height:18, fill:'#5C3A1E'}));
+    g.appendChild(svgEl('circle', {cx:b.x+pad+26, cy:my, r:3, fill:'none', stroke:'#1A1A1A', 'stroke-width':1.3}));
+    g.appendChild(svgEl('circle', {cx:b.x+b.w-pad-26, cy:my, r:3, fill:'none', stroke:'#1A1A1A', 'stroke-width':1.3}));
   }
 
   // Etiquetas
@@ -665,11 +721,27 @@ function buildBuilding(b) {
 /* ─── Bandera ──────────────────────────────────── */
 function buildFlag(x, y) {
   const g = svgEl('g', {});
-  g.appendChild(svgEl('line', {x1:x, y1:y, x2:x, y2:y-26, stroke:'#888', 'stroke-width':2}));
-  g.appendChild(svgEl('rect', {x:x, y:y-26, width:8,  height:17, fill:'#006847'}));
-  g.appendChild(svgEl('rect', {x:x+8,  y:y-26, width:8, height:17, fill:'#FFFFFF'}));
-  g.appendChild(svgEl('rect', {x:x+16, y:y-26, width:8, height:17, fill:'#CE1126'}));
-  g.appendChild(svgEl('circle', {cx:x+12, cy:y-17, r:3, fill:'#8B4513', opacity:0.8}));
+  // Asta más alta
+  g.appendChild(svgEl('line', {x1:x, y1:y, x2:x, y2:y-50, stroke:'#777', 'stroke-width':3}));
+  g.appendChild(svgEl('circle', {cx:x, cy:y-50, r:2.5, fill:'#D4A017'}));
+
+  // Bandera ondeando con curvas (forma de tela en movimiento)
+  g.appendChild(svgEl('path', {
+    d:`M ${x},${y-44} Q ${x+10},${y-48} ${x+11.5},${y-43} Q ${x+13},${y-38} ${x+23},${y-41}
+       Q ${x+33},${y-44} ${x+36},${y-38} L ${x+36},${y-22}
+       Q ${x+33},${y-26} ${x+23},${y-23} Q ${x+13},${y-20} ${x+11.5},${y-25.5}
+       Q ${x+10},${y-30.5} ${x},${y-27} Z`,
+    fill:'#006847'
+  }));
+  g.appendChild(svgEl('path', {
+    d:`M ${x+11.5},${y-43} Q ${x+13},${y-38} ${x+23},${y-41} Q ${x+23.6},${y-32.6} ${x+23},${y-23} Q ${x+13},${y-20} ${x+11.5},${y-25.5} Z`,
+    fill:'#FFFFFF'
+  }));
+  g.appendChild(svgEl('path', {
+    d:`M ${x+23},${y-41} Q ${x+33},${y-44} ${x+36},${y-38} L ${x+36},${y-22} Q ${x+33},${y-26} ${x+23},${y-23} Z`,
+    fill:'#CE1126'
+  }));
+  g.appendChild(svgEl('ellipse', {cx:x+17.5, cy:y-32, rx:3.2, ry:4.3, fill:'#8B4513', opacity:0.75}));
   return g;
 }
 
@@ -1709,6 +1781,9 @@ function clearHighlights() {
    SISTEMA DE DESCUBRIMIENTO
 ═══════════════════════════════════════════════════ */
 function discoverBuilding(id) {
+  // Los edificios "padre" no se marcan solos — se descubren por sub-actividad
+  if (PARENT_BUILDINGS.includes(id)) return;
+
   if (STATE.discovered.has(id)) return;
   STATE.discovered.add(id);
 
@@ -1732,9 +1807,38 @@ function discoverBuilding(id) {
   checkAchievements();
 }
 
+function discoverSubActivity(subId) {
+  if (STATE.discovered.has(subId)) return;
+  STATE.discovered.add(subId);
+
+  // Lista del explorador (si existe esa fila)
+  const item = document.querySelector(`.explorer-item[data-id="${subId}"]`);
+  if (item) {
+    item.classList.add('found');
+    const c = item.querySelector('.explorer-item-check');
+    if (c) c.textContent = '✓';
+  }
+
+  // Si todas las sub-actividades del padre ya se descubrieron, marcar el edificio visualmente
+  const sub = getActivity(subId);
+  if (sub?.parentId) {
+    const siblings = STATE.activities.filter(a => a.parentId === sub.parentId);
+    const allFound = siblings.every(s => STATE.discovered.has(s.id));
+    if (allFound) {
+      const chk = document.querySelector(`.building[data-id="${sub.parentId}"] .building-check`);
+      if (chk) chk.style.display = 'block';
+      const bEl = document.querySelector(`.building[data-id="${sub.parentId}"]`);
+      if (bEl) bEl.classList.add('discovered');
+    }
+  }
+
+  updateHUD();
+  checkAchievements();
+}
+
 function updateHUD() {
   const found = STATE.discovered.size;
-  const total = BUILDINGS.length;
+  const total = getTotalActivities();
   const pct   = Math.round((found / total) * 100);
   document.getElementById('progress-text').textContent = `${found}/${total} lugares`;
   document.getElementById('progress-bar-fill').style.width = pct + '%';
@@ -1749,7 +1853,8 @@ function checkAchievements() {
   });
 
   // Tarjeta especial al completar todos los lugares
-  if (STATE.discovered.size >= BUILDINGS.length &&
+  const total = getTotalActivities();
+  if (STATE.discovered.size >= total &&
       !STATE.unlockedAchievements.has('complete_card')) {
     STATE.unlockedAchievements.add('complete_card');
     setTimeout(() => showCompleteCard(), 1200);
@@ -1813,6 +1918,12 @@ function spawnConfetti() {
    TARJETA DE INFORMACIÓN
 ═══════════════════════════════════════════════════ */
 function showInfoCard(id) {
+  // Si es un edificio "padre" con sub-actividades, mostrar selector de botones
+  if (PARENT_BUILDINGS.includes(id)) {
+    showParentInfoCard(id);
+    return;
+  }
+
   const act  = getActivity(id);
   const bld  = BUILDINGS.find(b => b.id === id);
   if (!act && !bld) return;
@@ -1840,15 +1951,81 @@ function showInfoCard(id) {
     </div>
     <p id="info-card-desc" style="white-space:pre-line;">${desc}</p>
     ${isNew ? `<div id="info-card-badge">🌟 ¡Nuevo espacio descubierto!</div>` : ''}
-    ${id === 'snte' ? `
+    ${id === 'audiovisual_biblioteca' ? `
     <button onclick="window.open('snte.html','_blank')" style="
       margin-top:12px;width:100%;
-      background:#EC4899;border:none;border-radius:8px;
-      padding:10px;color:#000;font-family:'Fira Code',monospace;
+      background:#6B7280;border:none;border-radius:8px;
+      padding:10px;color:#fff;font-family:'Fira Code',monospace;
       font-size:12px;font-weight:700;cursor:pointer;
     ">🔢 Abrir Misión Matemáticas</button>` : ''}
   `;
   document.getElementById('info-card').classList.add('visible');
+}
+
+/* ─── Tarjeta para edificios con sub-actividades (botones) ── */
+function showParentInfoCard(parentId) {
+  const parentAct = getActivity(parentId);
+  const subs = STATE.activities.filter(a => a.parentId === parentId);
+
+  const nombre = parentAct?.nombre || parentId;
+  const emoji  = parentAct?.emoji  || '🏫';
+
+  document.getElementById('info-card-emoji').textContent    = emoji;
+  document.getElementById('info-card-name').textContent     = nombre;
+  document.getElementById('info-card-activity').textContent = 'Elige un espacio';
+
+  const buttonsHTML = subs.map(sub => {
+    const isFound = STATE.discovered.has(sub.id);
+    return `
+      <button class="sub-activity-btn ${isFound ? 'found' : ''}" onclick="selectSubActivity('${sub.id}')">
+        <span>${sub.emoji} ${sub.nombre}</span>
+        <span class="sub-activity-check">${isFound ? '✓' : '○'}</span>
+      </button>`;
+  }).join('');
+
+  document.getElementById('info-card-body').innerHTML = `
+    <p id="info-card-desc">${parentAct?.descripcion || 'Selecciona un espacio para ver su actividad.'}</p>
+    <div id="sub-activity-list">${buttonsHTML}</div>
+  `;
+  document.getElementById('info-card').classList.add('visible');
+}
+
+function selectSubActivity(subId) {
+  const sub = getActivity(subId);
+  if (!sub) return;
+
+  // Marcar como descubierta
+  discoverSubActivity(subId);
+
+  const isNew = false; // ya se marcó arriba, evitamos doble badge confuso
+  document.getElementById('info-card-emoji').textContent    = sub.emoji || '🏫';
+  document.getElementById('info-card-name').textContent     = sub.nombre;
+  document.getElementById('info-card-activity').textContent = sub.actividad || '—';
+
+  document.getElementById('info-card-body').innerHTML = `
+    <div class="info-row">
+      <span class="info-row-label">⏰ Horario:</span>
+      <span class="info-row-value">${sub.horario || '—'}</span>
+    </div>
+    <div class="info-row">
+      <span class="info-row-label">👤 Responsable:</span>
+      <span class="info-row-value">${sub.responsable || '—'}</span>
+    </div>
+    <p id="info-card-desc" style="white-space:pre-line;">${sub.descripcion || ''}</p>
+    ${sub.id === 'audiovisual_biblioteca' ? `
+    <button onclick="window.open('snte.html','_blank')" style="
+      margin-top:12px;width:100%;
+      background:#6B7280;border:none;border-radius:8px;
+      padding:10px;color:#fff;font-family:'Fira Code',monospace;
+      font-size:12px;font-weight:700;cursor:pointer;
+    ">🔢 Abrir Misión Matemáticas</button>` : ''}
+    <button onclick="showParentInfoCard('${sub.parentId}')" style="
+      margin-top:8px;width:100%;
+      background:none;border:1px solid rgba(191,255,0,0.4);border-radius:8px;
+      padding:8px;color:#BFFF00;font-family:'Fira Code',monospace;
+      font-size:11px;cursor:pointer;
+    ">← Volver a la lista</button>
+  `;
 }
 
 function hideInfoCard() {
@@ -1873,7 +2050,29 @@ document.getElementById('info-card-close').addEventListener('click', hideInfoCar
 function buildExplorerList() {
   const list = document.getElementById('explorer-list');
   list.innerHTML = '';
+
   BUILDINGS.forEach(b => {
+    // Si es edificio padre, listar sus sub-actividades en lugar del edificio
+    if (PARENT_BUILDINGS.includes(b.id)) {
+      const subs = STATE.activities.filter(a => a.parentId === b.id);
+      subs.forEach(sub => {
+        const item = document.createElement('div');
+        item.className = 'explorer-item';
+        item.setAttribute('data-id', sub.id);
+        item.innerHTML = `
+          <div class="explorer-item-dot"></div>
+          <span class="explorer-item-name">${sub.emoji || '🏫'} ${sub.nombre}</span>
+          <span class="explorer-item-check">○</span>`;
+        item.addEventListener('click', () => {
+          const cx = b.x + b.w/2, cy = b.y + b.h/2;
+          jumpFrogTo(cx, cy);
+          setTimeout(() => selectSubActivity(sub.id), 500);
+        });
+        list.appendChild(item);
+      });
+      return;
+    }
+
     const act   = getActivity(b.id);
     const name  = act?.nombre || b.label?.replace(/\n/g,' ') || b.id;
     const emoji = act?.emoji  || '🏫';
