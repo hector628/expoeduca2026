@@ -80,7 +80,7 @@ const ACTIVIDADES_DEFAULT = [
   { id:'terceros_primeros',nombre:'Salones Terceros / Primeros',   actividad:'Proyectos Integradores',            horario:'14:00 - 14:30', responsable:'Academia Interdisciplinaria',    descripcion:'Exposición de proyectos integradores: medio ambiente, historia local y matemáticas aplicadas.',      color:'#FACC15', emoji:'📚' },
   { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'Siempre abierto', responsable:'Personal de Intendencia',      descripcion:'¡Estuvo cerca la cosa, casi me gana!.',                                                             color:'#38BDF8', emoji:'🚽' },
   { id:'laboratorios',    nombre:'Laboratorios',                   actividad:'Experimentos de Ciencias',          horario:'15:00 - 16:00', responsable:'Academia de Ciencias Naturales', descripcion:'Experimentos interactivos de química, biología y física. ¡Ven a descubrir la ciencia!',               color:'#FACC15', emoji:'🔬' },
-  { id:'audiovisual',     nombre:'Audiovisual Segundos Sala Maestros Biblioteca', actividad:'Cine y Producciones Escolares',     horario:'16:00 - 17:00', responsable:'Academia de Español y Arte',     descripcion:'Proyección de cortometrajes y documentales producidos por alumnos de segundo grado y dirección.',    color:'#6B7280', emoji:'🎬' },
+  { id:'audiovisual',     nombre:'Medios, Segundos', actividad:'Varias actividades',     horario:'16:00 - 18:00', responsable:'Varios responsables',     descripcion:'Sala de Medios, Sala de Maestros y Biblioteca. Elige un espacio para ver su actividad.',    color:'#DC2626', emoji:'🎬' },
   { id:'domo1',           nombre:'Domo I',                         actividad:'Acto Cívico y Bienvenida',          horario:'17:00 - 17:30', responsable:'Dirección General',              descripcion:'Espacio principal para la inauguración. Presentaciones artísticas y discursos de bienvenida.',        color:'#94A3B8', emoji:'🎪' },
   { id:'computacion',     nombre:'Computación',                    actividad:'IA y Robótica',                     horario:'18:00 - 18:30', responsable:'Academia de Tecnología',         descripcion:'Demostración de proyectos de inteligencia artificial y robótica desarrollados por los alumnos.',      color:'#8B5CF6', emoji:'🤖' },
   { id:'domo2',           nombre:'Domo II',                        actividad:'Deportes y Activación Física',      horario:'18:30 - 19:00', responsable:'Academia de Educación Física',   descripcion:'Demostraciones deportivas, clases de zumba y torneos rápidos de basquetbol.',                         color:'#94A3B8', emoji:'🏀' },
@@ -111,7 +111,7 @@ const BUILDINGS = [
   { id:'domo2',            x:500,y:258, w:105, h:90,  rx:14, color:'#15803D', label:'BÁSQUETBOL',                   labelY:306 },
 
   // ── Edificio Medios/Segundos — al sur del estacionamiento, columna derecha ──
-  { id:'audiovisual',      x:406,y:185, w:88,  h:165, rx:14, color:'#6B7280',
+  { id:'audiovisual',      x:406,y:185, w:88,  h:165, rx:14, color:'#DC2626',
     label:'MEDIOS\nSEGUNDOS\nSALA DE\nMAESTROS\nBIBLIOTECA',  labelY:260, multiline4:true },
 
   // ── Fila sur ──
@@ -298,7 +298,7 @@ function buildSVGMap() {
   BUILDINGS.forEach(b => svg.appendChild(buildBuilding(b)));
 
   // Decoraciones sobre edificios
-  svg.appendChild(buildFlag(280, 340));
+  svg.appendChild(buildFlag(263, 340));
 
   // Árboles encima de edificios
   TREES.forEach(t => svg.appendChild(buildTree(t.x, t.y)));
@@ -643,7 +643,7 @@ function buildBuilding(b) {
     const my = b.y + b.h/2;
     const pad = 8;
     // Marco rojo exterior
-    g.appendChild(svgEl('rect', {x:b.x+pad-3, y:b.y+pad-3, width:b.w-pad*2+6, height:b.h-pad*2+6, fill:'#B91C1C'}));
+    g.appendChild(svgEl('rect', {x:b.x+pad-3, y:b.y+pad-3, width:b.w-pad*2+6, height:b.h-pad*2+6, fill:'#164E63'}));
     // Cancha verde interior
     g.appendChild(svgEl('rect', {x:b.x+pad, y:b.y+pad, width:b.w-pad*2, height:b.h-pad*2, fill:'#15803D', stroke:'white', 'stroke-width':1.3}));
     // Línea central + círculo
@@ -651,8 +651,8 @@ function buildBuilding(b) {
     g.appendChild(svgEl('circle', {cx:mx, cy:my, r:13, fill:'none', stroke:'white', 'stroke-width':1.3}));
     g.appendChild(svgEl('circle', {cx:mx, cy:my, r:1.3, fill:'white'}));
     // Áreas pintadas (la llave) en rojo bajo cada aro
-    g.appendChild(svgEl('path', {d:`M ${b.x+pad},${my-14} Q ${b.x+pad+22},${my-14} ${b.x+pad+22},${my} Q ${b.x+pad+22},${my+14} ${b.x+pad},${my+14} Z`, fill:'#B91C1C'}));
-    g.appendChild(svgEl('path', {d:`M ${b.x+b.w-pad},${my-14} Q ${b.x+b.w-pad-22},${my-14} ${b.x+b.w-pad-22},${my} Q ${b.x+b.w-pad-22},${my+14} ${b.x+b.w-pad},${my+14} Z`, fill:'#B91C1C'}));
+    g.appendChild(svgEl('path', {d:`M ${b.x+pad},${my-14} Q ${b.x+pad+22},${my-14} ${b.x+pad+22},${my} Q ${b.x+pad+22},${my+14} ${b.x+pad},${my+14} Z`, fill:'#164E63'}));
+    g.appendChild(svgEl('path', {d:`M ${b.x+b.w-pad},${my-14} Q ${b.x+b.w-pad-22},${my-14} ${b.x+b.w-pad-22},${my} Q ${b.x+b.w-pad-22},${my+14} ${b.x+b.w-pad},${my+14} Z`, fill:'#164E63'}));
     // Tableros y aros
     g.appendChild(svgEl('rect', {x:b.x+pad-2, y:my-9, width:3, height:18, fill:'#5C3A1E'}));
     g.appendChild(svgEl('rect', {x:b.x+b.w-pad-1, y:my-9, width:3, height:18, fill:'#5C3A1E'}));
@@ -702,14 +702,14 @@ function buildBuilding(b) {
   } else if (b.multiline4) {
     // Texto compacto para varias líneas (edificios con múltiples espacios)
     const lines = b.label.split('\n');
-    const lineHeight = 11.5;
+    const lineHeight = 13.5;
     const totalH = lines.length * lineHeight;
     const startY = b.y + b.h/2 - totalH/2 + lineHeight/2;
     lines.forEach((line, i) => {
       const t = svgEl('text', {
         x:b.x+b.w/2, y:startY + i*lineHeight,
         'font-family':"'Fira Code',monospace",
-        'font-size':'7.5', 'font-weight':'700',
+        'font-size':'9', 'font-weight':'700',
         fill:'#fff', 'text-anchor':'middle', 'dominant-baseline':'middle'
       });
       t.textContent = line;
