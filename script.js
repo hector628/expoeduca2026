@@ -61,11 +61,11 @@ const STATE = {
   frogName: 'Explorador',
   entryUnlocked: false,
   achievements: [
-    { id:'first',    threshold:1,  icon:'🐸', title:'¡Primera Visita!',    desc:'Exploraste tu primer espacio.' },
-    { id:'explorer', threshold:4,  icon:'🗺️', title:'Explorador',           desc:'4 espacios descubiertos.' },
-    { id:'half',     threshold:6,  icon:'⭐', title:'Mitad del Camino',     desc:'Más de la mitad explorado.' },
-    { id:'expert',   threshold:9,  icon:'🏆', title:'Casi Experto',         desc:'9 espacios visitados.' },
-    { id:'master',   threshold:17, icon:'🎓', title:'¡Maestro ExpoEduca!',  desc:'¡Mapa completo explorado!' }
+    { id:'first',    threshold:1,  icon:'🐸', title:'¡Primera Actividad!', desc:'Realizaste tu primera actividad.' },
+    { id:'explorer', threshold:3,  icon:'🗺️', title:'Explorador',           desc:'3 actividades realizadas.' },
+    { id:'half',     threshold:4,  icon:'⭐', title:'Mitad del Camino',     desc:'Más de la mitad completado.' },
+    { id:'expert',   threshold:6,  icon:'🏆', title:'Casi Experto',         desc:'6 actividades realizadas.' },
+    { id:'master',   threshold:8,  icon:'🎓', title:'¡Maestro ExpoEduca!',  desc:'¡Todas las actividades completadas!' }
   ],
   unlockedAchievements: new Set()
 };
@@ -75,7 +75,7 @@ const STATE = {
    Modifica actividades.json para cambiar estos textos.
 ═══════════════════════════════════════════════════ */
 const ACTIVIDADES_DEFAULT = [
-  { id:'futbol',          nombre:'Cancha de Fútbol',              actividad:'Torneo Relámpago de Fútbol',        horario:'13:30 - 14:30', responsable:'Academia de Ed. Física',       descripcion:'Torneo relámpago entre equipos de cada grupo. ¡A meter goles!',                                     color:'#22C55E', emoji:'⚽' },
+  { id:'futbol',          nombre:'Cancha de Fútbol',              actividad:'Sin actividad programada',          horario:'—',              responsable:'—',                              descripcion:'Aquí se formó Messi y Cristiano. (Probablemente.)',                                                  color:'#22C55E', emoji:'⚽' },
   { id:'snte',            nombre:'SNTE',                           actividad:'Estimysterios',                     horario:'16:00 - 16:30', responsable:'Academia de Matemáticas',        descripcion:'Retos de estimación.',                                                                               color:'#FF4C37', emoji:'📋' },
   { id:'terceros_primeros',nombre:'Salones Terceros / Primeros',   actividad:'Proyectos Integradores',            horario:'14:00 - 14:30', responsable:'Academia Interdisciplinaria',    descripcion:'Exposición de proyectos integradores: medio ambiente, historia local y matemáticas aplicadas.',      color:'#FACC15', emoji:'📚' },
   { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'Siempre abierto', responsable:'Personal de Intendencia',      descripcion:'¡Estuvo cerca la cosa, casi me gana!.',                                                             color:'#3B82F6', emoji:'🚽' },
@@ -127,11 +127,28 @@ const BUILDINGS = [
 ═══════════════════════════════════════════════════ */
 const PARENT_BUILDINGS = ['terceros_primeros', 'audiovisual'];
 
-// Total de "espacios" a descubrir = edificios sin hijos + todas las sub-actividades
+/* Lista explícita de IDs que SÍ cuentan como "actividad real" para el contador.
+   Agrega aquí el id cuando crees una nueva actividad — el contador se
+   actualiza solo, sin tocar ninguna otra parte del código. */
+const REAL_ACTIVITY_IDS = [
+  'terceros_primeros_1eE',
+  'terceros_primeros_1eF',
+  'terceros_primeros_3eE',
+  'audiovisual_medios',
+  'audiovisual_maestros',
+  'audiovisual_biblioteca',
+  'domo2',          // Cancha de Básquetbol
+  'laboratorios',   // Laboratorios
+];
+
+// Total de actividades reales = solo lo que está en REAL_ACTIVITY_IDS
 function getTotalActivities() {
-  const directBuildings = BUILDINGS.filter(b => !PARENT_BUILDINGS.includes(b.id)).length;
-  const subActivities = STATE.activities.filter(a => a.parentId).length;
-  return directBuildings + subActivities;
+  return REAL_ACTIVITY_IDS.length;
+}
+
+// ¿Este id (edificio directo o sub-actividad) cuenta como actividad real?
+function isRealActivity(id) {
+  return REAL_ACTIVITY_IDS.includes(id);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -1831,8 +1848,13 @@ function discoverBuilding(id) {
     if (c) c.textContent = '✓';
   }
 
-  updateHUD();
-  checkAchievements();
+  if (isRealActivity(id)) {
+    spawnFullScreenConfetti();
+    updateHUD();
+    checkAchievements();
+  } else {
+    showFrogSpeechBubble();
+  }
 }
 
 function discoverSubActivity(subId) {
@@ -1860,29 +1882,39 @@ function discoverSubActivity(subId) {
     }
   }
 
+  // Las sub-actividades siempre son actividades reales
+  if (isRealActivity(subId)) {
+    spawnFullScreenConfetti();
+  }
+
   updateHUD();
   checkAchievements();
 }
 
 function updateHUD() {
-  const found = STATE.discovered.size;
+  // Solo contar lo que sea una actividad real (no edificios sin actividad)
+  const found = [...STATE.discovered].filter(id => isRealActivity(id)).length;
   const total = getTotalActivities();
   const pct   = Math.round((found / total) * 100);
-  document.getElementById('progress-text').textContent = `${found}/${total} lugares`;
+  document.getElementById('progress-text').textContent = `${found}/${total} actividades`;
   document.getElementById('progress-bar-fill').style.width = pct + '%';
 }
 
 function checkAchievements() {
+  const realFoundCount = [...STATE.discovered].filter(id => isRealActivity(id)).length;
+  const total = getTotalActivities();
+
   STATE.achievements.forEach(ach => {
-    if (!STATE.unlockedAchievements.has(ach.id) && STATE.discovered.size >= ach.threshold) {
+    // El logro "master" siempre exige el 100% actual, sin importar cuántas haya
+    const effectiveThreshold = ach.id === 'master' ? total : ach.threshold;
+    if (!STATE.unlockedAchievements.has(ach.id) && realFoundCount >= effectiveThreshold) {
       STATE.unlockedAchievements.add(ach.id);
       showAchievement(ach);
     }
   });
 
-  // Tarjeta especial al completar todos los lugares
-  const total = getTotalActivities();
-  if (STATE.discovered.size >= total &&
+  // Tarjeta especial al completar todas las actividades
+  if (realFoundCount >= total &&
       !STATE.unlockedAchievements.has('complete_card')) {
     STATE.unlockedAchievements.add('complete_card');
     setTimeout(() => showCompleteCard(), 1200);
@@ -1940,6 +1972,130 @@ function spawnConfetti() {
 
     setTimeout(() => piece.remove(), duration * 1000 + 100);
   }
+}
+
+/* ─── Confeti a pantalla completa — al completar una ACTIVIDAD real ──
+   Distinto del confeti de logros: cae desde toda la parte superior
+   de la pantalla, no solo desde el centro. ── */
+function spawnFullScreenConfetti() {
+  const colors = ['#BFFF00', '#FACC15', '#EC4899', '#60A5FA', '#4ADE80', '#A855F7', '#FF4C37'];
+  const count = 70;
+  const W = window.innerWidth;
+
+  for (let i = 0; i < count; i++) {
+    const piece = document.createElement('div');
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    const size  = 6 + Math.random() * 7;
+    const startX = Math.random() * W;
+    const driftX = (Math.random() - 0.5) * 160;
+    const duration = 2.2 + Math.random() * 1.4;
+    const delay = Math.random() * 0.4;
+    const rotation = Math.random() * 1080 - 540;
+    const shape = Math.random();
+    let borderRadius = '2px';
+    if (shape > 0.66) borderRadius = '50%';
+    else if (shape > 0.33) borderRadius = '0';
+
+    piece.style.cssText = `
+      position:fixed; left:${startX}px; top:-20px;
+      width:${size}px; height:${size * (shape > 0.66 ? 1 : 1.6)}px;
+      background:${color};
+      border-radius:${borderRadius};
+      z-index:700; pointer-events:none;
+      opacity:1;
+      transform:translateY(0) rotate(0deg);
+      transition:transform ${duration}s cubic-bezier(.4,0,.2,1) ${delay}s, opacity 0.5s ease ${duration + delay - 0.5}s;
+    `;
+    document.body.appendChild(piece);
+
+    requestAnimationFrame(() => {
+      piece.style.transform = `translate(${driftX}px, ${window.innerHeight + 40}px) rotate(${rotation}deg)`;
+      piece.style.opacity = '0';
+    });
+
+    setTimeout(() => piece.remove(), (duration + delay) * 1000 + 200);
+  }
+
+  // Mensaje breve centrado en pantalla
+  const msg = document.createElement('div');
+  msg.style.cssText = `
+    position:fixed; top:40%; left:50%;
+    transform:translate(-50%,-50%) scale(0.7);
+    background:rgba(0,0,0,0.9);
+    border:2px solid #BFFF00; border-radius:16px;
+    padding:16px 24px; z-index:701;
+    font-family:'Fira Code',monospace;
+    font-size:14px; font-weight:700; color:#BFFF00;
+    text-align:center; pointer-events:none;
+    box-shadow:0 0 40px rgba(191,255,0,0.5);
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1), opacity 0.4s ease;
+    opacity:0;
+  `;
+  msg.innerHTML = `🎉 ¡Actividad completada!`;
+  document.body.appendChild(msg);
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      msg.style.transform = 'translate(-50%,-50%) scale(1)';
+      msg.style.opacity = '1';
+    }, 30);
+  });
+  setTimeout(() => {
+    msg.style.opacity = '0';
+    msg.style.transform = 'translate(-50%,-50%) scale(0.8)';
+    setTimeout(() => msg.remove(), 400);
+  }, 1800);
+}
+
+/* ─── Globo de diálogo de la rana — al visitar un edificio SIN actividad ── */
+const FROG_NOTHING_PHRASES = [
+  'Aquí no hay nada que hacer, pero está bonito.',
+  'Lindo lugar. Cero actividades. Bonito de todos modos.',
+  'Nada que marcar aquí, pero la vista vale la pasada.',
+  'Espacio sin actividad. Aun así, que estilo.',
+];
+
+function showFrogSpeechBubble() {
+  const old = document.getElementById('frog-speech-bubble');
+  if (old) old.remove();
+
+  const wrapper = document.getElementById('frog-wrapper');
+  if (!wrapper) return;
+  const rect = wrapper.getBoundingClientRect();
+
+  const phrase = FROG_NOTHING_PHRASES[Math.floor(Math.random() * FROG_NOTHING_PHRASES.length)];
+
+  const bubble = document.createElement('div');
+  bubble.id = 'frog-speech-bubble';
+  bubble.style.cssText = `
+    position:fixed;
+    left:${rect.left + rect.width/2}px;
+    top:${rect.top - 14}px;
+    transform:translate(-50%,-100%) scale(0.6);
+    background:rgba(0,0,0,0.92);
+    border:2px solid #BFFF00; border-radius:14px;
+    padding:10px 14px; z-index:550;
+    font-family:'Fira Code',monospace;
+    font-size:11px; color:#BFFF00; font-weight:600;
+    max-width:200px; text-align:center;
+    box-shadow:0 0 20px rgba(191,255,0,0.3);
+    transition:transform 0.3s cubic-bezier(.34,1.56,.64,1), opacity 0.3s ease;
+    opacity:0; pointer-events:none;
+  `;
+  bubble.innerHTML = `🐸 "${phrase}"`;
+  document.body.appendChild(bubble);
+
+  requestAnimationFrame(() => {
+    setTimeout(() => {
+      bubble.style.transform = 'translate(-50%,-100%) scale(1)';
+      bubble.style.opacity = '1';
+    }, 30);
+  });
+
+  setTimeout(() => {
+    bubble.style.opacity = '0';
+    bubble.style.transform = 'translate(-50%,-100%) scale(0.85)';
+    setTimeout(() => bubble.remove(), 350);
+  }, 2600);
 }
 
 /* ═══════════════════════════════════════════════════
