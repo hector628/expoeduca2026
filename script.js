@@ -1445,6 +1445,8 @@ function showCompleteCard() {
   const old = document.getElementById('complete-card');
   if (old) return;
 
+  const totalActivities = getTotalActivities();
+
   const card = document.createElement('div');
   card.id = 'complete-card';
   card.style.cssText = `
@@ -1472,7 +1474,7 @@ function showCompleteCard() {
                 line-height:1.8;margin-bottom:16px;
                 border-top:1px solid rgba(191,255,0,0.15);
                 padding-top:12px;">
-      Has explorado los <strong style="color:#BFFF00;">13 espacios</strong>
+      Has completado las <strong style="color:#BFFF00;">${totalActivities} actividades</strong>
       de la Escuela Secundaria<br>
       <strong style="color:#FACC15;">Dr. Gabino Barreda</strong><br>
       Turno Vespertino · ExpoEduca 2026 🐸
