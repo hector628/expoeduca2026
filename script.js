@@ -75,19 +75,19 @@ const STATE = {
    Modifica actividades.json para cambiar estos textos.
 ═══════════════════════════════════════════════════ */
 const ACTIVIDADES_DEFAULT = [
-  { id:'futbol',          nombre:'Cancha de Fútbol',              actividad:'Torneo Relámpago de Fútbol',        horario:'13:30 - 14:30', responsable:'Academia de Ed. Física',       descripcion:'Torneo relámpago entre equipos de cada grupo. ¡A meter goles!',                                     color:'#4ADE80', emoji:'⚽' },
-  { id:'snte',            nombre:'SNTE',                           actividad:'Estimysterios',                     horario:'16:00 - 16:30', responsable:'Academia de Matemáticas',        descripcion:'Retos de estimación.',                                                                               color:'#EC4899', emoji:'📋' },
+  { id:'futbol',          nombre:'Cancha de Fútbol',              actividad:'Torneo Relámpago de Fútbol',        horario:'13:30 - 14:30', responsable:'Academia de Ed. Física',       descripcion:'Torneo relámpago entre equipos de cada grupo. ¡A meter goles!',                                     color:'#22C55E', emoji:'⚽' },
+  { id:'snte',            nombre:'SNTE',                           actividad:'Estimysterios',                     horario:'16:00 - 16:30', responsable:'Academia de Matemáticas',        descripcion:'Retos de estimación.',                                                                               color:'#FF4C37', emoji:'📋' },
   { id:'terceros_primeros',nombre:'Salones Terceros / Primeros',   actividad:'Proyectos Integradores',            horario:'14:00 - 14:30', responsable:'Academia Interdisciplinaria',    descripcion:'Exposición de proyectos integradores: medio ambiente, historia local y matemáticas aplicadas.',      color:'#FACC15', emoji:'📚' },
-  { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'Siempre abierto', responsable:'Personal de Intendencia',      descripcion:'¡Estuvo cerca la cosa, casi me gana!.',                                                             color:'#38BDF8', emoji:'🚽' },
-  { id:'laboratorios',    nombre:'Laboratorios',                   actividad:'Experimentos de Ciencias',          horario:'15:00 - 16:00', responsable:'Academia de Ciencias Naturales', descripcion:'Experimentos interactivos de química, biología y física. ¡Ven a descubrir la ciencia!',               color:'#FACC15', emoji:'🔬' },
+  { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'Siempre abierto', responsable:'Personal de Intendencia',      descripcion:'¡Estuvo cerca la cosa, casi me gana!.',                                                             color:'#3B82F6', emoji:'🚽' },
+  { id:'laboratorios',    nombre:'Laboratorios',                   actividad:'Experimentos de Ciencias',          horario:'15:00 - 16:00', responsable:'Academia de Ciencias Naturales', descripcion:'Experimentos interactivos de química, biología y física. ¡Ven a descubrir la ciencia!',               color:'#06B6D4', emoji:'🔬' },
   { id:'audiovisual',     nombre:'Medios, Segundos', actividad:'Varias actividades',     horario:'16:00 - 18:00', responsable:'Varios responsables',     descripcion:'Sala de Medios, Sala de Maestros y Biblioteca. Elige un espacio para ver su actividad.',    color:'#DC2626', emoji:'🎬' },
-  { id:'domo1',           nombre:'Domo I',                         actividad:'Acto Cívico y Bienvenida',          horario:'17:00 - 17:30', responsable:'Dirección General',              descripcion:'Espacio principal para la inauguración. Presentaciones artísticas y discursos de bienvenida.',        color:'#94A3B8', emoji:'🎪' },
+  { id:'domo1',           nombre:'Plaza Cívica',                   actividad:'Acto Cívico y Bienvenida',          horario:'17:00 - 17:30', responsable:'Dirección General',              descripcion:'Espacio principal para la inauguración. Presentaciones artísticas y discursos de bienvenida.',        color:'#94A3B8', emoji:'🎪' },
   { id:'computacion',     nombre:'Computación',                    actividad:'IA y Robótica',                     horario:'18:00 - 18:30', responsable:'Academia de Tecnología',         descripcion:'Demostración de proyectos de inteligencia artificial y robótica desarrollados por los alumnos.',      color:'#8B5CF6', emoji:'🤖' },
-  { id:'domo2',           nombre:'Domo II',                        actividad:'Deportes y Activación Física',      horario:'18:30 - 19:00', responsable:'Academia de Educación Física',   descripcion:'Demostraciones deportivas, clases de zumba y torneos rápidos de basquetbol.',                         color:'#94A3B8', emoji:'🏀' },
-  { id:'taller_costura',  nombre:'Taller de Costura',              actividad:'Moda Sustentable',                  horario:'19:00 - 20:00', responsable:'Academia Tecnológica',           descripcion:'Exposición de prendas con materiales reciclados. Demostración en vivo de técnicas de costura.',       color:'#EC4899', emoji:'🪡' },
-  { id:'bodega',          nombre:'Bodega',                         actividad:'Exposición de Materiales',          horario:'13:30 - 14:30', responsable:'Personal Administrativo',        descripcion:'Aquí se aparece el muerto y llora la llorona.',                                                       color:'#F97316', emoji:'📦' },
-  { id:'tienda',          nombre:'Tienda Escolar',                 actividad:'Feria Gastronómica Estudiantil',    horario:'14:30 - 15:30', responsable:'Comité de Padres',               descripcion:'Venta de alimentos preparados por alumnos como proyecto emprendedor. ¡Antojitos y postres!',          color:'#F97316', emoji:'🍕' },
-  { id:'banos_contr',     nombre:'Contraloría Baños',              actividad:'Servicios Sanitarios',              horario:'Siempre abierto', responsable:'Personal de Intendencia',      descripcion:'Mi estómago pidió refuerzos.',                                                                        color:'#38BDF8', emoji:'🚻' }
+  { id:'domo2',           nombre:'Básquetbol',                     actividad:'Deportes y Activación Física',      horario:'18:30 - 19:00', responsable:'Academia de Educación Física',   descripcion:'Demostraciones deportivas, clases de zumba y torneos rápidos de basquetbol.',                         color:'#F97316', emoji:'🏀' },
+  { id:'taller_costura',  nombre:'Taller de Costura',              actividad:'Moda Sustentable',                  horario:'19:00 - 20:00', responsable:'Academia Tecnológica',           descripcion:'Exposición de prendas con materiales reciclados. Demostración en vivo de técnicas de costura.',       color:'#933601', emoji:'🪡' },
+  { id:'bodega',          nombre:'Bodega',                         actividad:'Exposición de Materiales',          horario:'13:30 - 14:30', responsable:'Personal Administrativo',        descripcion:'Aquí se aparece el muerto y llora la llorona.',                                                       color:'#FF0571', emoji:'📦' },
+  { id:'tienda',          nombre:'Tienda Escolar',                 actividad:'Feria Gastronómica Estudiantil',    horario:'14:30 - 15:30', responsable:'Comité de Padres',               descripcion:'Venta de alimentos preparados por alumnos como proyecto emprendedor. ¡Antojitos y postres!',          color:'#84CC16', emoji:'🍕' },
+  { id:'banos_contr',     nombre:'Contraloría Baños',              actividad:'Servicios Sanitarios',              horario:'Siempre abierto', responsable:'Personal de Intendencia',      descripcion:'Mi estómago pidió refuerzos.',                                                                        color:'#3B82F6', emoji:'🚻' }
 ];
 
 /* ═══════════════════════════════════════════════════
@@ -98,17 +98,17 @@ const ACTIVIDADES_DEFAULT = [
 const BUILDINGS = [
   // ── Fila norte ──
   // (Estacionamiento eliminado)
-  { id:'futbol',          x:295, y:15,  w:295, h:148, rx:18, color:'#4ADE80', label:'FÚTBOL',                        labelY:90  },
-  { id:'snte',            x:610, y:38,  w:90,  h:75,  rx:14, color:'#EC4899', label:'SNTE',                          labelY:78  },
-  { id:'taller_costura',  x:610, y:125, w:90,  h:80,  rx:14, color:'#EC4899', label:'TALLER\nCOSTURA',               labelY:167, multiline:true },
-  { id:'bodega',          x:715, y:125, w:80,  h:80,  rx:14, color:'#F97316', label:'BODEGA',                        labelY:167 },
+  { id:'futbol',          x:295, y:15,  w:295, h:148, rx:18, color:'#22C55E', label:'FÚTBOL',                        labelY:90  },
+  { id:'snte',            x:610, y:38,  w:90,  h:75,  rx:14, color:'#FF4C37', label:'SNTE',                          labelY:78  },
+  { id:'taller_costura',  x:610, y:125, w:90,  h:80,  rx:14, color:'#933601', label:'TALLER\nCOSTURA',               labelY:167, multiline:true },
+  { id:'bodega',          x:715, y:125, w:80,  h:80,  rx:14, color:'#FF0571', label:'BODEGA',                        labelY:167 },
 
   // ── Fila media ──
   { id:'terceros_primeros',x:55, y:190, w:135, h:170, rx:18, color:'#FACC15', label:'TERCEROS\nPRIMEROS',            labelY:278, multiline:true },
-  { id:'banos',            x:213,y:190, w:68,  h:68,  rx:12, color:'#38BDF8', label:'BAÑOS',                        labelY:227 },
-  { id:'laboratorios',     x:284,y:185, w:115, h:78,  rx:14, color:'#FACC15', label:'LABORATORIOS',                 labelY:227 },
+  { id:'banos',            x:213,y:190, w:68,  h:68,  rx:12, color:'#3B82F6', label:'BAÑOS',                        labelY:227 },
+  { id:'laboratorios',     x:284,y:185, w:115, h:78,  rx:14, color:'#06B6D4', label:'LABORATORIOS',                 labelY:227 },
   { id:'domo1',            x:263,y:270, w:110, h:95,  rx:16, color:'#94A3B8', label:'PLAZA\nCÍVICA',                 labelY:320, multiline:true },
-  { id:'domo2',            x:500,y:258, w:105, h:90,  rx:14, color:'#15803D', label:'BÁSQUETBOL',                   labelY:306 },
+  { id:'domo2',            x:500,y:258, w:105, h:90,  rx:14, color:'#F97316', label:'BÁSQUETBOL',                   labelY:306 },
 
   // ── Edificio Medios/Segundos — al sur del estacionamiento, columna derecha ──
   { id:'audiovisual',      x:406,y:185, w:88,  h:165, rx:14, color:'#DC2626',
@@ -116,8 +116,8 @@ const BUILDINGS = [
 
   // ── Fila sur ──
   { id:'computacion',      x:230,y:380, w:125, h:62,  rx:14, color:'#8B5CF6', label:'COMPUTACIÓN',                  labelY:414 },
-  { id:'banos_contr',      x:370,y:380, w:118, h:62,  rx:14, color:'#38BDF8', label:'CONTR.\nBAÑOS',                labelY:414, multiline:true },
-  { id:'tienda',           x:498,y:380, w:130, h:62,  rx:14, color:'#F97316', label:'TIENDA\nESCOLAR',              labelY:414, multiline:true },
+  { id:'banos_contr',      x:370,y:380, w:118, h:62,  rx:14, color:'#3B82F6', label:'CONTR.\nBAÑOS',                labelY:414, multiline:true },
+  { id:'tienda',           x:498,y:380, w:130, h:62,  rx:14, color:'#84CC16', label:'TIENDA\nESCOLAR',              labelY:414, multiline:true },
 ];
 
 /* ═══════════════════════════════════════════════════
@@ -637,27 +637,28 @@ function buildBuilding(b) {
     g.appendChild(svgEl('rect',    {x:b.x+b.w-34, y:b.y+b.h/2-14, width:24, height:28, rx:2, fill:'none', stroke:'rgba(255,255,255,0.3)', 'stroke-width':1.2}));
   }
 
-  // Cancha de Básquetbol — colores reales verde/rojo
+  // Cancha de Básquetbol — marco naranja sólido, diseño limpio
   if (b.id === 'domo2') {
     const mx = b.x + b.w/2;
     const my = b.y + b.h/2;
-    const pad = 8;
-    // Marco rojo exterior
-    g.appendChild(svgEl('rect', {x:b.x+pad-3, y:b.y+pad-3, width:b.w-pad*2+6, height:b.h-pad*2+6, fill:'#164E63'}));
-    // Cancha verde interior
-    g.appendChild(svgEl('rect', {x:b.x+pad, y:b.y+pad, width:b.w-pad*2, height:b.h-pad*2, fill:'#15803D', stroke:'white', 'stroke-width':1.3}));
+    const pad = 9;
+    // Cancha verde interior con margen uniforme (el marco naranja es el color base del edificio)
+    g.appendChild(svgEl('rect', {x:b.x+pad, y:b.y+pad, width:b.w-pad*2, height:b.h-pad*2, fill:'#15803D', stroke:'white', 'stroke-width':1.6}));
     // Línea central + círculo
-    g.appendChild(svgEl('line', {x1:mx, y1:b.y+pad, x2:mx, y2:b.y+b.h-pad, stroke:'white', 'stroke-width':1.3}));
-    g.appendChild(svgEl('circle', {cx:mx, cy:my, r:13, fill:'none', stroke:'white', 'stroke-width':1.3}));
-    g.appendChild(svgEl('circle', {cx:mx, cy:my, r:1.3, fill:'white'}));
-    // Áreas pintadas (la llave) en rojo bajo cada aro
-    g.appendChild(svgEl('path', {d:`M ${b.x+pad},${my-14} Q ${b.x+pad+22},${my-14} ${b.x+pad+22},${my} Q ${b.x+pad+22},${my+14} ${b.x+pad},${my+14} Z`, fill:'#164E63'}));
-    g.appendChild(svgEl('path', {d:`M ${b.x+b.w-pad},${my-14} Q ${b.x+b.w-pad-22},${my-14} ${b.x+b.w-pad-22},${my} Q ${b.x+b.w-pad-22},${my+14} ${b.x+b.w-pad},${my+14} Z`, fill:'#164E63'}));
+    g.appendChild(svgEl('line', {x1:mx, y1:b.y+pad, x2:mx, y2:b.y+b.h-pad, stroke:'white', 'stroke-width':1.4}));
+    g.appendChild(svgEl('circle', {cx:mx, cy:my, r:12, fill:'none', stroke:'white', 'stroke-width':1.4}));
+    g.appendChild(svgEl('circle', {cx:mx, cy:my, r:1.4, fill:'white'}));
+    // Áreas restrictivas — rectángulos rectos, sin formas de gota
+    g.appendChild(svgEl('rect', {x:b.x+pad, y:my-15, width:24, height:30, fill:'none', stroke:'white', 'stroke-width':1.2}));
+    g.appendChild(svgEl('rect', {x:b.x+b.w-pad-24, y:my-15, width:24, height:30, fill:'none', stroke:'white', 'stroke-width':1.2}));
+    // Semicírculos de tiro libre
+    g.appendChild(svgEl('path', {d:`M ${b.x+pad+24},${my-15} A 15,15 0 0 1 ${b.x+pad+24},${my+15}`, fill:'none', stroke:'white', 'stroke-width':1}));
+    g.appendChild(svgEl('path', {d:`M ${b.x+b.w-pad-24},${my-15} A 15,15 0 0 0 ${b.x+b.w-pad-24},${my+15}`, fill:'none', stroke:'white', 'stroke-width':1}));
     // Tableros y aros
-    g.appendChild(svgEl('rect', {x:b.x+pad-2, y:my-9, width:3, height:18, fill:'#5C3A1E'}));
-    g.appendChild(svgEl('rect', {x:b.x+b.w-pad-1, y:my-9, width:3, height:18, fill:'#5C3A1E'}));
-    g.appendChild(svgEl('circle', {cx:b.x+pad+26, cy:my, r:3, fill:'none', stroke:'white', 'stroke-width':1.3}));
-    g.appendChild(svgEl('circle', {cx:b.x+b.w-pad-26, cy:my, r:3, fill:'none', stroke:'white', 'stroke-width':1.3}));
+    g.appendChild(svgEl('rect', {x:b.x+pad-2, y:my-8, width:3, height:16, fill:'#5C3A1E'}));
+    g.appendChild(svgEl('rect', {x:b.x+b.w-pad-1, y:my-8, width:3, height:16, fill:'#5C3A1E'}));
+    g.appendChild(svgEl('circle', {cx:b.x+pad+22, cy:my, r:2.8, fill:'none', stroke:'white', 'stroke-width':1.2}));
+    g.appendChild(svgEl('circle', {cx:b.x+b.w-pad-22, cy:my, r:2.8, fill:'none', stroke:'white', 'stroke-width':1.2}));
   }
 
   // Etiquetas
@@ -689,12 +690,13 @@ function buildBuilding(b) {
   } else if (b.multiline) {
     const lines = b.label.split('\n');
     const baseY  = b.labelY - (lines.length - 1) * 7;
+    const darkBgIds = ['taller_costura', 'banos_contr'];
     lines.forEach((line, i) => {
       const t = svgEl('text', {
         x:b.x+b.w/2, y:baseY + i*14,
         'font-family':"'Fira Code',monospace",
         'font-size':'9.5', 'font-weight':'700',
-        fill:'#000', 'text-anchor':'middle', 'dominant-baseline':'middle'
+        fill:darkBgIds.includes(b.id) ? '#fff' : '#000', 'text-anchor':'middle', 'dominant-baseline':'middle'
       });
       t.textContent = line;
       g.appendChild(t);
@@ -716,11 +718,14 @@ function buildBuilding(b) {
       g.appendChild(t);
     });
   } else {
+    const darkBgIds = ['snte', 'bodega', 'computacion'];
+    const limeBgIds = ['domo2'];
     const t = svgEl('text', {
       x:b.x+b.w/2, y:b.labelY,
       'font-family':"'Fira Code',monospace",
       'font-size':b.w < 82 ? '9' : '10.5', 'font-weight':'700',
-      fill:'#000', 'text-anchor':'middle', 'dominant-baseline':'middle'
+      fill: limeBgIds.includes(b.id) ? '#BFFF00' : (darkBgIds.includes(b.id) ? '#fff' : '#000'),
+      'text-anchor':'middle', 'dominant-baseline':'middle'
     });
     t.textContent = b.label;
     g.appendChild(t);
