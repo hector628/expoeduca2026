@@ -1,13 +1,13 @@
 [
   {
-    "id": "futbol",
-    "nombre": "Cancha de Fútbol",
-    "actividad": "Torneo Relámpago de Fútbol",
-    "horario": "16:00 - 18:00",
-    "responsable": "Academia de Ed. Física",
-    "descripcion": "Torneo relámpago entre equipos de cada grupo. ¡A meter goles!",
-    "color": "#4ADE80",
-    "emoji": "⚽"
+  "id": "futbol",
+  "nombre": "Cancha de Fútbol",
+  "actividad": "Sin actividad programada",
+  "horario": "—",
+  "responsable": "—",
+  "descripcion": "Aquí se formó Messi y Cristiano. Probablemente...",
+  "color": "#22C55E",
+  "emoji": "⚽"
   },
   {
     "id": "snte",
