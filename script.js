@@ -49,8 +49,8 @@ const STATE = {
   zoom: 1,
   panX: 0,
   panY: 0,
-  frogX: 420,
-  frogY: 310,
+  frogX: 60,
+  frogY: 415,
   frogFaceLeft: false,
   draggingFrog: false,
   draggingMap: false,
@@ -108,11 +108,11 @@ const BUILDINGS = [
   { id:'banos',            x:213,y:190, w:68,  h:68,  rx:12, color:'#38BDF8', label:'BAÑOS',                        labelY:227 },
   { id:'laboratorios',     x:284,y:185, w:115, h:78,  rx:14, color:'#FACC15', label:'LABORATORIOS',                 labelY:227 },
   { id:'domo1',            x:263,y:270, w:110, h:95,  rx:16, color:'#94A3B8', label:'PLAZA\nCÍVICA',                 labelY:320, multiline:true },
-  { id:'domo2',            x:500,y:258, w:105, h:90,  rx:14, color:'#D97706', label:'CANCHA\nBÁSQUET',               labelY:306, multiline:true },
+  { id:'domo2',            x:500,y:258, w:105, h:90,  rx:14, color:'#15803D', label:'BÁSQUETBOL',                   labelY:306 },
 
   // ── Edificio Medios/Segundos — al sur del estacionamiento, columna derecha ──
   { id:'audiovisual',      x:406,y:185, w:88,  h:165, rx:14, color:'#6B7280',
-    label:'MEDIOS\nSEGUNDOS',  labelY:260, multiline:true },
+    label:'MEDIOS\nSEGUNDOS\nSALA DE\nMAESTROS\nBIBLIOTECA',  labelY:260, multiline4:true },
 
   // ── Fila sur ──
   { id:'computacion',      x:230,y:380, w:125, h:62,  rx:14, color:'#8B5CF6', label:'COMPUTACIÓN',                  labelY:414 },
@@ -184,6 +184,9 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Pedir nombre del estudiante
   setTimeout(() => showNameModal(), 2000);
+
+  // Mostrar el mensaje de bienvenida hacia la entrada (independiente del nombre)
+  setTimeout(() => showStartHint(), 2200);
 });
 
 function showNameModal() {
@@ -246,6 +249,42 @@ function showNameModal() {
   input.addEventListener('keydown', e => { if (e.key === 'Enter') confirm(); });
 }
 
+/* ─── Mensaje inicial: invitar a ir a la entrada ── */
+function showStartHint() {
+  const card = document.createElement('div');
+  card.id = 'start-hint-card';
+  card.style.cssText = `
+    position:fixed;bottom:24px;left:50%;
+    transform:translateX(-50%) translateY(120%);
+    width:min(320px,calc(100vw - 40px));
+    background:rgba(0,0,0,0.92);
+    border:2px solid #BFFF00;border-radius:16px;
+    padding:16px;z-index:500;
+    box-shadow:0 0 30px rgba(191,255,0,0.3);
+    font-family:'Fira Code',monospace;
+    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
+  `;
+  card.innerHTML = `
+    <div style="display:flex;align-items:center;gap:10px;">
+      <span style="font-size:24px;">🐸</span>
+      <div style="font-size:12px;color:#BFFF00;line-height:1.6;">
+        Tu rana acaba de llegar a la carretera...<br>
+        <strong>¡Salta hacia la entrada para comenzar tu aventura! ⬆️</strong>
+      </div>
+    </div>
+  `;
+  document.body.appendChild(card);
+  requestAnimationFrame(() => {
+    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
+  });
+
+  // Se oculta sola después de unos segundos
+  setTimeout(() => {
+    card.style.transform = 'translateX(-50%) translateY(120%)';
+    setTimeout(() => card.remove(), 400);
+  }, 5000);
+}
+
 /* ═══════════════════════════════════════════════════
    CARGA DE ACTIVIDADES
    Primero intenta fetch (GitHub Pages / servidor).
@@ -293,7 +332,7 @@ function buildSVGMap() {
   BUILDINGS.forEach(b => svg.appendChild(buildBuilding(b)));
 
   // Decoraciones sobre edificios
-  svg.appendChild(buildFlag(317, 278));
+  svg.appendChild(buildFlag(317, 340));
 
   // Árboles encima de edificios
   TREES.forEach(t => svg.appendChild(buildTree(t.x, t.y)));
@@ -632,24 +671,27 @@ function buildBuilding(b) {
     g.appendChild(svgEl('rect',    {x:b.x+b.w-34, y:b.y+b.h/2-14, width:24, height:28, rx:2, fill:'none', stroke:'rgba(255,255,255,0.3)', 'stroke-width':1.2}));
   }
 
-  // Cancha de Básquetbol — líneas reglamentarias completas
+  // Cancha de Básquetbol — colores reales verde/rojo
   if (b.id === 'domo2') {
     const mx = b.x + b.w/2;
     const my = b.y + b.h/2;
     const pad = 8;
-    // Borde de cancha
-    g.appendChild(svgEl('rect', {x:b.x+pad, y:b.y+pad, width:b.w-pad*2, height:b.h-pad*2, fill:'none', stroke:'rgba(255,255,255,0.5)', 'stroke-width':1.3}));
+    // Marco rojo exterior
+    g.appendChild(svgEl('rect', {x:b.x+pad-3, y:b.y+pad-3, width:b.w-pad*2+6, height:b.h-pad*2+6, fill:'#B91C1C'}));
+    // Cancha verde interior
+    g.appendChild(svgEl('rect', {x:b.x+pad, y:b.y+pad, width:b.w-pad*2, height:b.h-pad*2, fill:'#15803D', stroke:'white', 'stroke-width':1.3}));
     // Línea central + círculo
-    g.appendChild(svgEl('line', {x1:mx, y1:b.y+pad, x2:mx, y2:b.y+b.h-pad, stroke:'rgba(255,255,255,0.35)', 'stroke-width':1, 'stroke-dasharray':'3,3'}));
-    g.appendChild(svgEl('circle', {cx:mx, cy:my, r:13, fill:'none', stroke:'rgba(255,255,255,0.4)', 'stroke-width':1.2}));
-    // Áreas restrictivas (llave) en ambos extremos
-    g.appendChild(svgEl('rect', {x:b.x+pad, y:my-16, width:24, height:32, fill:'none', stroke:'rgba(255,255,255,0.4)', 'stroke-width':1}));
-    g.appendChild(svgEl('rect', {x:b.x+b.w-pad-24, y:my-16, width:24, height:32, fill:'none', stroke:'rgba(255,255,255,0.4)', 'stroke-width':1}));
+    g.appendChild(svgEl('line', {x1:mx, y1:b.y+pad, x2:mx, y2:b.y+b.h-pad, stroke:'white', 'stroke-width':1.3}));
+    g.appendChild(svgEl('circle', {cx:mx, cy:my, r:13, fill:'none', stroke:'white', 'stroke-width':1.3}));
+    g.appendChild(svgEl('circle', {cx:mx, cy:my, r:1.3, fill:'white'}));
+    // Áreas pintadas (la llave) en rojo bajo cada aro
+    g.appendChild(svgEl('path', {d:`M ${b.x+pad},${my-14} Q ${b.x+pad+22},${my-14} ${b.x+pad+22},${my} Q ${b.x+pad+22},${my+14} ${b.x+pad},${my+14} Z`, fill:'#B91C1C'}));
+    g.appendChild(svgEl('path', {d:`M ${b.x+b.w-pad},${my-14} Q ${b.x+b.w-pad-22},${my-14} ${b.x+b.w-pad-22},${my} Q ${b.x+b.w-pad-22},${my+14} ${b.x+b.w-pad},${my+14} Z`, fill:'#B91C1C'}));
     // Tableros y aros
     g.appendChild(svgEl('rect', {x:b.x+pad-2, y:my-9, width:3, height:18, fill:'#5C3A1E'}));
     g.appendChild(svgEl('rect', {x:b.x+b.w-pad-1, y:my-9, width:3, height:18, fill:'#5C3A1E'}));
-    g.appendChild(svgEl('circle', {cx:b.x+pad+26, cy:my, r:3, fill:'none', stroke:'#1A1A1A', 'stroke-width':1.3}));
-    g.appendChild(svgEl('circle', {cx:b.x+b.w-pad-26, cy:my, r:3, fill:'none', stroke:'#1A1A1A', 'stroke-width':1.3}));
+    g.appendChild(svgEl('circle', {cx:b.x+pad+26, cy:my, r:3, fill:'none', stroke:'white', 'stroke-width':1.3}));
+    g.appendChild(svgEl('circle', {cx:b.x+b.w-pad-26, cy:my, r:3, fill:'none', stroke:'white', 'stroke-width':1.3}));
   }
 
   // Etiquetas
@@ -691,12 +733,28 @@ function buildBuilding(b) {
       t.textContent = line;
       g.appendChild(t);
     });
+  } else if (b.multiline4) {
+    // Texto compacto para varias líneas (edificios con múltiples espacios)
+    const lines = b.label.split('\n');
+    const lineHeight = 11.5;
+    const totalH = lines.length * lineHeight;
+    const startY = b.y + b.h/2 - totalH/2 + lineHeight/2;
+    lines.forEach((line, i) => {
+      const t = svgEl('text', {
+        x:b.x+b.w/2, y:startY + i*lineHeight,
+        'font-family':"'Fira Code',monospace",
+        'font-size':'7.5', 'font-weight':'700',
+        fill:'#fff', 'text-anchor':'middle', 'dominant-baseline':'middle'
+      });
+      t.textContent = line;
+      g.appendChild(t);
+    });
   } else {
     const t = svgEl('text', {
       x:b.x+b.w/2, y:b.labelY,
       'font-family':"'Fira Code',monospace",
       'font-size':b.w < 82 ? '9' : '10.5', 'font-weight':'700',
-      fill:'#000', 'text-anchor':'middle', 'dominant-baseline':'middle'
+      fill:b.id === 'domo2' ? '#fff' : '#000', 'text-anchor':'middle', 'dominant-baseline':'middle'
     });
     t.textContent = b.label;
     g.appendChild(t);
