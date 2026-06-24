@@ -108,7 +108,7 @@ const BUILDINGS = [
   { id:'banos',            x:213,y:190, w:68,  h:68,  rx:12, color:'#3B82F6', label:'BAÑOS',                        labelY:227 },
   { id:'laboratorios',     x:284,y:185, w:115, h:78,  rx:14, color:'#06B6D4', label:'LABORATORIOS',                 labelY:227 },
   { id:'domo1',            x:263,y:270, w:110, h:95,  rx:16, color:'#94A3B8', label:'PLAZA\nCÍVICA',                 labelY:320, multiline:true },
-  { id:'domo2',            x:500,y:258, w:105, h:90,  rx:14, color:'#F97316', label:'BÁSQUETBOL',                   labelY:270 },
+  { id:'domo2',            x:500,y:258, w:105, h:90,  rx:14, color:'#F97316', label:'BÁSQUETBOL',                   labelY:340 },
 
   // ── Edificio Medios/Segundos — al sur del estacionamiento, columna derecha ──
   { id:'audiovisual',      x:406,y:185, w:88,  h:165, rx:14, color:'#DC2626',
