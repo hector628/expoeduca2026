@@ -2031,7 +2031,7 @@ function spawnFullScreenConfetti() {
     transition:transform 0.4s cubic-bezier(.34,1.56,.64,1), opacity 0.4s ease;
     opacity:0;
   `;
-  msg.innerHTML = `🎉 ¡Actividad completada!`;
+  msg.innerHTML = `🎉 Bienvenido a la actividad`;
   document.body.appendChild(msg);
   requestAnimationFrame(() => {
     setTimeout(() => {
