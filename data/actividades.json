@@ -25,7 +25,7 @@
     "actividad": "Servicios Sanitarios",
     "horario": "Siempre abierto",
     "responsable": "Personal de Intendencia",
-    "descripcion": "Instalaciones sanitarias disponibles para visitantes y alumnos durante todo el evento.",
+    "descripcion": "Nivel de oxígeno: 21%. Nivel de peligro: 93%. Nivel de papel higiénico: 0%.",
     "color": "#38BDF8",
     "emoji": "🚽"
   },
@@ -102,10 +102,10 @@
   {
     "id": "tienda",
     "nombre": "Tienda Escolar",
-    "actividad": "Feria Gastronómica Estudiantil",
+    "actividad": "Venta de alimentos",
     "horario": "16:00 - 18:00",
-    "responsable": "Comité de Padres",
-    "descripcion": "Venta de alimentos preparados por alumnos como proyecto emprendedor. ¡Antojitos y postres!",
+    "responsable": "Doña Pelos",
+    "descripcion": "Papas locas con salsa sospechosa que desafía las leyes de la Cofepris.",
     "color": "#F97316",
     "emoji": "🍕"
   },
@@ -115,7 +115,7 @@
     "actividad": "Servicios Sanitarios",
     "horario": "Siempre abierto",
     "responsable": "Personal de Intendencia",
-    "descripcion": "Módulo adicional de sanitarios para visitantes del evento.",
+    "descripcion": "Peligro: Zona de riesgo biológico. Vapores en niveles tóxicos. Entre bajo su propio riesgo de asfixia.",
     "color": "#38BDF8",
     "emoji": "🚻"
   },
