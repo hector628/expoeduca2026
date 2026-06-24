@@ -718,7 +718,7 @@ function buildBuilding(b) {
       g.appendChild(t);
     });
   } else {
-    const darkBgIds = ['snte', 'bodega', 'computacion'];
+    const darkBgIds = ['snte', 'bodega', 'computacion', 'domo2'];
     const t = svgEl('text', {
       x:b.x+b.w/2, y:b.labelY,
       'font-family':"'Fira Code',monospace",
