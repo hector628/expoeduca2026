@@ -53,7 +53,7 @@ const ACTIVIDADES_DEFAULT = [
   { id:'terceros_primeros',nombre:'Salones Terceros / Primeros',   actividad:'Proyectos Integradores',            horario:'14:00 - 14:30', responsable:'Academia Interdisciplinaria',    descripcion:'Exposición de proyectos integradores: medio ambiente, historia local y matemáticas aplicadas.',      color:'#FACC15', emoji:'📚' },
   { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'Siempre abierto', responsable:'Personal de Intendencia',      descripcion:'¡Estuvo cerca la cosa, casi me gana!.',                                                             color:'#38BDF8', emoji:'🚽' },
   { id:'laboratorios',    nombre:'Laboratorios',                   actividad:'Experimentos de Ciencias',          horario:'15:00 - 16:00', responsable:'Academia de Ciencias Naturales', descripcion:'Experimentos interactivos de química, biología y física. ¡Ven a descubrir la ciencia!',               color:'#FACC15', emoji:'🔬' },
-  { id:'audiovisual',     nombre:'Audiovisual Segundos Dirección', actividad:'Cine y Producciones Escolares',     horario:'16:00 - 17:00', responsable:'Academia de Español y Arte',     descripcion:'Proyección de cortometrajes y documentales producidos por alumnos de segundo grado y dirección.',    color:'#6B7280', emoji:'🎬' },
+  { id:'audiovisual',     nombre:'Audiovisual Segundos Sala Maestros Biblioteca', actividad:'Cine y Producciones Escolares',     horario:'16:00 - 17:00', responsable:'Academia de Español y Arte',     descripcion:'Proyección de cortometrajes y documentales producidos por alumnos de segundo grado y dirección.',    color:'#6B7280', emoji:'🎬' },
   { id:'domo1',           nombre:'Domo I',                         actividad:'Acto Cívico y Bienvenida',          horario:'17:00 - 17:30', responsable:'Dirección General',              descripcion:'Espacio principal para la inauguración. Presentaciones artísticas y discursos de bienvenida.',        color:'#94A3B8', emoji:'🎪' },
   { id:'computacion',     nombre:'Computación',                    actividad:'IA y Robótica',                     horario:'18:00 - 18:30', responsable:'Academia de Tecnología',         descripcion:'Demostración de proyectos de inteligencia artificial y robótica desarrollados por los alumnos.',      color:'#8B5CF6', emoji:'🤖' },
   { id:'domo2',           nombre:'Domo II',                        actividad:'Deportes y Activación Física',      horario:'18:30 - 19:00', responsable:'Academia de Educación Física',   descripcion:'Demostraciones deportivas, clases de zumba y torneos rápidos de basquetbol.',                         color:'#94A3B8', emoji:'🏀' },
@@ -1838,7 +1838,7 @@ function showInfoCard(id) {
       <span class="info-row-label">👤 Responsable:</span>
       <span class="info-row-value">${resp}</span>
     </div>
-    <p id="info-card-desc">${desc}</p>
+    <p id="info-card-desc" style="white-space:pre-line;">${desc}</p>
     ${isNew ? `<div id="info-card-badge">🌟 ¡Nuevo espacio descubierto!</div>` : ''}
     ${id === 'snte' ? `
     <button onclick="window.open('snte.html','_blank')" style="
