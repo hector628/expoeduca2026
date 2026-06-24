@@ -49,7 +49,7 @@ const STATE = {
   zoom: 1,
   panX: 0,
   panY: 0,
-  frogX: 60,
+  frogX: 15,
   frogY: 415,
   frogFaceLeft: false,
   draggingFrog: false,
@@ -184,9 +184,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Pedir nombre del estudiante
   setTimeout(() => showNameModal(), 2000);
-
-  // Mostrar el mensaje de bienvenida hacia la entrada (independiente del nombre)
-  setTimeout(() => showStartHint(), 2200);
 });
 
 function showNameModal() {
@@ -223,6 +220,11 @@ function showNameModal() {
       padding:10px;color:#000;font-family:'Fira Code',monospace;
       font-size:13px;font-weight:700;cursor:pointer;
     ">¡A explorar! 🗺️</button>
+    <div style="margin-top:12px;padding-top:10px;border-top:1px solid rgba(191,255,0,0.15);
+                font-size:11px;color:rgba(191,255,0,0.75);line-height:1.5;text-align:center;">
+      🛣️ Tu rana está en la carretera...<br>
+      <strong>¡Dirígete a la entrada para comenzar! ⬆️</strong>
+    </div>
   `;
   document.body.appendChild(card);
   requestAnimationFrame(() => {
@@ -247,42 +249,6 @@ function showNameModal() {
 
   btn.addEventListener('click', confirm);
   input.addEventListener('keydown', e => { if (e.key === 'Enter') confirm(); });
-}
-
-/* ─── Mensaje inicial: invitar a ir a la entrada ── */
-function showStartHint() {
-  const card = document.createElement('div');
-  card.id = 'start-hint-card';
-  card.style.cssText = `
-    position:fixed;bottom:24px;left:50%;
-    transform:translateX(-50%) translateY(120%);
-    width:min(320px,calc(100vw - 40px));
-    background:rgba(0,0,0,0.92);
-    border:2px solid #BFFF00;border-radius:16px;
-    padding:16px;z-index:500;
-    box-shadow:0 0 30px rgba(191,255,0,0.3);
-    font-family:'Fira Code',monospace;
-    transition:transform 0.4s cubic-bezier(.34,1.56,.64,1);
-  `;
-  card.innerHTML = `
-    <div style="display:flex;align-items:center;gap:10px;">
-      <span style="font-size:24px;">🐸</span>
-      <div style="font-size:12px;color:#BFFF00;line-height:1.6;">
-        Tu rana acaba de llegar a la carretera...<br>
-        <strong>¡Salta hacia la entrada para comenzar tu aventura! ⬆️</strong>
-      </div>
-    </div>
-  `;
-  document.body.appendChild(card);
-  requestAnimationFrame(() => {
-    setTimeout(() => card.style.transform = 'translateX(-50%) translateY(0)', 50);
-  });
-
-  // Se oculta sola después de unos segundos
-  setTimeout(() => {
-    card.style.transform = 'translateX(-50%) translateY(120%)';
-    setTimeout(() => card.remove(), 400);
-  }, 5000);
 }
 
 /* ═══════════════════════════════════════════════════
@@ -332,7 +298,7 @@ function buildSVGMap() {
   BUILDINGS.forEach(b => svg.appendChild(buildBuilding(b)));
 
   // Decoraciones sobre edificios
-  svg.appendChild(buildFlag(317, 340));
+  svg.appendChild(buildFlag(280, 340));
 
   // Árboles encima de edificios
   TREES.forEach(t => svg.appendChild(buildTree(t.x, t.y)));
@@ -754,7 +720,7 @@ function buildBuilding(b) {
       x:b.x+b.w/2, y:b.labelY,
       'font-family':"'Fira Code',monospace",
       'font-size':b.w < 82 ? '9' : '10.5', 'font-weight':'700',
-      fill:b.id === 'domo2' ? '#fff' : '#000', 'text-anchor':'middle', 'dominant-baseline':'middle'
+      fill:'#000', 'text-anchor':'middle', 'dominant-baseline':'middle'
     });
     t.textContent = b.label;
     g.appendChild(t);
