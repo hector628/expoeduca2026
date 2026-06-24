@@ -10,34 +10,14 @@
     "emoji": "⚽"
   },
   {
-    "id": "estacionamiento",
-    "nombre": "Estacionamiento",
-    "actividad": "Área de Estacionamiento",
-    "horario": "Todo el día",
-    "responsable": "Personal de Vigilancia",
-    "descripcion": "Zona de estacionamiento para personal y visitantes del evento.",
-    "color": "#6B7280",
-    "emoji": "🚗"
-  },
-  {
     "id": "snte",
     "nombre": "SNTE",
-    "actividad": "Retos de estimación.",
+    "actividad": "(Por definir)",
     "horario": "16:00 - 18:00",
-    "responsable": "Academia de Matemáticas",
-    "descripcion": "Calculo de valores aproximados sin realizar un conteo o medición exacta.",
+    "responsable": "Por definir",
+    "descripcion": "Actividad por definir.",
     "color": "#EC4899",
-    "emoji": "🔢"
-  },
-  {
-    "id": "terceros_primeros",
-    "nombre": "Salones Terceros / Primeros",
-    "actividad": "Proyectos Integradores",
-    "horario": "16:00 - 18:00",
-    "responsable": "Academia Interdisciplinaria",
-    "descripcion": "Exposición de proyectos integradores: medio ambiente, historia local y matemáticas aplicadas.",
-    "color": "#FACC15",
-    "emoji": "📚"
+    "emoji": "📋"
   },
   {
     "id": "banos",
@@ -45,7 +25,7 @@
     "actividad": "Servicios Sanitarios",
     "horario": "Siempre abierto",
     "responsable": "Personal de Intendencia",
-    "descripcion": "Nivel de oxígeno: 21%. Nivel de peligro: 93%. Nivel de papel higiénico: 0%.",
+    "descripcion": "Instalaciones sanitarias disponibles para visitantes y alumnos durante todo el evento.",
     "color": "#38BDF8",
     "emoji": "🚽"
   },
@@ -60,20 +40,10 @@
     "emoji": "🔬"
   },
   {
-    "id": "audiovisual",
-    "nombre": "Audiovisual Segundos Dirección",
-    "actividad": "Cine y Producciones Escolares",
-    "horario": "16:00 - 18:00",
-    "responsable": "Academia de Español y Arte",
-    "descripcion": "Proyección de cortometrajes y documentales producidos por alumnos de segundo grado y dirección.",
-    "color": "#6B7280",
-    "emoji": "🎬"
-  },
-  {
     "id": "domo1",
-    "nombre": "Domo I",
+    "nombre": "Plaza Cívica",
     "actividad": "Acto Cívico y Bienvenida",
-    "horario": "16:00 - 18:00",
+    "horario": "16:00 - 16:30",
     "responsable": "Dirección General",
     "descripcion": "Espacio principal para la inauguración. Presentaciones artísticas y discursos de bienvenida.",
     "color": "#94A3B8",
@@ -85,18 +55,28 @@
     "actividad": "IA y Robótica",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Tecnología",
-    "descripcion": "Error 404: Procesador Intel Celeron de 1998 detectado.",
+    "descripcion": "Demostración de proyectos de inteligencia artificial y robótica desarrollados por los alumnos.",
     "color": "#8B5CF6",
     "emoji": "🤖"
   },
   {
+    "id": "audiovisual",
+    "nombre": "Medios, Segundos",
+    "actividad": "Varias actividades",
+    "horario": "16:00 - 18:00",
+    "responsable": "Varios responsables",
+    "descripcion": "Sala de Medios, Sala de Maestros y Biblioteca. Elige un espacio para ver su actividad.",
+    "color": "#6B7280",
+    "emoji": "🎬"
+  },
+  {
     "id": "domo2",
-    "nombre": "Domo II",
-    "actividad": "Deportes y Activación Física",
+    "nombre": "Cancha de Básquetbol",
+    "actividad": "Torneo de Básquetbol",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Educación Física",
-    "descripcion": "Demostraciones deportivas, clases de zumba y torneos rápidos de basquetbol.",
-    "color": "#94A3B8",
+    "descripcion": "Torneo relámpago de básquetbol entre equipos representativos de cada grupo.",
+    "color": "#D97706",
     "emoji": "🏀"
   },
   {
@@ -115,7 +95,7 @@
     "actividad": "Exposición de Materiales",
     "horario": "16:00 - 18:00",
     "responsable": "Personal Administrativo",
-    "descripcion": "Aquí se aparece la llorona y se te sube el muerto.",
+    "descripcion": "Muestra de materiales didácticos y recursos educativos del ciclo escolar.",
     "color": "#F97316",
     "emoji": "📦"
   },
@@ -124,19 +104,97 @@
     "nombre": "Tienda Escolar",
     "actividad": "Feria Gastronómica Estudiantil",
     "horario": "16:00 - 18:00",
-    "responsable": "Comité de Padres de Familia",
-    "descripcion": "Papas locas con salsa sospechosa que desafía las leyes de la Cofepris.",
+    "responsable": "Comité de Padres",
+    "descripcion": "Venta de alimentos preparados por alumnos como proyecto emprendedor. ¡Antojitos y postres!",
     "color": "#F97316",
     "emoji": "🍕"
   },
   {
     "id": "banos_contr",
-    "nombre": "Baños",
+    "nombre": "Contraloría Baños",
     "actividad": "Servicios Sanitarios",
     "horario": "Siempre abierto",
     "responsable": "Personal de Intendencia",
-    "descripcion": "Peligro: Zona de riesgo biológico. Vapores en niveles tóxicos. Entre bajo su propio riesgo de asfixia.",
+    "descripcion": "Módulo adicional de sanitarios para visitantes del evento.",
     "color": "#38BDF8",
     "emoji": "🚻"
+  },
+
+  {
+    "id": "terceros_primeros",
+    "nombre": "Terceros / Primeros",
+    "actividad": "Varias actividades",
+    "horario": "16:00 - 18:00",
+    "responsable": "Varios responsables",
+    "descripcion": "Primero E, Primero F y Tercero E. Elige un salón para ver su actividad.",
+    "color": "#FACC15",
+    "emoji": "📚"
+  },
+  {
+    "id": "terceros_primeros_1eE",
+    "parentId": "terceros_primeros",
+    "nombre": "Primero E",
+    "actividad": "(Por definir)",
+    "horario": "16:00 - 18:00",
+    "responsable": "Por definir",
+    "descripcion": "Actividad por definir.",
+    "color": "#FACC15",
+    "emoji": "📚"
+  },
+  {
+    "id": "terceros_primeros_1eF",
+    "parentId": "terceros_primeros",
+    "nombre": "Primero F",
+    "actividad": "(Por definir)",
+    "horario": "16:00 - 18:00",
+    "responsable": "Por definir",
+    "descripcion": "Actividad por definir.",
+    "color": "#FACC15",
+    "emoji": "📚"
+  },
+  {
+    "id": "terceros_primeros_3eE",
+    "parentId": "terceros_primeros",
+    "nombre": "Tercero E",
+    "actividad": "(Por definir)",
+    "horario": "16:00 - 18:00",
+    "responsable": "Por definir",
+    "descripcion": "Actividad por definir.",
+    "color": "#FACC15",
+    "emoji": "📚"
+  },
+
+  {
+    "id": "audiovisual_medios",
+    "parentId": "audiovisual",
+    "nombre": "Sala de Medios",
+    "actividad": "(Por definir)",
+    "horario": "16:00 - 18:00",
+    "responsable": "Por definir",
+    "descripcion": "Actividad por definir.",
+    "color": "#6B7280",
+    "emoji": "🎬"
+  },
+  {
+    "id": "audiovisual_maestros",
+    "parentId": "audiovisual",
+    "nombre": "Sala de Maestros",
+    "actividad": "(Por definir)",
+    "horario": "16:00 - 18:00",
+    "responsable": "Por definir",
+    "descripcion": "Actividad por definir.",
+    "color": "#6B7280",
+    "emoji": "🎬"
+  },
+  {
+    "id": "audiovisual_biblioteca",
+    "parentId": "audiovisual",
+    "nombre": "Biblioteca",
+    "actividad": "Misión Matemáticas",
+    "horario": "16:00 - 18:00",
+    "responsable": "Academia de Matemáticas",
+    "descripcion": "Retos de estimación. Resuelve las 5 pistas y descubre el número exacto.",
+    "color": "#6B7280",
+    "emoji": "📖"
   }
 ]
