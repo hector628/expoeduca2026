@@ -62,17 +62,17 @@
   {
     "id": "domo1",
     "nombre": "Plaza Cívica",
-    "actividad": "Voice Control: The Human Joystick",
+    "actividad": "Voice Control",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Inglés",
-    "descripcion": "Voice control: The Human Joystick.",
+    "descripcion": "Voice control: The human joystick.",
     "color": "#94A3B8",
     "emoji": "🗣️"
   },
   {
     "id": "computacion",
     "nombre": "Aula de Medios",
-    "actividad": "Destellos, Ondas y Conexiones",
+    "actividad": "Destellos, ondas y conexiones",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Tecnología",
     "descripcion": "Destellos, ondas y conexiones.",
@@ -94,7 +94,7 @@
     "nombre": "Taller de Costura",
     "actividad": "Sin actividad programada",
     "horario": "16:00 - 18:00",
-    "responsable": "Academia Tecnológica",
+    "responsable": "Geppetto de Pinocho",
     "descripcion": "Fábrica de sueños. La cuna de la magia y de la fantasía.",
     "color": "#EC4899",
     "emoji": "🪡"
@@ -104,7 +104,7 @@
     "nombre": "Bodega",
     "actividad": "Sin actividad programada",
     "horario": "16:00 - 18:00",
-    "responsable": "Personal Administrativo",
+    "responsable": "Personal de Intendencia",
     "descripcion": "No entres aquí. Advertido estás.",
     "color": "#F97316",
     "emoji": "📦"
@@ -133,7 +133,7 @@
     "id": "terceros_primeros_1eE",
     "parentId": "terceros_primeros",
     "nombre": "Primero E",
-    "actividad": "Diversidad, Historia y Convivencia",
+    "actividad": "Diversidad, historia y convivencia",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Sociales",
     "descripcion": "Diversidad, historia y convivencia.",
@@ -144,7 +144,7 @@
     "id": "terceros_primeros_3eE",
     "parentId": "terceros_primeros",
     "nombre": "Tercero E",
-    "actividad": "Vivir sin Violencia",
+    "actividad": "Vivir sin violencia",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Sociales",
     "descripcion": "Vivir sin violencia construyendo convivencia pacífica.",
@@ -159,7 +159,7 @@
     "actividad": "Perspectivas Inmersivas",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Artes",
-    "descripcion": "Perspectivas inmersivas. Pintura y audios.",
+    "descripcion": "Perspectivas inmersivas con pintura y audio.",
     "color": "#06B6D4",
     "emoji": "🎨"
   },
@@ -167,10 +167,10 @@
     "id": "laboratorios_ciencias",
     "parentId": "laboratorios",
     "nombre": "Laboratorios",
-    "actividad": "Tortilla Nutritiva",
+    "actividad": "Ciencia y tradición",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Ciencias",
-    "descripcion": "Tortilla nutritiva y refrescos artesanales herbales, ciencia y tradición.",
+    "descripcion": "Tortilla nutritiva y refrescos artesanales",
     "color": "#06B6D4",
     "emoji": "🔬"
   },
@@ -182,7 +182,7 @@
     "actividad": "La Voz de la 2",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Español",
-    "descripcion": "La voz de la 2. El Jenga de los argumentos sólidos.",
+    "descripcion": "El Jenga de los argumentos sólidos.",
     "color": "#DC2626",
     "emoji": "🗣️"
   },
@@ -193,7 +193,7 @@
     "actividad": "Matemáticas en Acción",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Matemáticas",
-    "descripcion": "Matemáticas en acción. Retos, lógica y conocimiento.",
+    "descripcion": "Retos, lógica y conocimiento.",
     "color": "#DC2626",
     "emoji": "📖"
   }
