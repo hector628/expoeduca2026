@@ -80,7 +80,7 @@ const ACTIVIDADES_DEFAULT = [
   { id:'terceros_primeros',nombre:'Salones Terceros / Primeros',   actividad:'Proyectos Integradores',            horario:'14:00 - 14:30', responsable:'Academia Interdisciplinaria',    descripcion:'Exposición de proyectos integradores: medio ambiente, historia local y matemáticas aplicadas.',      color:'#FACC15', emoji:'📚' },
   { id:'banos',           nombre:'Baños',                          actividad:'Servicios Sanitarios',              horario:'Siempre abierto', responsable:'Personal de Intendencia',      descripcion:'¡Estuvo cerca la cosa, casi me gana!.',                                                             color:'#3B82F6', emoji:'🚽' },
   { id:'laboratorios',    nombre:'Laboratorios',                   actividad:'Experimentos de Ciencias',          horario:'15:00 - 16:00', responsable:'Academia de Ciencias Naturales', descripcion:'Experimentos interactivos de química, biología y física. ¡Ven a descubrir la ciencia!',               color:'#06B6D4', emoji:'🔬' },
-  { id:'audiovisual',     nombre:'Medios, Segundos', actividad:'Varias actividades',     horario:'16:00 - 18:00', responsable:'Varios responsables',     descripcion:'Sala de Medios, Sala de Maestros y Biblioteca. Elige un espacio para ver su actividad.',    color:'#DC2626', emoji:'🎬' },
+  { id:'audiovisual',     nombre:'Edificio Segundos', actividad:'Varias actividades',     horario:'16:00 - 18:00', responsable:'Varios responsables',     descripcion:'Audiovisual, Sala de Maestros y Biblioteca. Elige un espacio para ver su actividad.',    color:'#DC2626', emoji:'🎬' },
   { id:'domo1',           nombre:'Plaza Cívica',                   actividad:'Acto Cívico y Bienvenida',          horario:'17:00 - 17:30', responsable:'Dirección General',              descripcion:'Espacio principal para la inauguración. Presentaciones artísticas y discursos de bienvenida.',        color:'#94A3B8', emoji:'🎪' },
   { id:'computacion',     nombre:'Aula de Medios',                actividad:'Destellos, Ondas y Conexiones',     horario:'16:00 - 18:00', responsable:'Academia de Tecnología',         descripcion:'Destellos, ondas y conexiones.',      color:'#8B5CF6', emoji:'💻' },
   { id:'domo2',           nombre:'Básquetbol',                     actividad:'Deportes y Activación Física',      horario:'18:30 - 19:00', responsable:'Academia de Educación Física',   descripcion:'Demostraciones deportivas, clases de zumba y torneos rápidos de basquetbol.',                         color:'#F97316', emoji:'🏀' },
@@ -112,7 +112,7 @@ const BUILDINGS = [
 
   // ── Edificio Medios/Segundos — al sur del estacionamiento, columna derecha ──
   { id:'audiovisual',      x:406,y:185, w:88,  h:165, rx:14, color:'#DC2626',
-    label:'MEDIOS\nSEGUNDOS\nSALA DE\nMAESTROS\nBIBLIOTECA',  labelY:260, multiline4:true },
+    label:'AUDIOVISUAL\nSEGUNDOS\nSALA DE\nMAESTROS\nBIBLIOTECA',  labelY:260, multiline4:true },
 
   // ── Fila sur ──
   { id:'computacion',      x:230,y:380, w:125, h:62,  rx:14, color:'#8B5CF6', label:'AULA DE\nMEDIOS',               labelY:414, multiline:true },
