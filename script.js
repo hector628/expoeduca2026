@@ -115,7 +115,7 @@ const BUILDINGS = [
     label:'AUDIOVISUAL\nSEGUNDOS\nSALA DE\nMAESTROS\nBIBLIOTECA',  labelY:260, multiline4:true },
 
   // ── Fila sur ──
-  { id:'computacion',      x:230,y:380, w:125, h:62,  rx:14, color:'#8B5CF6', label:'AULA DE\nMEDIOS',               labelY:414, multiline:true },
+  { id:'computacion',      x:198,y:360, w:60,  h:95,  rx:14, color:'#8B5CF6', label:'AULA\nDE\nMEDIOS',              labelY:407, multiline:true },
   { id:'banos_contr',      x:370,y:380, w:118, h:62,  rx:14, color:'#3B82F6', label:'CONTR.\nBAÑOS',                labelY:414, multiline:true },
   { id:'tienda',           x:498,y:380, w:130, h:62,  rx:14, color:'#84CC16', label:'TIENDA\nESCOLAR',              labelY:414, multiline:true },
 ];
