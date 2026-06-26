@@ -158,7 +158,7 @@ function isRealActivity(id) {
 ═══════════════════════════════════════════════════ */
 const TREES = [
   // Originales — sin los 3 que caían sobre Terceros/Primeros
-  {x:200, y:365},
+  {x:226, y:309},
   {x:310, y:145}, {x:355, y:145},
   {x:470, y:145},
   {x:395, y:295}, {x:540, y:345},
