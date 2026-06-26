@@ -50,7 +50,7 @@ const STATE = {
   panX: 0,
   panY: 0,
   frogX: 4,
-  frogY: 240,
+  frogY: 225,
   frogFaceLeft: false,
   draggingFrog: false,
   draggingMap: false,
