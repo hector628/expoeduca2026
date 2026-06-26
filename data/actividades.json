@@ -82,10 +82,10 @@
   {
     "id": "domo2",
     "nombre": "Cancha de Básquetbol",
-    "actividad": "Feria Tecnológica y Deportiva",
+    "actividad": "Feria tecnológica y deportiva",
     "horario": "16:00 - 18:00",
     "responsable": "Academia de Educación Física",
-    "descripcion": "Feria tecnológica y deportiva: Datos, salud y comunidad.",
+    "descripcion": "Datos, salud y comunidad.",
     "color": "#F97316",
     "emoji": "🏀"
   },
