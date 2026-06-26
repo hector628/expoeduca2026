@@ -63,9 +63,9 @@ const STATE = {
   achievements: [
     { id:'first',    threshold:1,  icon:'🐸', title:'¡Primera Actividad!', desc:'Realizaste tu primera actividad.' },
     { id:'explorer', threshold:3,  icon:'🗺️', title:'Explorador',           desc:'3 actividades realizadas.' },
-    { id:'half',     threshold:4,  icon:'⭐', title:'Mitad del Camino',     desc:'Más de la mitad completado.' },
-    { id:'expert',   threshold:6,  icon:'🏆', title:'Casi Experto',         desc:'6 actividades realizadas.' },
-    { id:'master',   threshold:8,  icon:'🎓', title:'¡Maestro ExpoEduca!',  desc:'¡Todas las actividades completadas!' }
+    { id:'half',     threshold:5,  icon:'⭐', title:'Mitad del Camino',     desc:'Más de la mitad completado.' },
+    { id:'expert',   threshold:7,  icon:'🏆', title:'Casi Experto',         desc:'7 actividades realizadas.' },
+    { id:'master',   threshold:9,  icon:'🎓', title:'¡Maestro ExpoEduca!',  desc:'¡Todas las actividades completadas!' }
   ],
   unlockedAchievements: new Set()
 };
@@ -82,7 +82,7 @@ const ACTIVIDADES_DEFAULT = [
   { id:'laboratorios',    nombre:'Laboratorios',                   actividad:'Experimentos de Ciencias',          horario:'15:00 - 16:00', responsable:'Academia de Ciencias Naturales', descripcion:'Experimentos interactivos de química, biología y física. ¡Ven a descubrir la ciencia!',               color:'#06B6D4', emoji:'🔬' },
   { id:'audiovisual',     nombre:'Medios, Segundos', actividad:'Varias actividades',     horario:'16:00 - 18:00', responsable:'Varios responsables',     descripcion:'Sala de Medios, Sala de Maestros y Biblioteca. Elige un espacio para ver su actividad.',    color:'#DC2626', emoji:'🎬' },
   { id:'domo1',           nombre:'Plaza Cívica',                   actividad:'Acto Cívico y Bienvenida',          horario:'17:00 - 17:30', responsable:'Dirección General',              descripcion:'Espacio principal para la inauguración. Presentaciones artísticas y discursos de bienvenida.',        color:'#94A3B8', emoji:'🎪' },
-  { id:'computacion',     nombre:'Computación',                    actividad:'IA y Robótica',                     horario:'18:00 - 18:30', responsable:'Academia de Tecnología',         descripcion:'Demostración de proyectos de inteligencia artificial y robótica desarrollados por los alumnos.',      color:'#8B5CF6', emoji:'🤖' },
+  { id:'computacion',     nombre:'Aula de Medios',                actividad:'Destellos, Ondas y Conexiones',     horario:'16:00 - 18:00', responsable:'Academia de Tecnología',         descripcion:'Destellos, ondas y conexiones.',      color:'#8B5CF6', emoji:'💻' },
   { id:'domo2',           nombre:'Básquetbol',                     actividad:'Deportes y Activación Física',      horario:'18:30 - 19:00', responsable:'Academia de Educación Física',   descripcion:'Demostraciones deportivas, clases de zumba y torneos rápidos de basquetbol.',                         color:'#F97316', emoji:'🏀' },
   { id:'taller_costura',  nombre:'Taller de Costura',              actividad:'Moda Sustentable',                  horario:'19:00 - 20:00', responsable:'Academia Tecnológica',           descripcion:'Exposición de prendas con materiales reciclados. Demostración en vivo de técnicas de costura.',       color:'#933601', emoji:'🪡' },
   { id:'bodega',          nombre:'Bodega',                         actividad:'Exposición de Materiales',          horario:'13:30 - 14:30', responsable:'Personal Administrativo',        descripcion:'Aquí se aparece el muerto y llora la llorona.',                                                       color:'#FF0571', emoji:'📦' },
@@ -115,7 +115,7 @@ const BUILDINGS = [
     label:'MEDIOS\nSEGUNDOS\nSALA DE\nMAESTROS\nBIBLIOTECA',  labelY:260, multiline4:true },
 
   // ── Fila sur ──
-  { id:'computacion',      x:230,y:380, w:125, h:62,  rx:14, color:'#8B5CF6', label:'COMPUTACIÓN',                  labelY:414 },
+  { id:'computacion',      x:230,y:380, w:125, h:62,  rx:14, color:'#8B5CF6', label:'AULA DE\nMEDIOS',               labelY:414, multiline:true },
   { id:'banos_contr',      x:370,y:380, w:118, h:62,  rx:14, color:'#3B82F6', label:'CONTR.\nBAÑOS',                labelY:414, multiline:true },
   { id:'tienda',           x:498,y:380, w:130, h:62,  rx:14, color:'#84CC16', label:'TIENDA\nESCOLAR',              labelY:414, multiline:true },
 ];
@@ -125,20 +125,21 @@ const BUILDINGS = [
    Cada entrada referencia un id de actividad del JSON
    que tiene "parentId" apuntando a un edificio físico.
 ═══════════════════════════════════════════════════ */
-const PARENT_BUILDINGS = ['terceros_primeros', 'audiovisual'];
+const PARENT_BUILDINGS = ['terceros_primeros', 'audiovisual', 'laboratorios'];
 
 /* Lista explícita de IDs que SÍ cuentan como "actividad real" para el contador.
    Agrega aquí el id cuando crees una nueva actividad — el contador se
    actualiza solo, sin tocar ninguna otra parte del código. */
 const REAL_ACTIVITY_IDS = [
   'terceros_primeros_1eE',
-  'terceros_primeros_1eF',
   'terceros_primeros_3eE',
-  'audiovisual_medios',
+  'laboratorios_pasillo',
+  'laboratorios_ciencias',
   'audiovisual_maestros',
   'audiovisual_biblioteca',
+  'computacion',    // Aula de Medios
   'domo2',          // Cancha de Básquetbol
-  'laboratorios',   // Laboratorios
+  'domo1',          // Plaza Cívica
 ];
 
 // Total de actividades reales = solo lo que está en REAL_ACTIVITY_IDS
@@ -707,7 +708,7 @@ function buildBuilding(b) {
   } else if (b.multiline) {
     const lines = b.label.split('\n');
     const baseY  = b.labelY - (lines.length - 1) * 7;
-    const darkBgIds = ['taller_costura', 'banos_contr'];
+    const darkBgIds = ['taller_costura', 'banos_contr', 'computacion'];
     lines.forEach((line, i) => {
       const t = svgEl('text', {
         x:b.x+b.w/2, y:baseY + i*14,
@@ -735,7 +736,7 @@ function buildBuilding(b) {
       g.appendChild(t);
     });
   } else {
-    const darkBgIds = ['snte', 'bodega', 'computacion', 'domo2'];
+    const darkBgIds = ['snte', 'bodega', 'domo2'];
     const t = svgEl('text', {
       x:b.x+b.w/2, y:b.labelY,
       'font-family':"'Fira Code',monospace",
